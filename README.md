@@ -197,9 +197,9 @@ Other languages can be rewritten accordingly; the principle is the same.
 
 ## More
 
-For more info, please check below APIs and integration documents
+For more info, please check below APIs and integration documents.
 
-| API | Path | Integration Document |
+| API | Path | Integration Guidance |
 | ---- | ---- | ------------ |
 | [OpenAI Chat Completions API](http://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45) | `/openai/chat/completions` | [OpenAI Chat Completion API Integration Guide](http://platform.acedata.cloud/documents/fc571e00-464f-429e-b920-8896c906c2b9) |
 | [$t(document_title_openai_v1_responses_api)](http://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a) | `/openai/responses` | [$t(document_title_openai_v1_responses)](http://platform.acedata.cloud/documents/c1da5338-9fff-4390-bbdc-29713893c07a) |
@@ -209,6 +209,6 @@ For more info, please check below APIs and integration documents
 
 Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
 
-## Support 
+## Support
 
 If you meet any issue, check our from [support info](https://platform.acedata.cloud/support).
