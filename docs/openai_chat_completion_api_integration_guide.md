@@ -12,7 +12,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available for you to use the API for free.
+When applying for the first time, there will be a free quota available, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -20,13 +20,20 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/imo8rr.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
+Common optional parameters:
+
+- `max_tokens`: Limits the maximum number of tokens for a single response.
+- `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
+- `n`: The number of candidate responses to generate at once.
+- `response_format`: Sets the return format.
+
 <p><img src="https://cdn.acedata.cloud/rsw47a.png" width="400" class="m-auto"></p>
 
-After the call, we find that the returned result is as follows:
+After the call, we find the return result as follows:
 
 ```json
 {
@@ -54,12 +61,12 @@ After the call, we find that the returned result is as follows:
 }
 ```
 
-The returned result contains multiple fields, described as follows:
+The return result contains multiple fields, described as follows:
 
-- `id`, the ID generated for this dialogue task, used to uniquely identify this dialogue task.
-- `model`, the selected OpenAI ChatGPT model.
-- `choices`, the response information provided by ChatGPT for the question.
-- `usage`: statistics on token usage for this Q&A.
+- `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
+- `model`: The selected OpenAI ChatGPT model.
+- `choices`: The response information provided by ChatGPT for the question.
+- `usage`: Token statistics for this question and answer.
 
 Among them, `choices` contains the response information from ChatGPT, and the `choices` inside it can be seen as shown in the figure.
 
@@ -77,7 +84,7 @@ Modify as shown in the figure, but the calling code needs to have corresponding 
 
 <p><img src="https://cdn.acedata.cloud/24scd4.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications in the code to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
 
 Python sample calling code:
 
@@ -128,17 +135,17 @@ data: {"choices": [{"delta": {"content": "?", "role": "assistant"}, "index": 0}]
 
 data: {"choices": [{"delta": {"role": "assistant"}, "index": 0}], "created": 1721007348, "id": "chatcmpl-YzczYjVhNjhjMzMwNDQ5MDkyNGYzOGZjZGE1ZGQ5OGU", "model": "gpt-4", "object": "chat.completion.chunk", "recipient": "all"}
 
-data: {"choices": [{"delta": {"role": "assistant", "finish_reason": "stop", "index": 0}], "created": 1721007349, "id": "chatcmpl-YzczYjVhNjhjMzMwNDQ5MDkyNGYzOGZjZGE1ZGQ5OGU", "model": "gpt-4", "object": "chat.completion.chunk", "recipient": "all"}
+data: {"choices": [{"delta": {"role": "assistant"}, "finish_reason": "stop", "index": 0}], "created": 1721007349, "id": "chatcmpl-YzczYjVhNjhjMzMwNDQ5MDkyNGYzOGZjZGE1ZGQ5OGU", "model": "gpt-4", "object": "chat.completion.chunk", "recipient": "all"}
 
 data: [DONE]
 
 ```
 
-It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, and you can interface it with your system based on the results. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
+It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, which you can use to connect to your system. At the same time, the end of the streaming response is determined based on the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
 
 - `id`, the ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`, the OpenAI ChatGPT model selected.
-- `choices`, the response information provided by ChatGPT to the query.
+- `choices`, the response information provided by ChatGPT to the prompt.
 
 JavaScript is also supported, for example, the streaming call code for Node.js is as follows:
 
@@ -189,7 +196,7 @@ Other languages can be rewritten accordingly; the principle is the same.
 
 ## Multi-turn Dialogue
 
-If you want to interface with the multi-turn dialogue function, you need to upload multiple query words in the `messages` field. The specific examples of multiple query words are shown in the image below:
+If you want to integrate multi-turn dialogue functionality, you need to upload multiple prompts in the `messages` field. Specific examples of multiple prompts are shown in the image below:
 
 <p><img src="https://cdn.acedata.cloud/oz4mar.png" width="400" class="m-auto"></p>
 
@@ -245,7 +252,7 @@ As can be seen, the information contained in `choices` is consistent with the ba
 
 ## Integrating OpenAI-Python
 
-The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed on the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
+The upstream of the OpenAI Chat Completion API service is the official OpenAI service. For details, please refer to the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
 1. First, you need to set up a local `Python` environment, which can be searched on Google.
 2. Download and install the development environment, such as installing the VSCode editor.
@@ -256,12 +263,12 @@ The upstream of the OpenAI Chat Completion API service is the official OpenAI se
 
 ```json
 OPENAI_API_KEY="sk-xxx"
-OPENAI_BASE_URL="https://api.acedata.cloud/openai"  # Reminder: If you use the official OpenAI key, do not use this address.
+OPENAI_BASE_URL="https://api.acedata.cloud/openai"  # Reminder: If you are using the official OpenAI key, do not use this address.
 ```
 
 Replace `sk-xxx` with your own key. `OPENAI_BASE_URL` is the proxy interface for accessing OpenAI.
 
-4. Install the project's dependency packages.
+4. Install the project dependencies
 
 ```shell
 pip install openai
@@ -273,7 +280,7 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create an example source code file.
+5. Create an example source code file
 
 Assuming we create an example code `index.py`, the specific content is as follows:
 
@@ -298,7 +305,81 @@ print(response.text)
 
 ## Online Model
 
-The gpt-3.5-browsing and gpt-4-browsing models are different from other models; they can perform online searches based on the question words and return
+The gpt-3.5-browsing and gpt-4-browsing models are different from other models in that they can perform online searches based on the question words and return the results of the online search with appropriate adjustments. This article will demonstrate the online functionality through a specific example. You can then fill in the corresponding content on the OpenAI Chat Completion API interface, as shown in the figure:
+
+<p><img src="https://cdn.acedata.cloud/249829.png" width="400" class="m-auto"></p>
+
+You can also notice that there is corresponding code generation on the right side, which you can copy and run directly, or you can click the "Try" button for testing.
+
+<p><img src="https://cdn.acedata.cloud/s8gxoo.png" width="400" class="m-auto"></p>
+
+After the call, we find that the returned result is as follows:
+
+```json
+{
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "For the latest news in China today, you can check major news websites such as:\n\n- [BBC News China](https://www.bbc.com/news/world/asia/china)\n- [CNN China News](https://edition.cnn.com/china)\n- [Reuters China](https://www.reuters.com/news/archive/china-news)\n\nThese sources will have up-to-date information on current events in China."
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "created": 1721009347,
+  "id": "chatcmpl-YzA0M2RjZDVkYThlNDkxNTkzOThmZWQ4OGMzNzdhNzA",
+  "model": "gpt-4-browsing",
+  "object": "chat.completion.chunk",
+  "recipient": "all",
+  "usage": {
+    "prompt_tokens": 325,
+    "completion_tokens": 82,
+    "total_tokens": 407
+  }
+}
+```
+
+As can be seen, the response information in `choices` is obtained based on online queries, and relevant links are also provided. The response information in `choices` needs to be rendered using `markdown` syntax to achieve the best experience, which also reflects the powerful advantages of our model's online functionality.
+
+## Visual Model
+
+gpt-4o is a multimodal large language model developed by OpenAI, which adds visual understanding capabilities on the basis of GPT-4. This model can process both text and image inputs simultaneously, achieving cross-modal understanding and generation.
+
+The text processing of the gpt-4o model is consistent with the basic usage content mentioned above. Below, we will briefly introduce how to use the model's image processing capabilities.
+
+The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field based on the original `content`. This field indicates whether the uploaded content is text or an image, allowing the use of the gpt-4o model's image processing capabilities. Below, we will mainly discuss how to call this function using both Curl and Python.
+
+- Curl script method
+
+```
+curl -X POST 'https://api.acedata.cloud/openai/chat/completions' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+    "model": "gpt-4o",
+    "messages": [
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "What'\''s in this image?"
+          },
+          {
+            "type": "image_url",
+            "image_url": {
+              "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+            }
+          }
+        ]
+      }
+    ]
+  }'
+```
+
+- Python script method
 ```python
 import requests
 
@@ -426,7 +507,7 @@ print(response.text)
 
 - `400 token_mismatched`：错误请求，可能是由于缺少或无效的参数。
 - `400 api_not_implemented`：错误请求，可能是由于缺少或无效的参数。
-- `401 invalid_token`：未授权，无效或缺失的授权令牌。
+- `401 invalid_token`：未授权，授权令牌无效或缺失。
 - `429 too_many_requests`：请求过多，您已超出速率限制。
 - `500 api_error`：内部服务器错误，服务器出现问题。
 
