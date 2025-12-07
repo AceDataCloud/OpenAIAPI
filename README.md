@@ -19,7 +19,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota offered, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available, allowing you to use the API for free.
 
 ### Basic Usage
 
@@ -33,7 +33,7 @@ You can also notice that there is corresponding code generation on the right sid
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens in a single response.
+- `max_tokens`: Limits the maximum number of tokens for a single response.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
 - `n`: The number of candidate responses to generate at once.
 - `response_format`: Sets the return format.
@@ -73,7 +73,7 @@ The return result contains multiple fields, described as follows:
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
 - `choices`: The response information provided by ChatGPT for the question.
-- `usage`: Token statistics for this question-and-answer pair.
+- `usage`: Token statistics for this question and answer.
 
 Among them, `choices` contains the response information from ChatGPT, and the `choices` inside it can be seen as shown in the figure.
 
@@ -228,7 +228,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple question words, multi-turn dialogue can be easily achieved, resulting in the following response:
+By uploading multiple question words, you can easily achieve multi-turn dialogue and get the following response:
 
 ```json
 {
@@ -255,13 +255,13 @@ By uploading multiple question words, multi-turn dialogue can be easily achieved
 }
 ```
 
-As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing for answers to corresponding questions based on multiple dialogue contents.
+As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing it to answer corresponding questions based on multiple dialogue contents.
 
 ### Integrating OpenAI-Python
 
 The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed on the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
-1. First, set up a local `Python` environment, this process can be searched on Google.
+1. First, you need to set up a local `Python` environment, which can be searched on Google.
 2. Download and install the development environment, such as installing the VSCode editor.
 3. Configure the `OpenAI` environment variables.
 
@@ -287,9 +287,9 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create a sample source code file.
+5. Create an example source code file.
 
-Assuming we created a sample code `index.py`, the specific content is as follows:
+Assuming we create an example code `index.py`, the specific content is as follows:
 
 ```python
 import os

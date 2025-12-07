@@ -12,7 +12,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota offered, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -26,7 +26,7 @@ You can also notice that there is corresponding code generation on the right sid
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens in a single response.
+- `max_tokens`: Limits the maximum number of tokens for a single response.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
 - `n`: The number of candidate responses to generate at once.
 - `response_format`: Sets the return format.
@@ -66,7 +66,7 @@ The return result contains multiple fields, described as follows:
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
 - `choices`: The response information provided by ChatGPT for the question.
-- `usage`: Token statistics for this question-and-answer pair.
+- `usage`: Token statistics for this question and answer.
 
 Among them, `choices` contains the response information from ChatGPT, and the `choices` inside it can be seen as shown in the figure.
 
@@ -221,7 +221,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple question words, multi-turn dialogue can be easily achieved, resulting in the following response:
+By uploading multiple question words, you can easily achieve multi-turn dialogue and get the following response:
 
 ```json
 {
@@ -248,13 +248,13 @@ By uploading multiple question words, multi-turn dialogue can be easily achieved
 }
 ```
 
-As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing for answers to corresponding questions based on multiple dialogue contents.
+As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing it to answer corresponding questions based on multiple dialogue contents.
 
 ## Integrating OpenAI-Python
 
 The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed on the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
-1. First, set up a local `Python` environment, this process can be searched on Google.
+1. First, you need to set up a local `Python` environment, which can be searched on Google.
 2. Download and install the development environment, such as installing the VSCode editor.
 3. Configure the `OpenAI` environment variables.
 
@@ -280,9 +280,9 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create a sample source code file.
+5. Create an example source code file.
 
-Assuming we created a sample code `index.py`, the specific content is as follows:
+Assuming we create an example code `index.py`, the specific content is as follows:
 
 ```python
 import os
@@ -340,15 +340,15 @@ After the call, we find that the returned result is as follows:
 }
 ```
 
-As can be seen, the response information in `choices` is obtained based on online queries and also provides relevant links. The response information in `choices` needs to be rendered using `markdown` syntax to achieve the best experience, which ultimately reflects the powerful advantages of our model's online functionality.
+As can be seen, the response information in `choices` is obtained based on online queries, and relevant links are also provided. The response information in `choices` needs to be rendered using `markdown` syntax to achieve the best experience, which also reflects the powerful advantages of our model's online functionality.
 
 ## Visual Model
 
-gpt-4o is a multimodal large language model developed by OpenAI, which adds visual understanding capabilities on the basis of GPT-4. This model can process both text and image inputs simultaneously, achieving cross-modal understanding and generation.
+gpt-4o is a multimodal large language model developed by OpenAI, which adds visual understanding capabilities based on GPT-4. This model can process both text and image inputs simultaneously, achieving cross-modal understanding and generation.
 
-The text processing using the gpt-4o model is consistent with the basic usage content mentioned above. Below, we will briefly introduce how to use the model's image processing capabilities.
+The text processing using the gpt-4o model is consistent with the basic usage content mentioned above. Below is a brief introduction on how to use the model's image processing capabilities.
 
-The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field based on the original `content` content. This field indicates whether the uploaded content is text or an image, allowing the use of the gpt-4o model's image processing capabilities. Below, we will mainly discuss how to call this function using both Curl and Python.
+The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field to the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. The following mainly describes how to call this function using both Curl and Python.
 
 - Curl script method
 
@@ -415,7 +415,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Then you can get the following result, where the field information is consistent with the above:
+然后可以得到下面的结果，结果里面的字段信息是与上文一致的，具体的如下：
 
 ```json
 {
@@ -443,13 +443,13 @@ Then you can get the following result, where the field information is consistent
 }
 ```
 
-It can be seen that the content of the response is based on the image, so through the above two methods, you can easily use the text and image processing capabilities of the gpt-4-vision model.
+可以看到回答的内容是基于图片进行回答的，因此通过上述俩种方式可以轻松使用 gpt-4-vision 模型的文本和图像处理能力。
 
-In addition to gpt-4o, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only has a fast response speed but is also cheaper and supports multimodal capabilities. The use of vision features can refer to the content of using the gpt-4o model mentioned above.
+除了，gpt-4o，还有一个更低成本的模型，叫做 gpt-4o-mini。gpt-4o-mini 是 OpenAI 开发的最新一代大型语言模型，它不仅响应速度快，同时价格也更便宜，也支持多模态。vision 功能的使用可参考上文 gpt-4o 模型的使用的内容。
 
-## GPT-4o Drawing Model
+## GPT-4o 绘图模型
 
-Request example:
+请求样例：
 
 ```json
 {
@@ -460,7 +460,7 @@ Request example:
       "content": [
         {
           "type": "text",
-          "text": "Generate an image in the style of Studio Ghibli, and wear a hat"
+          "text": "Generate an image in the style of Studio Ghibli, and include a hat."
         },
         {
           "type": "file_url",
@@ -475,7 +475,7 @@ Request example:
 }
 ```
 
-Example result:
+样例结果：
 
 ```json
 {
@@ -501,29 +501,29 @@ Example result:
 }
 ```
 
-## Error Handling
+## 错误处理
 
-When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+在调用 API 时，如果遇到错误，API 会返回相应的错误代码和信息。例如：
 
 - `400 token_mismatched`：错误请求，可能是由于缺少或无效的参数。
 - `400 api_not_implemented`：错误请求，可能是由于缺少或无效的参数。
-- `401 invalid_token`：未授权，授权令牌无效或缺失。
+- `401 invalid_token`：未授权，无效或缺失的授权令牌。
 - `429 too_many_requests`：请求过多，您已超出速率限制。
 - `500 api_error`：内部服务器错误，服务器出现问题。
 
-### Error Response Example
+### 错误响应示例
 
 ```
 {
   "success": false,
   "error": {
     "code": "api_error",
-    "message": "获取失败"
+    "message": "fetch failed"
   },
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
 ```
 
-## Conclusion
+## 结论
 
-Through this document, you have learned how to easily implement the conversational features of the official OpenAI ChatGPT using the OpenAI Chat Completion API. We hope this document can help you better connect and use this API. If you have any questions, please feel free to contact our technical support team.
+通过本文档，您已经了解了如何使用 OpenAI Chat Completion API 轻松实现官方 OpenAI ChatGPT 的对话功能。希望本文档能帮助您更好地对接和使用该 API。如有任何问题，请随时联系我们的技术支持团队。
