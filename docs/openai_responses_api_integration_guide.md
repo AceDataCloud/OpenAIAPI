@@ -26,9 +26,9 @@ You can also notice that there is corresponding code generation on the right sid
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single response.
+- `max_tokens`: Limits the maximum number of tokens for a single reply.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
-- `n`: How many candidate responses to generate at once.
+- `n`: How many candidate replies to generate at once.
 - `response_format`: Sets the return format.
 - `tools`: Function/tool call definitions.
 - `background`: Whether to run asynchronously in the background.
@@ -106,8 +106,8 @@ The returned result contains multiple fields, described as follows:
 
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
-- `output`: The response information provided by ChatGPT for the question.
-- `usage`: Token statistics for this Q&A.
+- `output`: The response information provided by ChatGPT for the input question.
+- `usage`: Token statistics for this Q&A session.
 
 Among them, `output` contains the response information from ChatGPT, and the `output` inside it is from ChatGPT, as shown in the figure.
 
@@ -117,7 +117,7 @@ As can be seen, the `content` field in `output` contains the specific content of
 
 ## Streaming Response
 
-This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to achieve a word-by-word display effect.
+This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to display results word by word.
 
 If you want to return responses in a streaming manner, you can change the `stream` parameter in the request header to `true`.
 
@@ -125,7 +125,7 @@ Modify as shown in the figure, but the calling code needs to have corresponding 
 
 <p><img src="https://cdn.acedata.cloud/xidnao.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications in the code to obtain the line-by-line results.
 
 Python sample calling code:
 
@@ -251,7 +251,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Then you can get the following result, where the field information in the result is consistent with the above text, specifically as follows:
+Then you can get the following result, where the field information is consistent with the above text, specifically as follows:
 
 ```json
 {
@@ -437,4 +437,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to easily implement the official OpenAI's creation of Responses feature using the OpenAI Responses API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily implement the official OpenAI's creation Responses feature using the OpenAI Responses API. We hope this document helps you better connect and use the API. If you have any questions, please feel free to contact our technical support team.
