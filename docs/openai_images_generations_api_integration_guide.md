@@ -2,7 +2,7 @@
 
 DALL-E 3 is an image generation model developed by OpenAI that can generate high-quality images based on text descriptions.
 
-This document mainly introduces the usage process of the OpenAI Images Generations API, which allows us to easily utilize the official OpenAI DALL-E image generation features.
+This document mainly introduces the usage process of the OpenAI Images Generations API, which allows us to easily utilize the image generation capabilities of the official OpenAI DALL-E.
 
 ## Application Process
 
@@ -12,7 +12,7 @@ To use the OpenAI Images Generations API, you can first visit the [OpenAI Images
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available, allowing you to use the API for free.
+Upon your first application, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/zv58ug.png" width="500" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which refers to the model category we choose to use from the OpenAI DALL-E official website. Here we mainly have one model; details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
+When using this interface for the first time, you need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI DALL-E model we choose to use; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -75,7 +75,7 @@ Among them, `data` includes the specific information of the model-generated imag
 
 Next, we will introduce how to set some detailed parameters for the image generation results, among which the image quality parameter `quality` includes two types: the first `standard` indicates generating standard images, and the other `hd` indicates that the created image has finer details and greater consistency.
 
-Below, we set the image quality parameter to `standard`, with specific settings as shown in the figure:
+Below, set the image quality parameter to `standard`, with specific settings as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/1q303w.png" width="500" class="m-auto"></p>
 
@@ -120,7 +120,7 @@ After the call, we find the returned result as follows:
 }
 ```
 
-The returned result is consistent with the basic usage content, and we can see the generated image with the image quality parameter set to `standard` as shown in the figure:
+The returned result is consistent with the basic usage content, and you can see the generated image with the image quality parameter set to `standard` as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/j5v15b.png" width="500" class="m-auto"></p>
 
@@ -182,7 +182,7 @@ The returned result is consistent with the basic usage content, and we can see t
 
 <p><img src="https://cdn.acedata.cloud/o4pvvx.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply changing the image size to `1792 * 1024`, we can obtain the image shown below:
+With the same operation as above, simply set the image size to `1792 * 1024`, and you can obtain the image shown below:
 
 ![](https://cdn.acedata.cloud/4pilae.png)
 
@@ -190,7 +190,7 @@ It can be seen that the image sizes are obviously different, and more sizes can 
 
 ## Image Style Parameter `style`
 
-The image style parameter `style` includes two parameters, the first one `vivid` indicates that the generated image is more vivid, while the other `natural` indicates that the generated image is more natural.
+The image style parameter `style` includes two parameters, the first one `vivid` indicates that the generated image is more vivid, while the other one `natural` indicates that the generated image is more natural.
 
 The image style parameter is set to `vivid`, the specific settings are shown in the figure below:
 
@@ -237,11 +237,11 @@ After the call, we found that the returned result is as follows:
 }
 ```
 
-The returned result is consistent with the basic usage content, and we can see that the generated image with the style parameter `vivid` is shown in the figure below:
+The returned result is consistent with the basic usage content, and we can see that the generated image with the style parameter set to `vivid` is shown in the figure below:
 
 <p><img src="https://cdn.acedata.cloud/e0rpc3.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply changing the image style parameter to `natural`, we can obtain the image shown below:
+With the same operation as above, simply set the image style parameter to `natural`, and you can obtain the image shown below:
 
 <p><img src="https://cdn.acedata.cloud/q9tqwu.png" width="500" class="m-auto"></p>
 
@@ -249,7 +249,7 @@ It can be seen that the image generated with `vivid` is more vivid and realistic
 
 ## Image Link Format Parameter `response_format`
 
-The last image link format parameter `response_format` also has two types, the first one `b64_json` is to Base64 encode the image link, while the other `url` is a regular image link that can be viewed directly.
+The last image link format parameter `response_format` also has two types, the first one `b64_json` is to Base64 encode the image link, while the other one `url` is a regular image link that can be viewed directly.
 
 The image link format parameter is set to `url`, the specific settings are shown in the figure below:
 
