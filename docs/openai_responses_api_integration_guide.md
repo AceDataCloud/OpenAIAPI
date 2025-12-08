@@ -26,9 +26,9 @@ You can also notice that there is corresponding code generation on the right sid
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single reply.
+- `max_tokens`: Limits the maximum number of tokens for a single response.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
-- `n`: How many candidate replies to generate at once.
+- `n`: How many candidate responses to generate at once.
 - `response_format`: Sets the return format.
 - `tools`: Function/tool call definitions.
 - `background`: Whether to run asynchronously in the background.
@@ -251,7 +251,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Then you can get the following result, where the field information is consistent with the above text, specifically as follows:
+Then you can get the following result, where the field information in the result is consistent with the above text, specifically as follows:
 
 ```json
 {
@@ -320,7 +320,7 @@ Then you can get the following result, where the field information is consistent
 
 It can be seen that the content of the response is based on the image, so through the above two methods, the text and image processing capabilities of the gpt-4.1 model can be easily utilized.
 
-In addition to gpt-4.1, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only responds quickly but is also cheaper and supports multimodal capabilities. The use of vision features can refer to the content of the gpt-4.1 model mentioned above.
+In addition to gpt-4.1, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only responds quickly but is also cheaper and supports multimodal capabilities. The use of vision features can refer to the content of using the gpt-4.1 model mentioned above.
 
 ## Creation of File Processing Model
 
@@ -410,7 +410,7 @@ Example result:
 }
 ```
 
-You can see that we have also processed the input file, and the result is similar to the above text.
+You can see that we have also processed the input file, and the results are similar to the above text.
 
 ## Error Handling
 
