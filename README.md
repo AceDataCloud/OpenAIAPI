@@ -19,7 +19,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available for use of the API.
 
 ### Basic Usage
 
@@ -33,7 +33,7 @@ You can also notice that there is corresponding code generation on the right sid
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single response.
+- `max_tokens`: Limits the maximum number of tokens in a single response.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
 - `n`: The number of candidate responses to generate at once.
 - `response_format`: Sets the return format.
@@ -73,9 +73,9 @@ The return result contains multiple fields, described as follows:
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
 - `choices`: The response information provided by ChatGPT for the question.
-- `usage`: Token statistics for this question and answer.
+- `usage`: Token statistics for this question and answer pair.
 
-Among them, `choices` contains the response information from ChatGPT, and the `choices` inside it can be seen as shown in the figure.
+Among them, `choices` contains the response information from ChatGPT, and the `choices` inside can be seen as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" class="m-auto"></p>
 
@@ -91,7 +91,7 @@ Modify as shown in the figure, but the calling code needs to have corresponding 
 
 <p><img src="https://cdn.acedata.cloud/24scd4.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications in the code to obtain the line-by-line results.
 
 Python sample calling code:
 
@@ -275,7 +275,7 @@ OPENAI_BASE_URL="https://api.acedata.cloud/openai"  # Reminder: If you are using
 
 Replace `sk-xxx` with your own key. `OPENAI_BASE_URL` is the proxy interface for accessing OpenAI.
 
-4. Install the project's dependency packages.
+4. Install the project dependencies
 
 ```shell
 pip install openai
@@ -287,7 +287,7 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create an example source code file.
+5. Create an example source code file
 
 Assuming we create an example code `index.py`, the specific content is as follows:
 

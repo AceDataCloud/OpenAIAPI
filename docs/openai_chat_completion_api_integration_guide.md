@@ -12,7 +12,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available for use of the API.
 
 ## Basic Usage
 
@@ -26,7 +26,7 @@ You can also notice that there is corresponding code generation on the right sid
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single response.
+- `max_tokens`: Limits the maximum number of tokens in a single response.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
 - `n`: The number of candidate responses to generate at once.
 - `response_format`: Sets the return format.
@@ -66,9 +66,9 @@ The return result contains multiple fields, described as follows:
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
 - `choices`: The response information provided by ChatGPT for the question.
-- `usage`: Token statistics for this question and answer.
+- `usage`: Token statistics for this question and answer pair.
 
-Among them, `choices` contains the response information from ChatGPT, and the `choices` inside it can be seen as shown in the figure.
+Among them, `choices` contains the response information from ChatGPT, and the `choices` inside can be seen as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" class="m-auto"></p>
 
@@ -84,7 +84,7 @@ Modify as shown in the figure, but the calling code needs to have corresponding 
 
 <p><img src="https://cdn.acedata.cloud/24scd4.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications in the code to obtain the line-by-line results.
 
 Python sample calling code:
 
@@ -268,7 +268,7 @@ OPENAI_BASE_URL="https://api.acedata.cloud/openai"  # Reminder: If you are using
 
 Replace `sk-xxx` with your own key. `OPENAI_BASE_URL` is the proxy interface for accessing OpenAI.
 
-4. Install the project's dependency packages.
+4. Install the project dependencies
 
 ```shell
 pip install openai
@@ -280,7 +280,7 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create an example source code file.
+5. Create an example source code file
 
 Assuming we create an example code `index.py`, the specific content is as follows:
 
@@ -344,11 +344,11 @@ As can be seen, the response information in `choices` is obtained based on onlin
 
 ## Visual Model
 
-gpt-4o is a multimodal large language model developed by OpenAI, which adds visual understanding capabilities based on GPT-4. This model can process both text and image inputs simultaneously, achieving cross-modal understanding and generation.
+gpt-4o is a multimodal large language model developed by OpenAI, which adds visual understanding capabilities on the basis of GPT-4. This model can process both text and image inputs simultaneously, achieving cross-modal understanding and generation.
 
-The text processing using the gpt-4o model is consistent with the basic usage content mentioned above. Below is a brief introduction on how to use the model's image processing capabilities.
+The text processing of the gpt-4o model is consistent with the basic usage content mentioned above. Below, we will briefly introduce how to use the model's image processing capabilities.
 
-The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field to the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. The following mainly describes how to call this function using both Curl and Python.
+The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field to the original `content`. This field indicates whether the uploaded content is text or an image, allowing the use of the gpt-4o model's image processing capabilities. Below, we will mainly discuss how to call this function using both Curl and Python.
 
 - Curl script method
 
@@ -460,7 +460,7 @@ print(response.text)
       "content": [
         {
           "type": "text",
-          "text": "Generate an image in the style of Studio Ghibli, and include a hat."
+          "text": "生成吉卜力风格的图片，并且带上个帽子"
         },
         {
           "type": "file_url",
@@ -488,7 +488,7 @@ print(response.text)
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"prompt\": \"一位长发黑发的年轻女性穿着白色连衣裙，站在风景如画的户外环境中。图像采用吉卜力动画风格，色彩柔和，细节精致。她戴着一顶可爱时尚的帽子，面带温暖而愉快的微笑。背景展示了郁郁葱葱的绿意和宁静的氛围，阳光透过树木洒下。\",\n  \"size\": \"1024x1024\"\n}\n\n\n![file-96TSnzJ6MipkZwCmmYEZSA](https://filesystem.site/cdn/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n[下载⏬](https://filesystem.site/cdn/download/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n\n这是以吉卜力风格创作的图像，展示了一位穿着白色连衣裙和时尚帽子的年轻女性，置身于风景如画的户外环境中。柔和温暖的氛围通过细腻的细节和生动的色彩得以体现。"
+        "content": "{\n  \"prompt\": \"一位长发黑发的年轻女性穿着白色连衣裙，站在一个风景如画的户外环境中。图像采用吉卜力动画风格，展现柔和的色彩和细腻的细节。她戴着一顶可爱时尚的帽子，面带温暖而愉快的微笑。背景展示了郁郁葱葱的绿意和宁静的氛围，阳光透过树木洒下。\",\n  \"size\": \"1024x1024\"\n}\n\n\n![file-96TSnzJ6MipkZwCmmYEZSA](https://filesystem.site/cdn/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n[下载⏬](https://filesystem.site/cdn/download/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n\n这是以吉卜力风格创作的图像，展示了一位穿着白色连衣裙和时尚帽子的年轻女性，置身于风景如画的户外环境中。柔和温暖的氛围通过细腻的细节和生动的色彩得以体现。"
       },
       "finish_reason": "stop"
     }
@@ -507,7 +507,7 @@ print(response.text)
 
 - `400 token_mismatched`：错误请求，可能是由于缺少或无效的参数。
 - `400 api_not_implemented`：错误请求，可能是由于缺少或无效的参数。
-- `401 invalid_token`：未授权，无效或缺失的授权令牌。
+- `401 invalid_token`：未授权，授权令牌无效或缺失。
 - `429 too_many_requests`：请求过多，您已超出速率限制。
 - `500 api_error`：内部服务器错误，服务器出现问题。
 
@@ -518,7 +518,7 @@ print(response.text)
   "success": false,
   "error": {
     "code": "api_error",
-    "message": "fetch failed"
+    "message": "获取失败"
   },
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
