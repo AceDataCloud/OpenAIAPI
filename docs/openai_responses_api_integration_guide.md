@@ -410,7 +410,7 @@ Example result:
 }
 ```
 
-You can see that we have also processed the input file, and the results are similar to the above text.
+You can see that we have also processed the input file, and the result is similar to the above text.
 
 ## Error Handling
 
@@ -437,4 +437,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to easily implement the official OpenAI's creation Responses feature using the OpenAI Responses API. We hope this document helps you better connect and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily implement the official OpenAI's creation of Responses feature using the OpenAI Responses API. We hope this document helps you better connect and use the API. If you have any questions, please feel free to contact our technical support team.
