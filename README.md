@@ -333,7 +333,7 @@ For more info, please check below APIs and integration documents.
 | [$t(document_title_openai_embeddings_api)](http://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) | `/openai/embeddings` | [](http://platform.acedata.cloud/documents/) |
 | [OpenAI Responses API](http://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a) | `/openai/responses` | [OpenAI Responses API Integration Guide](http://platform.acedata.cloud/documents/c1da5338-9fff-4390-bbdc-29713893c07a) |
 | [OpenAI Images Generations API](http://platform.acedata.cloud/documents/fd932485-90c7-45d6-8394-1e14b6f07b2b) | `/openai/images/generations` | [OpenAI Images Generations API Integration Guide](http://platform.acedata.cloud/documents/22fce352-b71e-4177-991f-2216841f35e2) |
-| [OpenAI Images Edits API](http://platform.acedata.cloud/documents/251f1efa-aaa6-462e-8af4-66854b1bc94d) | `/openai/images/generations` | [OpenAI Images Edits API Integration Guide](http://platform.acedata.cloud/documents/932e4b89-2cbb-4cb9-8f85-c9af256bfe69) |
+| [OpenAI Images Edits API](http://platform.acedata.cloud/documents/251f1efa-aaa6-462e-8af4-66854b1bc94d) | `/openai/images/edits` | [OpenAI Images Edits API Integration Guide](http://platform.acedata.cloud/documents/932e4b89-2cbb-4cb9-8f85-c9af256bfe69) |
 
 Base URL: [https://api.acedata.cloud](https://api.acedata.cloud)
 
