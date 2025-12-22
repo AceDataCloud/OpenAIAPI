@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -153,11 +153,11 @@ data: [DONE]
 
 ```
 
-It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, and you can interface it with your system based on the results. The end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, described as follows:
+It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, and you can interface it with your system based on the results. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
 
 - `id`, the ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`, the OpenAI ChatGPT model selected.
-- `choices`, the response information provided by ChatGPT for the query.
+- `choices`, the response information provided by ChatGPT to the query.
 
 JavaScript is also supported, for example, the streaming call code for Node.js is as follows:
 
@@ -317,7 +317,7 @@ print(response.text)
 
 ## Online Model
 
-The gpt-3.5-browsing and gpt-4-browsing models are different from other models; they can perform online searches based on the question words and return the results of the online search with appropriate adjustments. This article will demonstrate the online functionality through a specific example, and then you can fill in the corresponding content on the OpenAI Chat Completion API interface, as shown in the figure:
+The gpt-3.5-browsing and gpt-4-browsing models are different from other models; they can perform online searches based on the question words and return the results of the online search with appropriate adjustments. This article will demonstrate the online functionality through a specific example, and you can fill in the corresponding content on the OpenAI Chat Completion API interface, as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/249829.png" width="400" class="m-auto"></p>
 
@@ -358,9 +358,9 @@ As can be seen, the response information in `choices` is obtained based on onlin
 
 gpt-4o is a multimodal large language model developed by OpenAI, which adds visual understanding capabilities on the basis of GPT-4. This model can process both text and image inputs simultaneously, achieving cross-modal understanding and generation.
 
-The text processing of the gpt-4o model is consistent with the basic usage content mentioned above. Below, we will briefly introduce how to use the model's image processing capabilities.
+The text processing using the gpt-4o model is consistent with the basic usage content mentioned above. Below, we will briefly introduce how to use the model's image processing capabilities.
 
-The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field to the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. Below, we will mainly discuss how to call this function using both Curl and Python.
+The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field based on the original `content` content, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. Below, we will mainly discuss how to call this function using both Curl and Python.
 
 - Curl script method
 
@@ -530,7 +530,7 @@ print(response.text)
   "success": false,
   "error": {
     "code": "api_error",
-    "message": "获取失败"
+    "message": "fetch failed"
   },
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
