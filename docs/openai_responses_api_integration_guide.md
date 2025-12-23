@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/8lu8di.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `input`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the OpenAI ChatGPT model category we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `input`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -106,14 +106,14 @@ The returned result contains multiple fields, described as follows:
 
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
-- `output`: The response information provided by ChatGPT for the question.
+- `output`: The response information provided by ChatGPT for the input question.
 - `usage`: Token statistics for this Q&A.
 
 Among them, `output` contains the response information from ChatGPT, and the `output` inside it is from ChatGPT, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/mald8o.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field in `output` contains the specific content of ChatGPT's reply.
+You can see that the `content` field in `output` contains the specific content of ChatGPT's reply.
 
 ## Streaming Response
 
@@ -125,7 +125,7 @@ Modify as shown in the figure, but the calling code needs to have corresponding 
 
 <p><img src="https://cdn.acedata.cloud/xidnao.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications in the code to obtain the line-by-line results.
 
 Python sample calling code:
 
@@ -320,7 +320,7 @@ Then you can get the following result, where the field information in the result
 
 It can be seen that the content of the response is based on the image, so through the above two methods, the text and image processing capabilities of the gpt-4.1 model can be easily utilized.
 
-In addition to gpt-4.1, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only responds quickly but is also cheaper and supports multimodal capabilities. The use of vision features can refer to the content of using the gpt-4.1 model mentioned above.
+In addition to gpt-4.1, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only responds quickly but is also cheaper and supports multimodal capabilities. The use of vision features can refer to the content of the gpt-4.1 model mentioned above.
 
 ## Creation of File Processing Model
 
@@ -437,4 +437,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to easily implement the official OpenAI's creation Responses feature using the OpenAI Responses API. We hope this document helps you better connect and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily implement the official OpenAI's creation of Responses feature using the OpenAI Responses API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
