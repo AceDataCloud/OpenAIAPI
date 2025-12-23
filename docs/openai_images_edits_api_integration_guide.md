@@ -2,7 +2,7 @@
 
 OpenAI image editing service allows you to input any number of images and instructions, outputting modified images.
 
-This document mainly introduces the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
+This document mainly describes the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
 
 ## Application Process
 
@@ -12,7 +12,7 @@ To use the OpenAI Images Edits API, you can first visit the [OpenAI Images Edits
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-Upon the first application, there will be a free quota provided, allowing you to use the API for free.
+During the first application, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -28,7 +28,7 @@ curl -s -D >(grep -i x-request-id >&2) \
   -F 'prompt=Create a lovely gift basket with these this items in it'
 ```
 
-When using this interface for the first time, we need to fill in at least four pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI official model we choose to use. Here we mainly have one model, and details can be found in the models we provide. Another parameter is `prompt`, which is the input prompt for generating the image. The last parameter is `image`, which requires the path of the image to be edited, as shown in the image below:
+When using this interface for the first time, we need to fill in at least four pieces of information: one is `authorization`, which can be selected directly from the dropdown list. Another parameter is `model`, which is the category of the OpenAI official model we choose to use. Here we mainly have one model; details can be found in the models we provide. Another parameter is `prompt`, which is the input for generating the image. The last parameter is `image`, which requires the path of the image to be edited, as shown in the image below:
 
 <p><img src="https://cdn.acedata.cloud/jw9iwu.png" width="500" class="m-auto"></p>
 
@@ -61,7 +61,7 @@ with open("gift-basket.png", "wb") as f:
     f.write(image_bytes)
 ```
 
-To use Python for the call, we first need to import two environment variables: one `OPENAI_BASE_URL`, which can be set to `https://api.acedata.cloud/openai`, and another variable for the credential `OPENAI_API_KEY`, which is the value obtained from `authorization`. On Mac OS, you can set the environment variables with the following commands:
+When using Python, we need to import two environment variables first: one is `OPENAI_BASE_URL`, which can be set to `https://api.acedata.cloud/openai`, and the other is the credential variable `OPENAI_API_KEY`, which is the value obtained from `authorization`. On Mac OS, you can set the environment variables with the following commands:
 
 ```shell
 export OPENAI_BASE_URL=https://api.acedata.cloud/openai
