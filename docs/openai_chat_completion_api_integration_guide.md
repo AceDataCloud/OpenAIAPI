@@ -1,8 +1,8 @@
 # OpenAI Chat Completion API Application and Usage
 
-OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
+OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
-This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue features of the official OpenAI ChatGPT.
+This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue function of the official OpenAI ChatGPT.
 
 ## Application Process
 
@@ -10,9 +10,9 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 ![](https://cdn.acedata.cloud/nyq0xz.png)
 
-If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
+If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will automatically return to the current page.
 
-Upon your first application, there will be a free quota provided, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available for you to use the API for free.
 
 ## Basic Usage
 
@@ -20,20 +20,20 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use; here we mainly have 20 types of models, and details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions; it is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`, where `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
-You can also notice that there is corresponding code generation on the right side, which you can copy to run directly, or you can click the "Try" button for testing.
+You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single reply.
+- `max_tokens`: Limits the maximum number of tokens for a single response.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
-- `n`: How many candidate replies to generate at once.
+- `n`: How many candidate responses to generate at once.
 - `response_format`: Sets the return format.
 
 <p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" class="m-auto"></p>
 
-After the call, we find the return result as follows:
+After the call, we find that the return result is as follows:
 
 ```json
 {
@@ -153,7 +153,7 @@ data: [DONE]
 
 ```
 
-It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, which you can use to connect to your system. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
+You can see that there are many `data` in the response, and the `choices` in `data` is the latest response content, consistent with the content introduced above. The `choices` is the new response content, which you can integrate into your system based on the results. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
 
 - `id`, the ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`, the OpenAI ChatGPT model selected.
@@ -264,10 +264,10 @@ As can be seen, the information contained in `choices` is consistent with the ba
 
 ## Integrating OpenAI-Python
 
-The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed on the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
+The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed in the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
 1. First, set up a local `Python` environment, this process can be searched on Google.
-2. Download and install a development environment, such as the VSCode editor.
+2. Download and install the development environment, such as installing the VSCode editor.
 3. Configure the `OpenAI` environment variables.
 
 - In the project folder, create a file named `.env` and save it.
@@ -280,7 +280,7 @@ OPENAI_BASE_URL="https://api.acedata.cloud/openai"  # Reminder: If you are using
 
 Replace `sk-xxx` with your own key. `OPENAI_BASE_URL` is the proxy interface for accessing OpenAI.
 
-4. Install the project's dependency packages.
+4. Install the project dependencies
 
 ```shell
 pip install openai
@@ -292,7 +292,7 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create an example source code file.
+5. Create an example source code file
 
 Assuming we create an example code `index.py`, the specific content is as follows:
 
@@ -352,7 +352,7 @@ After the call, we find that the returned result is as follows:
 }
 ```
 
-As can be seen, the response information in `choices` is obtained based on online queries, and relevant links are also provided. The response information in `choices` needs to be rendered using `markdown` syntax to achieve the best experience, which ultimately reflects the powerful advantages of our model's online functionality.
+As can be seen, the response information in `choices` is obtained based on online queries and also provides relevant links. The response information in `choices` needs to be rendered using `markdown` syntax to achieve the best experience, which ultimately reflects the powerful advantages of our model's online functionality.
 
 ## Visual Model
 
@@ -360,7 +360,7 @@ gpt-4o is a multimodal large language model developed by OpenAI, which adds visu
 
 The text processing using the gpt-4o model is consistent with the basic usage content mentioned above. Below, we will briefly introduce how to use the model's image processing capabilities.
 
-The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field to the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. Below, we will mainly discuss how to call this function using both Curl and Python.
+The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field to the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. The following mainly discusses how to call this function using both Curl and Python.
 
 - Curl script method
 
@@ -500,7 +500,7 @@ print(response.text)
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"prompt\": \"一位长发黑发的年轻女性穿着白色连衣裙，站在风景如画的户外环境中。图像采用吉卜力动画风格，色彩柔和，细节精致。她戴着一顶可爱时尚的帽子，面带温暖而愉快的微笑。背景展示了郁郁葱葱的绿意和宁静的氛围，阳光透过树木洒下。\",\n  \"size\": \"1024x1024\"\n}\n\n\n![file-96TSnzJ6MipkZwCmmYEZSA](https://filesystem.site/cdn/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n[下载⏬](https://filesystem.site/cdn/download/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n\n这是以吉卜力风格创作的图像，展示了一位穿着白色连衣裙和时尚帽子的年轻女性，置身于风景如画的户外环境中。柔和温暖的氛围通过细腻的细节和生动的色彩得以体现。"
+        "content": "{\n  \"prompt\": \"一位长发黑发的年轻女性穿着白色连衣裙，站在风景如画的户外环境中。图像采用吉卜力动画风格，色彩柔和，细节精致。她戴着一顶可爱时尚的帽子，面带温暖而愉快的微笑。背景展示了郁郁葱葱的绿色植物和宁静的氛围，阳光透过树木洒下。\",\n  \"size\": \"1024x1024\"\n}\n\n\n![file-96TSnzJ6MipkZwCmmYEZSA](https://filesystem.site/cdn/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n[下载⏬](https://filesystem.site/cdn/download/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n\n这是以吉卜力风格创作的图像，展示了一位穿着白色连衣裙和时尚帽子的年轻女性，置身于风景如画的户外环境中。柔和温暖的氛围通过细腻的细节和生动的色彩得以体现。"
       },
       "finish_reason": "stop"
     }
@@ -530,7 +530,7 @@ print(response.text)
   "success": false,
   "error": {
     "code": "api_error",
-    "message": "获取失败"
+    "message": "fetch failed"
   },
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
