@@ -1,6 +1,6 @@
 # OpenAI Responses API Application and Usage
 
-OpenAI recently provided an interface for creating model responses. It allows for text or image input to generate text or image output. The model can call your own custom code or use built-in tools, such as web search or file search, to use your own data as input for the model response.
+OpenAI recently provided an interface for creating model responses. It allows for text or image input to generate text or image output. The model can call your own custom code or use built-in tools, such as web search or file search, to use your own data as input for the model's response.
 
 This document mainly describes the usage process of the OpenAI Responses API, which allows us to easily utilize the official OpenAI model response creation feature.
 
@@ -12,7 +12,7 @@ To use the OpenAI Responses API, you can first go to the [OpenAI Responses API](
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -107,13 +107,13 @@ The returned result contains multiple fields, described as follows:
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
 - `output`: The response information provided by ChatGPT for the input question.
-- `usage`: Token statistics for this Q&A.
+- `usage`: Token statistics for this Q&A session.
 
 Among them, `output` contains the response information from ChatGPT, and the `output` inside it is from ChatGPT, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/mald8o.png" width="400" class="m-auto"></p>
 
-You can see that the `content` field in `output` contains the specific content of ChatGPT's reply.
+As can be seen, the `content` field in `output` contains the specific content of ChatGPT's reply.
 
 ## Streaming Response
 
