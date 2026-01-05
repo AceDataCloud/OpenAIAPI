@@ -1,6 +1,6 @@
 # OpenAI Responses API Application and Usage
 
-OpenAI recently provided an interface for creating model responses. It allows for text or image input to generate text or image output. The model can call your own custom code or use built-in tools, such as web search or file search, to use your own data as input for the model's response.
+OpenAI recently provided an interface for creating model responses. It allows for text or image input to generate text or image output. You can have the model call your own custom code or use built-in tools, such as web search or file search, to use your own data as input for the model's response.
 
 This document mainly describes the usage process of the OpenAI Responses API, which allows us to easily utilize the official OpenAI model response creation feature.
 
@@ -12,7 +12,7 @@ To use the OpenAI Responses API, you can first go to the [OpenAI Responses API](
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available, allowing you to use the API for free.
+When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -107,13 +107,13 @@ The returned result contains multiple fields, described as follows:
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
 - `output`: The response information provided by ChatGPT for the input question.
-- `usage`: Token statistics for this Q&A session.
+- `usage`: Token statistics for this Q&A.
 
 Among them, `output` contains the response information from ChatGPT, and the `output` inside it is from ChatGPT, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/mald8o.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field in `output` contains the specific content of ChatGPT's reply.
+You can see that the `content` field in `output` contains the specific content of ChatGPT's reply.
 
 ## Streaming Response
 
@@ -125,7 +125,7 @@ Modify as shown in the figure, but the calling code needs to have corresponding 
 
 <p><img src="https://cdn.acedata.cloud/xidnao.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications in the code to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
 
 Python sample calling code:
 
@@ -190,6 +190,86 @@ data: {"type": "response.content_part.done", "sequence_number": 15, "item_id": "
 data: {"type": "response.output_item.done", "sequence_number": 16, "output_index": 0, "item": {"id": "msg_68a9837c49f081908f568bf9c6065c620721186e8fbb89d0", "type": "message", "status": "completed", "content": [{"type": "output_text", "annotations": [], "text": "Hello! How can I help you today? 😊"}], "role": "assistant"}, "model": "gpt-4.1"} 
 
 data: {"type": "response.completed", "sequence_number": 17, "response": {"id": "resp_68a9837bb9bc8190b403947311db6faa0721186e8fbb89d0", "object": "response", "created_at": 1755939707, "status": "completed", "background": false, "content_filters": null, "error": null, "incomplete_details": null, "instructions": null, "max_output_tokens": null, "max_tool_calls": null, "model": "gpt-4.1-data", "output": [{"id": "msg_68a9837c49f081908f568bf9c6065c620721186e8fbb89d0", "type": "message", "status": "completed", "content": [{"type": "output_text", "annotations": [], "text": "Hello! How can I help you today? 😊"}], "role": "assistant"}], "parallel_tool_calls": true, "previous_response_id": null, "prompt_cache_key": null, "reasoning": {"effort": null, "summary": null}, "safety_identifier": null, "service_tier": "default", "store": true, "temperature": 1.0, "text": {"format": {"type": "text"}}, "tool_choice": "auto", "tools": [], "top_p": 1.0, "truncation": "disabled", "usage":
+```json
+{
+  "input_tokens": 8,
+  "input_tokens_details": {
+    "cached_tokens": 0
+  },
+  "output_tokens": 11,
+  "output_tokens_details": {
+    "reasoning_tokens": 0
+  },
+  "total_tokens": 19
+}, 
+"user": null, 
+"metadata": {}
+}, 
+"model": "gpt-4.1"
+```
+
+可以看到，响应里面有许多 `data` ，`data` 里面的 `delta` 即为最新的回答内容，与上文介绍的内容一致。`delta` 是新增的回答内容，您可以根据结果来对接到您的系统中。同时流式响应的结束是根据 `data` 的内容来判断的，如果 `type` 的内容为 `response.completed`，则表示流式响应回答已经全部结束。返回的 `data` 结果一共有多个字段，介绍如下：
+
+- `item_id`，生成此次对话任务的 ID，用于唯一标识此次对话任务。
+- `type`，生成此次对话 Responses 任务的类型。
+- `model `，选择的 OpenAI ChatGPT 官网模型。
+- `delta`，ChatGPT 针对提问词给于的回答信息。
+
+JavaScript 也是支持的，比如 Node.js 的流式调用代码如下：
+
+```javascript
+const options = {
+  method: "post",
+  headers: {
+    accept: "application/json",
+    authorization: "Bearer b82d32f570bc434d9ba9923aa0e7dce0",
+    "content-type": "application/json",
+  },
+  body: JSON.stringify({
+    model: "gpt-4.1",
+    input: [{ role: "user", content: "Hello" }],
+    stream: true,
+  }),
+};
+
+fetch("https://api.acedata.cloud/openai/responses", options)
+  .then((response) => response.json())
+  .then((response) => console.log(response))
+  .catch((err) => console.error(err));
+```
+
+Java 样例代码：
+
+```java
+JSONObject jsonObject = new JSONObject();
+jsonObject.put("model", "gpt-4.1");
+jsonObject.put("input", [{"role":"user","content":"Hello"}]);
+jsonObject.put("stream", true);
+MediaType mediaType = "application/json; charset=utf-8".toMediaType();
+RequestBody body = jsonObject.toString().toRequestBody(mediaType);
+Request request = new Request.Builder()
+  .url("https://api.acedata.cloud/openai/responses")
+  .post(body)
+  .addHeader("accept", "application/json")
+  .addHeader("authorization", "Bearer b82d32f570bc434d9ba9923aa0e7dce0")
+  .addHeader("content-type", "application/json")
+  .build();
+
+OkHttpClient client = new OkHttpClient();
+Response response = client.newCall(request).execute();
+System.out.print(response.body!!.string())
+```
+
+其他语言可以另外自行改写，原理都是一样的。
+
+## 多轮对话
+
+如果您想要对接多轮对话功能，需要对 `input` 字段上传多个提问词，多个提问词的具体示例如下图所示：
+
+<p><img src="https://cdn.acedata.cloud/1jqwnf.png" width="400" class="m-auto"></p>
+
+Python 样例调用代码：
+
 ```python
 import requests
 
@@ -203,22 +283,115 @@ headers = {
 
 payload = {
     "model": "gpt-4.1",
-    "input": [
-        {
-            "role": "user",
-            "content": [
-                {"type": "input_text", "text": "what is in this image?"},
-                {
-                    "type": "input_image",
-                    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
-                }
-            ]
-        }
-    ]
+    "input": [{"role":"user","content":"Hello"},{"role":"assistant","content":"Hello! How can I help you today? 😊"},{"role":"user","content":"What did I just say?"}]
 }
 
 response = requests.post(url, json=payload, headers=headers)
 print(response.text)
+```
+
+通过上传多个提问词，就可以轻松实现多轮对话，可以得到如下回答：
+
+```json
+{
+  "id": "resp_68a989c03c508191a1dd82ce2e37e88a0932a4328c0a5d5b",
+  "object": "response",
+  "created_at": 1755941312,
+  "status": "completed",
+  "background": false,
+  "content_filters": null,
+  "error": null,
+  "incomplete_details": null,
+  "instructions": null,
+  "max_output_tokens": null,
+  "max_tool_calls": null,
+  "model": "gpt-4.1",
+  "output": [
+    {
+      "id": "msg_68a989c092e4819189821a9eb8247e1e0932a4328c0a5d5b",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "text": "You just said \"Hello.\" \n\nWould you like to continue the conversation or ask a question?"
+        }
+      ],
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "reasoning": {
+    "effort": null,
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": true,
+  "temperature": 1,
+  "text": {
+    "format": {
+      "type": "text"
+    }
+  },
+  "tool_choice": "auto",
+  "tools": [],
+  "top_p": 1,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 32,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 20,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 52
+  },
+  "user": null,
+  "metadata": {}
+}
+```
+
+可以看到，`output` 包含的信息与基本使用的内容是一致的，这个包含了 ChatGPT 针对多个对话进行回复的具体内容，这样就可以根据多个对话内容来回答对应的问题了。
+
+## 视觉模型
+
+gpt-4o 是 OpenAI 开发的多模态大型语言模型,它在 GPT-4 的基础上增加了视觉理解能力。这个模型可以同时处理文本和图像输入,实现了跨模态的理解和生成。
+
+使用 gpt-4o 模型的文本处理是与上文的基本使用内容一致的，下面将简要介绍一下如果使用模型的图像处理能力。
+
+使用 gpt-4o 模型的图像处理能力主要是通过在原有的 `content` 内容基础上添加一个 `type` 字段，通过该字段可以知道上传的是文本还是图片，从而使用 gpt-4o 模型的图像处理能力，下面主要讲述采用 Curl 和 Python 俩种方式来调用该功能。
+
+- Curl 脚本方式
+
+```
+curl -X POST 'https://api.acedata.cloud/openai/responses' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+    "model": "gpt-4.1",
+    "input": [
+      {
+        "role": "user",
+        "content": [
+          {"type": "input_text", "text": "what is in this image?"},
+          {
+            "type": "input_image",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+          }
+        ]
+      }
+    ]
+  }'
+```
+
+- Python 脚本方式
 ```
 ```python
 import requests
