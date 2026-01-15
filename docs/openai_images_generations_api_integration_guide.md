@@ -2,7 +2,7 @@
 
 DALL-E 3 is an image generation model developed by OpenAI that can generate high-quality images based on text descriptions.
 
-This document mainly introduces the usage process of the OpenAI Images Generations API, which allows us to easily utilize the image generation capabilities of the official OpenAI DALL-E.
+This document mainly introduces the usage process of the OpenAI Images Generations API, which allows us to easily utilize the official OpenAI DALL-E image generation features.
 
 ## Application Process
 
@@ -12,7 +12,7 @@ To use the OpenAI Images Generations API, you can first visit the [OpenAI Images
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-Upon the first application, there will be a free quota provided, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available for you to use the API for free.
 
 ## Basic Usage
 
@@ -48,7 +48,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-After the call, we find the returned result as follows:
+After the call, we find that the returned result is as follows:
 
 ```json
 {
@@ -106,7 +106,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-After the call, we find the returned result as follows:
+After the call, we find that the returned result is as follows:
 
 ```json
 {
@@ -120,11 +120,11 @@ After the call, we find the returned result as follows:
 }
 ```
 
-The returned result is consistent with the basic usage content, and we can see the generated image with the image quality parameter set to `standard` as shown in the figure:
+The returned result is consistent with the basic usage content, and you can see the generated image with the image quality parameter set to `standard` as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/j5v15b.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply setting the image quality parameter to `hd` can yield the image shown in the figure below:
+With the same operation as above, simply set the image quality parameter to `hd`, and you can obtain the image shown in the figure below:
 
 <p><img src="https://cdn.acedata.cloud/vjpbqr.png" width="500" class="m-auto"></p>
 
@@ -182,15 +182,15 @@ The returned result is consistent with the basic usage content, and we can see t
 
 <p><img src="https://cdn.acedata.cloud/o4pvvx.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply changing the image size to `1792 * 1024`, we can obtain the image shown below:
+With the same operation as above, simply changing the image size to `1792 * 1024` will yield the image shown below:
 
 ![](https://cdn.acedata.cloud/4pilae.png)
 
-It can be seen that the image sizes are obviously different. Additionally, more sizes can be set; for detailed information, please refer to our official documentation.
+It is evident that the image sizes are quite different. Additionally, more sizes can be set; for detailed information, please refer to our official documentation.
 
 ## Image Style Parameter `style`
 
-The image style parameter `style` includes two parameters. The first one, `vivid`, indicates that the generated image is more vivid, while the second one, `natural`, indicates that the generated image is more natural.
+The image style parameter `style` includes two parameters: the first one `vivid` indicates that the generated image is more vivid, while the other `natural` indicates that the generated image is more natural.
 
 The image style parameter is set to `vivid`, and the specific settings are shown in the figure below:
 
@@ -241,7 +241,7 @@ The returned result is consistent with the basic usage content, and we can see t
 
 <p><img src="https://cdn.acedata.cloud/e0rpc3.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply changing the image style parameter to `natural`, we can obtain the image shown below:
+With the same operation as above, simply changing the image style parameter to `natural` will yield the image shown below:
 
 <p><img src="https://cdn.acedata.cloud/q9tqwu.png" width="500" class="m-auto"></p>
 
@@ -249,7 +249,7 @@ It can be seen that the image generated with `vivid` is more vivid and realistic
 
 ## Image Link Format Parameter `response_format`
 
-The last image link format parameter `response_format` also has two types. The first type, `b64_json`, encodes the image link in Base64, while the second type, `url`, is a regular image link that can be viewed directly.
+The last image link format parameter `response_format` also has two types: the first one `b64_json` encodes the image link in Base64, while the other `url` is a regular image link that can be viewed directly.
 
 The image link format parameter is set to `url`, and the specific settings are shown in the figure below:
 
@@ -295,7 +295,7 @@ After the call, we found that the returned result is as follows:
 }
 ```
 
-The returned result is consistent with the basic usage content, and the image link format parameter for the generated image link is `url`, which can be accessed directly at [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02). The image content is shown below:
+The returned result is consistent with the basic usage content, and the image link format parameter for the generated image link is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02) which can be accessed directly, and the image content is shown below:
 
 <p><img src="https://cdn.acedata.cloud/33hs4z.png" width="500" class="m-auto"></p>
 
