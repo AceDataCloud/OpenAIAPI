@@ -2,7 +2,7 @@
 
 OpenAI image editing service allows you to input any number of images and instructions, outputting modified images.
 
-This document mainly describes the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
+This document mainly introduces the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
 
 ## Application Process
 
@@ -61,14 +61,14 @@ with open("gift-basket.png", "wb") as f:
     f.write(image_bytes)
 ```
 
-To use Python for the call, we first need to import two environment variables: one `OPENAI_BASE_URL`, which can be set to `https://api.acedata.cloud/openai`, and another credential variable `OPENAI_API_KEY`, which is the value obtained from `authorization`. On Mac OS, you can set the environment variables with the following commands:
+When using Python, we need to import two environment variables first: one is `OPENAI_BASE_URL`, which can be set to `https://api.acedata.cloud/openai`, and the other is the credential variable `OPENAI_API_KEY`, which is the value obtained from `authorization`. On Mac OS, you can set the environment variables with the following commands:
 
 ```shell
 export OPENAI_BASE_URL=https://api.acedata.cloud/openai
 export OPENAI_API_KEY={token} 
 ```
 
-After the call, we find that an image `gift-basket.png` is generated in the current directory, with the specific result shown below:
+After the call, we find that an image `gift-basket.png` will be generated in the current directory, and the specific result is as follows:
 
 <p><img src="https://cdn.acedata.cloud/574s8h.png" width="500" class="m-auto"></p>
 
