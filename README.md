@@ -19,7 +19,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
+Upon your first application, there will be a free quota provided, allowing you to use the API for free.
 
 ### Basic Usage
 
@@ -27,7 +27,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use; here we mainly have 20 types of models, and details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`, where `role` indicates the role of the questioner. We provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -40,7 +40,7 @@ Common optional parameters:
 
 <p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" class="m-auto"></p>
 
-After the call, we find that the return result is as follows:
+After the call, we find the returned result as follows:
 
 ```json
 {
@@ -80,7 +80,7 @@ After the call, we find that the return result is as follows:
 }
 ```
 
-The return result contains multiple fields, described as follows:
+The returned result contains multiple fields, described as follows:
 
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
@@ -91,7 +91,7 @@ Among them, `choices` contains the response information from ChatGPT, and within
 
 <p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field in `choices` contains the specific content of ChatGPT's reply.
+As can be seen, the `content` field within `choices` contains the specific content of ChatGPT's reply.
 
 ### Streaming Response
 
@@ -103,7 +103,7 @@ Modify as shown in the figure, but the calling code needs to have corresponding 
 
 <p><img src="https://cdn.acedata.cloud/24scd4.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make appropriate modifications at the code level to obtain the line-by-line results.
 
 Python sample calling code:
 
@@ -160,7 +160,7 @@ data: [DONE]
 
 ```
 
-You can see that there are many `data` in the response, and the `choices` in `data` is the latest response content, consistent with the content introduced above. The `choices` is the newly added response content, and you can integrate it into your system based on the results. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
+You can see that there are many `data` in the response, and the `choices` in `data` is the latest response content, consistent with the content introduced above. The `choices` is the newly added response content, which you can use to connect to your system. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
 
 - `id`, the ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`, the OpenAI ChatGPT model selected.
@@ -267,7 +267,7 @@ By uploading multiple question words, you can easily achieve multi-turn dialogue
 }
 ```
 
-As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing for answers to corresponding questions based on multiple dialogue contents.
+As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing it to answer corresponding questions based on multiple dialogue contents.
 
 ### Integrating OpenAI-Python
 
@@ -287,7 +287,7 @@ OPENAI_BASE_URL="https://api.acedata.cloud/openai"  # Reminder: If you are using
 
 Replace `sk-xxx` with your own key. `OPENAI_BASE_URL` is the proxy interface for accessing OpenAI.
 
-4. Install the project dependencies
+4. Install the project's dependency packages.
 
 ```shell
 pip install openai
@@ -299,7 +299,7 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create a sample source code file
+5. Create a sample source code file.
 
 Assuming we create a sample code `index.py`, the specific content is as follows:
 
