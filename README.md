@@ -27,7 +27,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -240,7 +240,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple question words, you can easily achieve multi-turn dialogue and get the following response:
+By uploading multiple question words, multi-turn dialogue can be easily achieved, resulting in the following response:
 
 ```json
 {
@@ -271,10 +271,10 @@ As can be seen, the information contained in `choices` is consistent with the ba
 
 ### Integrating OpenAI-Python
 
-The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed on the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
+The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed in the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
-1. First, you need to set up a local `Python` environment, which can be searched on Google.
-2. Download and install a development environment, such as the VSCode editor.
+1. First, set up a local `Python` environment, this process can be searched on Google.
+2. Download and install the development environment, such as installing the VSCode editor.
 3. Configure the `OpenAI` environment variables.
 
 - In the project folder, create a file named `.env` and save it.
@@ -299,9 +299,9 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create a sample source code file.
+5. Create an example source code file.
 
-Assuming we create a sample code `index.py`, the specific content is as follows:
+Assuming we create an example code `index.py`, the specific content is as follows:
 
 ```python
 import os
