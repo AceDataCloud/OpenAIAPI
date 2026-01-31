@@ -1,8 +1,8 @@
 # OpenAI Chat Completion API Application and Usage
 
-OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, ChatGPT has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
+OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
-This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue function of the official OpenAI ChatGPT.
+This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue features of the official OpenAI ChatGPT.
 
 ## Application Process
 
@@ -12,7 +12,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available for you to use the API for free.
+Upon the first application, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use; here we mainly have 20 types of models, and details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions; it is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`, where `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -33,7 +33,7 @@ Common optional parameters:
 
 <p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" class="m-auto"></p>
 
-After the call, we find that the return result is as follows:
+After the call, we find the return result as follows:
 
 ```json
 {
@@ -84,7 +84,7 @@ Among them, `choices` contains the response information from ChatGPT, and within
 
 <p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field in `choices` contains the specific content of ChatGPT's reply.
+As can be seen, the `content` field within `choices` contains the specific content of ChatGPT's reply.
 
 ## Streaming Response
 
@@ -266,8 +266,8 @@ As can be seen, the information contained in `choices` is consistent with the ba
 
 The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed in the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
-1. First, set up a local `Python` environment, this process can be searched on Google.
-2. Download and install the development environment, such as installing the VSCode editor.
+1. First, you need to set up a local `Python` environment, which can be searched on Google.
+2. Download and install a development environment, such as the VSCode editor.
 3. Configure the `OpenAI` environment variables.
 
 - In the project folder, create a file named `.env` and save it.
@@ -280,7 +280,7 @@ OPENAI_BASE_URL="https://api.acedata.cloud/openai"  # Reminder: If you are using
 
 Replace `sk-xxx` with your own key. `OPENAI_BASE_URL` is the proxy interface for accessing OpenAI.
 
-4. Install the project's dependency packages.
+4. Install the project dependencies
 
 ```shell
 pip install openai
@@ -292,9 +292,9 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create an example source code file.
+5. Create a sample source code file
 
-Assuming we create an example code `index.py`, the specific content is as follows:
+Assuming we create a sample code `index.py`, the specific content is as follows:
 
 ```python
 import os
@@ -427,7 +427,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Then you can get the following result, the field information in the result is consistent with the above text, specifically as follows:
+Then you can get the following result, where the field information is consistent with the above text, specifically as follows:
 
 ```json
 {
@@ -457,7 +457,7 @@ Then you can get the following result, the field information in the result is co
 
 It can be seen that the content of the answer is based on the image, so through the above two methods, you can easily use the text and image processing capabilities of the gpt-4-vision model.
 
-In addition to gpt-4o, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only responds quickly but is also cheaper and supports multimodal. The use of vision features can refer to the content of using the gpt-4o model mentioned above.
+In addition to gpt-4o, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only responds quickly but is also cheaper and supports multimodal capabilities. The use of vision features can refer to the content of using the gpt-4o model mentioned above.
 
 ## GPT-4o Drawing Model
 
