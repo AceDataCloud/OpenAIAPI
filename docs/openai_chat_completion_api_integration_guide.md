@@ -2,7 +2,7 @@
 
 OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
-This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue features of the official OpenAI ChatGPT.
+This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue function of the official OpenAI ChatGPT.
 
 ## Application Process
 
@@ -12,7 +12,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-Upon the first application, there will be a free quota provided, allowing you to use the API for free.
+When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use; here we mainly have 20 types of models, and details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions; it is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`, where `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use; here we mainly have 20 types of models, and details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions; it is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`, where `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -33,7 +33,7 @@ Common optional parameters:
 
 <p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" class="m-auto"></p>
 
-After the call, we find the return result as follows:
+After the call, we find that the return result is as follows:
 
 ```json
 {
@@ -84,7 +84,7 @@ Among them, `choices` contains the response information from ChatGPT, and within
 
 <p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field within `choices` contains the specific content of ChatGPT's reply.
+As can be seen, the `content` field in `choices` contains the specific content of ChatGPT's reply.
 
 ## Streaming Response
 
@@ -264,9 +264,9 @@ As can be seen, the information contained in `choices` is consistent with the ba
 
 ## Integrating OpenAI-Python
 
-The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed in the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
+The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed on the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
-1. First, you need to set up a local `Python` environment, which can be searched on Google.
+1. First, set up a local `Python` environment, this process can be searched on Google.
 2. Download and install a development environment, such as the VSCode editor.
 3. Configure the `OpenAI` environment variables.
 
@@ -280,7 +280,7 @@ OPENAI_BASE_URL="https://api.acedata.cloud/openai"  # Reminder: If you are using
 
 Replace `sk-xxx` with your own key. `OPENAI_BASE_URL` is the proxy interface for accessing OpenAI.
 
-4. Install the project dependencies
+4. Install the project's dependency packages.
 
 ```shell
 pip install openai
@@ -292,9 +292,9 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create a sample source code file
+5. Create an example source code file.
 
-Assuming we create a sample code `index.py`, the specific content is as follows:
+Assuming we create an example code `index.py`, the specific content is as follows:
 
 ```python
 import os
@@ -352,7 +352,7 @@ After the call, we find that the returned result is as follows:
 }
 ```
 
-As can be seen, the response information in `choices` is obtained based on online queries and also provides relevant links. The response information in `choices` needs to be rendered using `markdown` syntax to achieve the best experience, which also reflects the powerful advantages of our model's online functionality.
+As can be seen, the response information in `choices` is obtained based on online queries, and relevant links are also provided. The response information in `choices` needs to be rendered using `markdown` syntax to achieve the best experience, which ultimately reflects the powerful advantages of our model's online functionality.
 
 ## Visual Model
 
@@ -360,7 +360,7 @@ gpt-4o is a multimodal large language model developed by OpenAI, which adds visu
 
 The text processing using the gpt-4o model is consistent with the basic usage content mentioned above. Below, we will briefly introduce how to use the model's image processing capabilities.
 
-The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field to the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. The following mainly discusses how to call this function using both Curl and Python.
+The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field based on the original `content` content, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. Below, we will mainly discuss how to call this function using both Curl and Python.
 
 - Curl script method
 
@@ -427,7 +427,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Then you can get the following result, where the field information is consistent with the above text, specifically as follows:
+Then you can get the following result, where the field information is consistent with the above:
 
 ```json
 {
@@ -455,9 +455,9 @@ Then you can get the following result, where the field information is consistent
 }
 ```
 
-It can be seen that the content of the answer is based on the image, so through the above two methods, you can easily use the text and image processing capabilities of the gpt-4-vision model.
+It can be seen that the content of the response is based on the image, so through the above two methods, you can easily use the text and image processing capabilities of the gpt-4-vision model.
 
-In addition to gpt-4o, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only responds quickly but is also cheaper and supports multimodal capabilities. The use of vision features can refer to the content of using the gpt-4o model mentioned above.
+In addition to gpt-4o, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only has a fast response speed but is also cheaper and supports multimodal capabilities. The use of vision features can refer to the content of using the gpt-4o model mentioned above.
 
 ## GPT-4o Drawing Model
 
@@ -500,7 +500,7 @@ Example result:
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"prompt\": \"一位长发黑发的年轻女性穿着白色连衣裙，站在风景如画的户外环境中。图像采用宫崎骏动画风格，色彩柔和，细节精致。她戴着一顶可爱时尚的帽子，面带温暖而愉快的微笑。背景展示了郁郁葱葱的绿意和宁静的氛围，阳光透过树木洒下。\",\n  \"size\": \"1024x1024\"\n}\n\n\n![file-96TSnzJ6MipkZwCmmYEZSA](https://filesystem.site/cdn/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n[下载⏬](https://filesystem.site/cdn/download/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n\n这是以宫崎骏风格创作的图像，展示了一位穿着白色连衣裙和时尚帽子的年轻女性，置身于风景如画的户外环境中。柔和温暖的氛围通过细腻的细节和生动的色彩得以体现。"
+        "content": "{\n  \"prompt\": \"一位长发黑发的年轻女性穿着白色连衣裙，站在风景如画的户外环境中。图像采用吉卜力动画风格，色彩柔和，细节精致。她戴着一顶可爱时尚的帽子，面带温暖而愉快的微笑。背景展示了郁郁葱葱的绿色植物和宁静的氛围，阳光透过树木洒下。\",\n  \"size\": \"1024x1024\"\n}\n\n\n![file-96TSnzJ6MipkZwCmmYEZSA](https://filesystem.site/cdn/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n[下载⏬](https://filesystem.site/cdn/download/20250412/s8EFrYVqeRWc5SfTmF1SbgBS2WFGXb.webp)\n\n这是以吉卜力风格创作的图像，展示了一位穿着白色连衣裙和时尚帽子的年轻女性，置身于风景如画的户外环境中。柔和温暖的氛围通过细腻的细节和生动的色彩得以体现。"
       },
       "finish_reason": "stop"
     }
@@ -519,7 +519,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 - `400 token_mismatched`：错误请求，可能是由于缺少或无效的参数。
 - `400 api_not_implemented`：错误请求，可能是由于缺少或无效的参数。
-- `401 invalid_token`：未授权，无效或缺失的授权令牌。
+- `401 invalid_token`：未授权，授权令牌无效或缺失。
 - `429 too_many_requests`：请求过多，您已超出速率限制。
 - `500 api_error`：内部服务器错误，服务器出现问题。
 
