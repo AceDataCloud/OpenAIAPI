@@ -1,8 +1,8 @@
 # OpenAI Chat Completion API Application and Usage
 
-OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
+OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
-This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue function of the official OpenAI ChatGPT.
+This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue features of the official OpenAI ChatGPT.
 
 ## Application Process
 
@@ -20,15 +20,15 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of content: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use; here we mainly have 20 types of models, and details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions; it is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`, where `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single response.
+- `max_tokens`: Limits the maximum number of tokens for a single reply.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
-- `n`: How many candidate responses to generate at once.
+- `n`: How many candidate replies to generate at once.
 - `response_format`: Sets the return format.
 
 <p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" class="m-auto"></p>
@@ -78,13 +78,13 @@ The return result contains multiple fields, described as follows:
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
 - `choices`: The response information provided by ChatGPT for the question.
-- `usage`: Statistical information regarding the tokens for this Q&A.
+- `usage`: Statistical information regarding tokens for this Q&A.
 
 Among them, `choices` contains the response information from ChatGPT, and within it, the `choices` is ChatGPT's response, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field in `choices` contains the specific content of ChatGPT's reply.
+As can be seen, the `content` field within `choices` contains the specific content of ChatGPT's reply.
 
 ## Streaming Response
 
@@ -96,7 +96,7 @@ Modify as shown in the figure, but the calling code needs to have corresponding 
 
 <p><img src="https://cdn.acedata.cloud/24scd4.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return corresponding JSON data line by line, and we need to make appropriate modifications at the code level to obtain the line-by-line results.
 
 Python sample calling code:
 
@@ -153,7 +153,7 @@ data: [DONE]
 
 ```
 
-It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, which you can integrate into your system based on the results. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
+It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, which you can use to connect to your system. At the same time, the end of the streaming response is determined based on the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
 
 - `id`, the ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`, the OpenAI ChatGPT model selected.
@@ -292,9 +292,9 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create an example source code file.
+5. Create a sample source code file.
 
-Assuming we create an example code `index.py`, the specific content is as follows:
+Assuming we created a sample code `index.py`, the specific content is as follows:
 
 ```python
 import os
@@ -352,7 +352,7 @@ After the call, we find that the returned result is as follows:
 }
 ```
 
-As can be seen, the response information in `choices` is obtained based on online queries, and relevant links are also provided. The response information in `choices` needs to be rendered using `markdown` syntax to achieve the best experience, which ultimately reflects the powerful advantages of our model's online functionality.
+As can be seen, the response information in `choices` is obtained based on online queries and also provides relevant links. The response information in `choices` needs to be rendered using `markdown` syntax to achieve the best experience, which ultimately reflects the powerful advantages of our model's online functionality.
 
 ## Visual Model
 
@@ -360,7 +360,7 @@ gpt-4o is a multimodal large language model developed by OpenAI, which adds visu
 
 The text processing using the gpt-4o model is consistent with the basic usage content mentioned above. Below, we will briefly introduce how to use the model's image processing capabilities.
 
-The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field based on the original `content` content, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. Below, we will mainly discuss how to call this function using both Curl and Python.
+The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field to the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. Below, we will mainly discuss how to call this functionality using both Curl and Python.
 
 - Curl script method
 
@@ -427,7 +427,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Then you can get the following result, where the field information is consistent with the above:
+Then you can get the following result, the field information in the result is consistent with the above text, specifically as follows:
 
 ```json
 {
@@ -455,9 +455,9 @@ Then you can get the following result, where the field information is consistent
 }
 ```
 
-It can be seen that the content of the response is based on the image, so through the above two methods, you can easily use the text and image processing capabilities of the gpt-4-vision model.
+It can be seen that the content of the answer is based on the image, so through the above two methods, you can easily use the text and image processing capabilities of the gpt-4-vision model.
 
-In addition to gpt-4o, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only has a fast response speed but is also cheaper and supports multimodal capabilities. The use of vision features can refer to the content of using the gpt-4o model mentioned above.
+In addition to gpt-4o, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only has a fast response speed but is also cheaper and supports multimodal. The use of vision features can refer to the content of using the gpt-4o model mentioned above.
 
 ## GPT-4o Drawing Model
 
