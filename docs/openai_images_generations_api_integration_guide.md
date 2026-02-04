@@ -64,7 +64,7 @@ After the call, we find the returned result as follows:
 
 The returned result contains multiple fields, described as follows:
 
-- `created`, the ID of the generated image, used to uniquely identify this task.
+- `created`, the ID generated for this image generation, used to uniquely identify this task.
 - `data`, which contains the result information of the image generation.
 
 Among them, `data` includes the specific information of the model-generated image, and the `url` inside it is the detailed link to the generated image, as shown in the figure.
@@ -75,7 +75,7 @@ Among them, `data` includes the specific information of the model-generated imag
 
 Next, we will introduce how to set some detailed parameters for the image generation results, among which the image quality parameter `quality` includes two types: the first `standard` indicates generating standard images, and the other `hd` indicates that the created image has finer details and greater consistency.
 
-Below, set the image quality parameter to `standard`, with specific settings as shown in the figure:
+Below, we set the image quality parameter to `standard`, with specific settings as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/1q303w.png" width="500" class="m-auto"></p>
 
@@ -190,7 +190,7 @@ It can be seen that the image sizes are obviously different. Additionally, more 
 
 ## Image Style Parameter `style`
 
-The image style parameter `style` includes two parameters: the first one `vivid` indicates that the generated image is more vivid, while the other `natural` indicates that the generated image is more natural.
+The image style parameter `style` includes two parameters. The first one, `vivid`, indicates that the generated image is more vivid, while the other, `natural`, indicates that the generated image is more natural.
 
 The image style parameter is set to `vivid`, and the specific settings are shown in the figure below:
 
@@ -249,7 +249,7 @@ It can be seen that the image generated with `vivid` is more vivid and realistic
 
 ## Image Link Format Parameter `response_format`
 
-The last image link format parameter `response_format` also has two types: the first one `b64_json` is for Base64 encoding of the image link, while the other `url` is a regular image link that can be viewed directly.
+The last image link format parameter `response_format` also has two types. The first type, `b64_json`, encodes the image link in Base64, while the second type, `url`, is a regular image link that can be viewed directly.
 
 The image link format parameter is set to `url`, and the specific settings are shown in the figure below:
 
@@ -295,7 +295,7 @@ After the call, we found that the returned result is as follows:
 }
 ```
 
-The returned result is consistent with the basic usage content, and the image link format parameter for the generated image link is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02) which can be accessed directly, and the image content is shown below:
+The returned result is consistent with the basic usage content, and the image link format parameter for the generated image link as `url` is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02) which can be accessed directly, and the image content is shown below:
 
 <p><img src="https://cdn.acedata.cloud/33hs4z.png" width="500" class="m-auto"></p>
 
@@ -338,4 +338,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 
 ## Conclusion
 
-Through this document, you have learned how to easily use the official OpenAI DALL-E image generation feature with the OpenAI Images Generations API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily use the image generation capabilities of the official OpenAI DALL-E via the OpenAI Images Generations API. We hope this document helps you better integrate and utilize the API. If you have any questions, please feel free to contact our technical support team.
