@@ -1,8 +1,8 @@
 # OpenAI Chat Completion API Application and Usage
 
-OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
+OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
-This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue features of the official OpenAI ChatGPT.
+This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue function of the official OpenAI ChatGPT.
 
 ## Application Process
 
@@ -12,7 +12,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
+Upon your first application, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -26,14 +26,14 @@ You can also notice that there is corresponding code generation on the right sid
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single reply.
+- `max_tokens`: Limits the maximum number of tokens for a single response.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
-- `n`: How many candidate replies to generate at once.
+- `n`: How many candidate responses to generate at once.
 - `response_format`: Sets the return format.
 
 <p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" class="m-auto"></p>
 
-After the call, we find that the return result is as follows:
+After the call, we find the return result as follows:
 
 ```json
 {
@@ -78,17 +78,17 @@ The return result contains multiple fields, described as follows:
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
 - `choices`: The response information provided by ChatGPT for the question.
-- `usage`: Statistical information regarding tokens for this Q&A.
+- `usage`: Statistical information regarding the tokens for this Q&A.
 
 Among them, `choices` contains the response information from ChatGPT, and within it, the `choices` is ChatGPT's response, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field within `choices` contains the specific content of ChatGPT's reply.
+You can see that the `content` field in `choices` contains the specific content of ChatGPT's reply.
 
 ## Streaming Response
 
-This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to achieve a word-by-word display effect.
+This interface also supports streaming responses, which is very useful for web integration, allowing the webpage to display results word by word.
 
 If you want to return responses in a streaming manner, you can change the `stream` parameter in the request header to `true`.
 
@@ -96,7 +96,7 @@ Modify as shown in the figure, but the calling code needs to have corresponding 
 
 <p><img src="https://cdn.acedata.cloud/24scd4.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return corresponding JSON data line by line, and we need to make appropriate modifications at the code level to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
 
 Python sample calling code:
 
@@ -153,7 +153,7 @@ data: [DONE]
 
 ```
 
-It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, which you can use to connect to your system. At the same time, the end of the streaming response is determined based on the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
+It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, which you can use to connect to your system. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
 
 - `id`, the ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`, the OpenAI ChatGPT model selected.
@@ -208,7 +208,7 @@ Other languages can be rewritten accordingly; the principle is the same.
 
 ## Multi-turn Dialogue
 
-If you want to integrate multi-turn dialogue functionality, you need to upload multiple prompts in the `messages` field. The specific examples of multiple prompts are shown in the image below:
+If you want to integrate multi-turn dialogue functionality, you need to upload multiple prompts in the `messages` field. Specific examples of multiple prompts are shown in the image below:
 
 <p><img src="https://cdn.acedata.cloud/oz4mar.png" width="400" class="m-auto"></p>
 
@@ -233,7 +233,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple question words, multi-turn dialogue can be easily achieved, resulting in the following response:
+By uploading multiple question words, you can easily achieve multi-turn dialogue and get the following response:
 
 ```json
 {
@@ -260,14 +260,14 @@ By uploading multiple question words, multi-turn dialogue can be easily achieved
 }
 ```
 
-As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing for answers to corresponding questions based on multiple dialogue contents.
+As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing it to answer corresponding questions based on multiple dialogue contents.
 
 ## Integrating OpenAI-Python
 
 The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed on the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
-1. First, set up a local `Python` environment, this process can be searched on Google.
-2. Download and install a development environment, such as the VSCode editor.
+1. First, you need to set up a local `Python` environment, which can be searched on Google.
+2. Download and install the development environment, such as installing the VSCode editor.
 3. Configure the `OpenAI` environment variables.
 
 - In the project folder, create a file named `.env` and save it.
@@ -360,7 +360,7 @@ gpt-4o is a multimodal large language model developed by OpenAI, which adds visu
 
 The text processing using the gpt-4o model is consistent with the basic usage content mentioned above. Below, we will briefly introduce how to use the model's image processing capabilities.
 
-The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field to the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. Below, we will mainly discuss how to call this functionality using both Curl and Python.
+The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field based on the original `content` content. This field indicates whether the uploaded content is text or an image, allowing the use of the gpt-4o model's image processing capabilities. Below, we will mainly discuss how to call this function using both Curl and Python.
 
 - Curl script method
 
