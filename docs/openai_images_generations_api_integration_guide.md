@@ -12,7 +12,7 @@ To use the OpenAI Images Generations API, you can first visit the [OpenAI Images
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-Upon your first application, there will be a free quota provided, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available for you to use the API for free.
 
 ## Basic Usage
 
@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/zv58ug.png" width="500" class="m-auto"></p>
 
-When using this interface for the first time, you need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI DALL-E model we choose to use; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI DALL-E model we choose to use; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -67,7 +67,7 @@ The returned result contains multiple fields, described as follows:
 - `created`, the ID generated for this image generation, used to uniquely identify this task.
 - `data`, which contains the result information of the image generation.
 
-Among them, `data` includes the specific information of the model-generated image, and the `url` inside it is the detailed link to the generated image, as shown in the figure.
+The `data` includes specific information about the generated image, and the `url` inside it is the detailed link to the generated image, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/dz7u0x.png" width="500" class="m-auto"></p>
 
@@ -128,7 +128,7 @@ With the same operation as above, simply set the image quality parameter to `hd`
 
 <p><img src="https://cdn.acedata.cloud/vjpbqr.png" width="500" class="m-auto"></p>
 
-It can be seen that the image generated with `hd` has finer details and greater consistency compared to `standard`.
+It can be seen that the images generated with `hd` have finer details and greater consistency compared to those generated with `standard`.
 
 ## Image Size Parameter `size`
 We can also set the size of the generated images, and we can make the following settings.
@@ -190,7 +190,7 @@ It can be seen that the image sizes are obviously different. Additionally, more 
 
 ## Image Style Parameter `style`
 
-The image style parameter `style` includes two parameters. The first one, `vivid`, indicates that the generated image is more vivid, while the other, `natural`, indicates that the generated image is more natural.
+The image style parameter `style` includes two parameters: the first one `vivid` indicates that the generated image is more vivid, while the other `natural` indicates that the generated image is more natural.
 
 The image style parameter is set to `vivid`, and the specific settings are shown in the figure below:
 
@@ -249,7 +249,7 @@ It can be seen that the image generated with `vivid` is more vivid and realistic
 
 ## Image Link Format Parameter `response_format`
 
-The last image link format parameter `response_format` also has two types. The first type, `b64_json`, encodes the image link in Base64, while the second type, `url`, is a regular image link that can be viewed directly.
+The last image link format parameter `response_format` also has two types: the first one `b64_json` is for Base64 encoding of the image link, while the other `url` is a regular image link that can be viewed directly.
 
 The image link format parameter is set to `url`, and the specific settings are shown in the figure below:
 
@@ -295,11 +295,11 @@ After the call, we found that the returned result is as follows:
 }
 ```
 
-The returned result is consistent with the basic usage content, and the image link format parameter for the generated image link as `url` is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02) which can be accessed directly, and the image content is shown below:
+The returned result is consistent with the basic usage content, and the image link format parameter for the generated image link as `url` is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02) which is directly accessible, and the image content is shown below:
 
 <p><img src="https://cdn.acedata.cloud/33hs4z.png" width="500" class="m-auto"></p>
 
-By performing the same operation as above, simply changing the image link format parameter to `b64_json`, you can obtain the Base64 encoded image link, with the specific result shown below:
+With the same operation as above, simply changing the image link format parameter to `b64_json`, you can obtain the Base64 encoded image link, with the specific result shown below:
 
 ```json
 {
