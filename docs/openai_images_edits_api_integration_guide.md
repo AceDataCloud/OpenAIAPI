@@ -12,7 +12,7 @@ To use the OpenAI Images Edits API, you can first visit the [OpenAI Images Edits
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
+Upon your first application, there will be a free quota offered, allowing you to use the API for free.
 
 ## Basic Usage
 
