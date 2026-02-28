@@ -2,7 +2,7 @@
 
 OpenAI image editing service allows you to input any number of images and instructions, outputting modified images.
 
-This document mainly introduces the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
+This document mainly describes the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
 
 ## Application Process
 
@@ -12,7 +12,7 @@ To use the OpenAI Images Edits API, you can first visit the [OpenAI Images Edits
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-Upon your first application, there will be a free quota offered, allowing you to use the API for free.
+During the first application, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -25,14 +25,14 @@ curl -s -D >(grep -i x-request-id >&2) \
   -H "Authorization: Bearer {token}" \
   -F "model=gpt-image-1" \
   -F "image[]=@test.png" \
-  -F 'prompt=Create a lovely gift basket with these this items in it'
+  -F 'prompt=Create a lovely gift basket with these items in it'
 ```
 
-When using this interface for the first time, we need to fill in at least four pieces of information: one is `authorization`, which can be selected directly from the dropdown list. Another parameter is `model`, which is the category of the OpenAI official model we choose to use; here we mainly have one model, details can be found in the models we provide. Another parameter is `prompt`, which is the input prompt for generating the image. The last parameter is `image`, which requires the path of the image to be edited, as shown in the image below:
+When using this interface for the first time, we need to fill in at least four pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI official model we choose to use; here we mainly have one model, details can be found in the models we provide. Another parameter is `prompt`, which is the input prompt for generating the image. The last parameter is `image`, which requires the path of the image to be edited, as shown in the image below:
 
 <p><img src="https://cdn.acedata.cloud/jw9iwu.png" width="500" class="m-auto"></p>
 
-A Python sample call code with the same calling effect:
+A Python example with the same calling effect:
 
 ```python
 import base64
@@ -61,18 +61,71 @@ with open("gift-basket.png", "wb") as f:
     f.write(image_bytes)
 ```
 
-When using Python, we need to import two environment variables first: one is `OPENAI_BASE_URL`, which can be set to `https://api.acedata.cloud/openai`, and the other is the credential variable `OPENAI_API_KEY`, which is the value obtained from `authorization`. On Mac OS, you can set the environment variables with the following commands:
+When using Python, we need to import two environment variables: one `OPENAI_BASE_URL`, which can be set to `https://api.acedata.cloud/openai`, and another variable for the credential `OPENAI_API_KEY`, which is the value obtained from `authorization`. On Mac OS, you can set the environment variables with the following commands:
 
 ```shell
 export OPENAI_BASE_URL=https://api.acedata.cloud/openai
 export OPENAI_API_KEY={token} 
 ```
 
-After the call, we find that an image `gift-basket.png` will be generated in the current directory, and the specific result is as follows:
+After the call, we find that an image `gift-basket.png` is generated in the current directory, with the specific result as follows:
 
 <p><img src="https://cdn.acedata.cloud/574s8h.png" width="500" class="m-auto"></p>
 
 Thus, we have completed the image editing operation. Currently, the official Edits task only supports two models: `dall-e-2` and `gpt-image-1`.
+
+## Asynchronous Callback
+
+Since the OpenAI Images Edits API may take a relatively long time to edit images, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
+
+The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the result of the edited image will be sent to the client-specified `callback_url` in POST JSON format, which also includes the `task_id` field, allowing the task result to be associated by ID.
+
+Let’s understand how to operate through an example.
+
+First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we use a public Webhook sample site https://webhook.site/, where you can obtain a Webhook URL, as shown in the image:
+
+![](https://cdn.acedata.cloud/cjjfly.png)
+
+Copy this URL to use as a Webhook; the sample here is `https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab`.
+
+Next, we can set the `callback_url` field to the above Webhook URL and fill in the corresponding parameters, as shown in the following code:
+
+```shell
+curl -X POST "https://api.acedata.cloud/v1/images/edits" \
+  -H "Authorization: Bearer {token}" \
+  -F "model=gpt-image-1" \
+  -F "image[]=@test.png" \
+  -F "prompt=Create a lovely gift basket with these items in it" \
+  -F "callback_url=https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab"
+```
+
+After the call, you will immediately receive a result, as follows:
+
+```json
+{
+  "task_id": "6a97bf49-df50-4129-9e46-119aa9fca73c"
+}
+```
+
+After a moment, you can observe the result of the edited image at the Webhook URL, as follows:
+
+```json
+{
+  "success": true,
+  "task_id": "6a97bf49-df50-4129-9e46-119aa9fca73c",
+  "trace_id": "9b4b1ff3-90f2-470f-b082-1061ec2948cc",
+  "data": {
+    "created": 1721626477,
+    "data": [
+      {
+        "b64_json": "iVBORw0KGgo..."
+      }
+    ]
+  }
+}
+```
+
+You can see that the result contains a `task_id` field, and the `data` field includes the same image editing result as the synchronous call. The task can be associated through the `task_id` field.
 
 ## Error Handling
 
@@ -98,5 +151,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 ```
 
 ## Conclusion
-
 Through this document, you have learned how to easily use the official OpenAI image editing features with the OpenAI Images Edits API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
