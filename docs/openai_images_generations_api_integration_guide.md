@@ -12,7 +12,7 @@ To use the OpenAI Images Generations API, you can first visit the [OpenAI Images
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available for you to use the API for free.
+Upon your first application, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/zv58ug.png" width="500" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI DALL-E model we choose to use; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
+When using this interface for the first time, you need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI DALL-E model we choose to use; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -67,7 +67,7 @@ The returned result contains multiple fields, described as follows:
 - `created`, the ID generated for this image generation, used to uniquely identify this task.
 - `data`, which contains the result information of the image generation.
 
-The `data` includes specific information about the generated image, and the `url` inside it is the detailed link to the generated image, as shown in the figure.
+Among them, `data` includes the specific information of the model-generated image, and the `url` inside it is the detailed link to the generated image, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/dz7u0x.png" width="500" class="m-auto"></p>
 
@@ -75,7 +75,7 @@ The `data` includes specific information about the generated image, and the `url
 
 Next, we will introduce how to set some detailed parameters for the image generation results, among which the image quality parameter `quality` includes two types: the first `standard` indicates generating standard images, and the other `hd` indicates that the created image has finer details and greater consistency.
 
-Below, we set the image quality parameter to `standard`, with specific settings as shown in the figure:
+Below, set the image quality parameter to `standard`, with specific settings as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/1q303w.png" width="500" class="m-auto"></p>
 
@@ -128,7 +128,7 @@ With the same operation as above, simply set the image quality parameter to `hd`
 
 <p><img src="https://cdn.acedata.cloud/vjpbqr.png" width="500" class="m-auto"></p>
 
-It can be seen that the images generated with `hd` have finer details and greater consistency compared to those generated with `standard`.
+It can be seen that the image generated with `hd` has finer details and greater consistency compared to `standard`.
 
 ## Image Size Parameter `size`
 We can also set the size of the generated images, and we can make the following settings.
@@ -190,7 +190,7 @@ It can be seen that the image sizes are obviously different. Additionally, more 
 
 ## Image Style Parameter `style`
 
-The image style parameter `style` includes two parameters: the first one `vivid` indicates that the generated image is more vivid, while the other `natural` indicates that the generated image is more natural.
+The image style parameter `style` includes two parameters. The first one, `vivid`, indicates that the generated image is more vivid, while the other, `natural`, indicates that the generated image is more natural.
 
 The image style parameter is set to `vivid`, and the specific settings are shown in the figure below:
 
@@ -249,7 +249,7 @@ It can be seen that the image generated with `vivid` is more vivid and realistic
 
 ## Image Link Format Parameter `response_format`
 
-The last image link format parameter `response_format` also has two types: the first one `b64_json` is for Base64 encoding of the image link, while the other `url` is a regular image link that can be viewed directly.
+The last image link format parameter `response_format` also has two types. The first type, `b64_json`, encodes the image link in Base64, while the second type, `url`, is a regular image link that can be viewed directly.
 
 The image link format parameter is set to `url`, and the specific settings are shown in the figure below:
 
@@ -295,11 +295,11 @@ After the call, we found that the returned result is as follows:
 }
 ```
 
-The returned result is consistent with the basic usage content, and the image link format parameter for the generated image link as `url` is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02) which is directly accessible, and the image content is shown below:
+The returned result is consistent with the basic usage content, and the image link format parameter for the `url` of the generated image is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02) which can be accessed directly, and the image content is shown below:
 
 <p><img src="https://cdn.acedata.cloud/33hs4z.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply changing the image link format parameter to `b64_json`, you can obtain the Base64 encoded image link, with the specific result shown below:
+By performing the same operation as above, simply changing the image link format parameter to `b64_json`, you can obtain the Base64 encoded image link, with the specific result shown below:
 
 ```json
 {
@@ -312,6 +312,72 @@ With the same operation as above, simply changing the image link format paramete
   ]
 }
 ```
+
+## Asynchronous Callback
+
+Due to the potentially long time taken by the OpenAI Images Generations API to generate images, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
+
+The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the generated image result will be sent to the client-specified `callback_url` in POST JSON format, which also includes the `task_id` field, allowing the task result to be associated by ID.
+
+Let’s understand how to operate specifically through an example.
+
+First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, a public Webhook sample site https://webhook.site/ is used, and opening this site will provide a Webhook URL, as shown in the image:
+
+![](https://cdn.acedata.cloud/cjjfly.png)
+
+Copy this URL, and it can be used as a Webhook. The sample here is `https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab`.
+
+Next, we can set the `callback_url` field to the above Webhook URL, while filling in the corresponding parameters, as shown in the following code:
+
+```python
+import requests
+
+url = "https://api.acedata.cloud/openai/images/generations"
+
+headers = {
+    "accept": "application/json",
+    "authorization": "Bearer {token}",
+    "content-type": "application/json"
+}
+
+payload = {
+    "model": "dall-e-3",
+    "prompt": "A cute baby sea otter",
+    "callback_url": "https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.text)
+```
+
+Clicking run, you can find that an immediate result is obtained, as follows:
+
+```json
+{
+  "task_id": "6a97bf49-df50-4129-9e46-119aa9fca73c"
+}
+```
+
+After a moment, we can observe the generated image result at the Webhook URL, with the content as follows:
+
+```json
+{
+  "success": true,
+  "task_id": "6a97bf49-df50-4129-9e46-119aa9fca73c",
+  "trace_id": "9b4b1ff3-90f2-470f-b082-1061ec2948cc",
+  "data": {
+    "created": 1721626477,
+    "data": [
+      {
+        "revised_prompt": "A delightful image showcasing a young sea otter...",
+        "url": "https://dalleprodsec.blob.core.windows.net/private/images/..."
+      }
+    ]
+  }
+}
+```
+
+You can see that the result contains a `task_id` field, and the `data` field includes the same image generation result as the synchronous call, allowing the task to be associated through the `task_id` field.
 
 ## Error Handling
 
@@ -337,5 +403,4 @@ When calling the API, if an error occurs, the API will return the corresponding 
 ```
 
 ## Conclusion
-
-Through this document, you have learned how to easily use the image generation capabilities of the official OpenAI DALL-E via the OpenAI Images Generations API. We hope this document helps you better integrate and utilize the API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily use the image generation capabilities of the official OpenAI DALL-E via the OpenAI Images Generations API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
