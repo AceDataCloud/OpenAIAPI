@@ -2,7 +2,7 @@
 
 OpenAI image editing service allows you to input any number of images and instructions, outputting modified images.
 
-This document mainly introduces the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
+This document mainly describes the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
 
 ## Application Process
 
@@ -12,7 +12,7 @@ To use the OpenAI Images Edits API, you can first visit the [OpenAI Images Edits
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-Upon first application, there will be a free quota provided, allowing you to use the API for free.
+When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -28,7 +28,7 @@ curl -s -D >(grep -i x-request-id >&2) \
   -F 'prompt=Create a lovely gift basket with these items in it'
 ```
 
-When using this interface for the first time, we need to fill in at least four pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI official model we choose to use; here we mainly have one model, details can be found in the models we provide. Another parameter is `prompt`, which is the input prompt for generating the image. The last parameter is `image`, which requires the path of the image to be edited, as shown in the image below:
+When using this interface for the first time, we need to fill in at least four pieces of information: one is `authorization`, which can be selected directly from the dropdown list. Another parameter is `model`, which is the category of the OpenAI official model we choose to use; here we mainly have one model, details can be found in the models we provide. Another parameter is `prompt`, which is the input prompt for generating the image. The last parameter is `image`, which requires the path of the image to be edited, as shown in the image below:
 
 <p><img src="https://cdn.acedata.cloud/jw9iwu.png" width="500" class="m-auto"></p>
 
@@ -80,13 +80,13 @@ Since the OpenAI Images Edits API may take a relatively long time to edit images
 
 The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the result of the edited image will be sent to the client-specified `callback_url` in POST JSON format, which also includes the `task_id` field, allowing the task result to be associated by ID.
 
-Let's understand how to operate specifically through an example.
+Let’s understand how to operate specifically through an example.
 
-First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For convenience, we use a public Webhook sample site https://webhook.site/; opening this site will give you a Webhook URL, as shown in the image:
+First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we use a public Webhook sample site https://webhook.site/, where you can obtain a Webhook URL, as shown in the image:
 
 ![](https://cdn.acedata.cloud/cjjfly.png)
 
-Copy this URL, and it can be used as a Webhook; the sample here is `https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab`.
+Copy this URL to use as a Webhook; the sample here is `https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab`.
 
 Next, we can set the `callback_url` field to the above Webhook URL and fill in the corresponding parameters, as shown in the following code:
 
@@ -107,7 +107,7 @@ After the call, you will immediately receive a result, as follows:
 }
 ```
 
-After a moment, we can observe the result of the edited image at the Webhook URL, with the content as follows:
+After a moment, we can observe the result of the edited image at the Webhook URL, as follows:
 
 ```json
 {
@@ -125,7 +125,7 @@ After a moment, we can observe the result of the edited image at the Webhook URL
 }
 ```
 
-You can see that the result contains a `task_id` field, and the `data` field includes the same image editing result as the synchronous call, allowing the task to be associated through the `task_id` field.
+You can see that the result contains a `task_id` field, and the `data` field includes the same image editing result as the synchronous call. The task can be associated through the `task_id` field.
 
 ## Error Handling
 
