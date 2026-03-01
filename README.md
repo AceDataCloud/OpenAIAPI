@@ -7,9 +7,9 @@ API home page: [Ace Data Cloud - OpenAI generation](https://platform.acedata.clo
 ## Get Started
 
 
-OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
+OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
-This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue function of the official OpenAI ChatGPT.
+This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue features of the official OpenAI ChatGPT.
 
 ### Application Process
 
@@ -19,7 +19,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-Upon your first application, there will be a free quota provided, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available for you to use the API for free.
 
 ### Basic Usage
 
@@ -33,9 +33,9 @@ You can also notice that there is corresponding code generation on the right sid
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single response.
+- `max_tokens`: Limits the maximum number of tokens for a single reply.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
-- `n`: How many candidate responses to generate at once.
+- `n`: How many candidate replies to generate at once.
 - `response_format`: Sets the return format.
 
 <p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" class="m-auto"></p>
@@ -240,7 +240,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple question words, you can easily achieve multi-turn dialogue and get the following response:
+By uploading multiple question words, multi-turn dialogue can be easily achieved, resulting in the following response:
 
 ```json
 {
@@ -267,14 +267,14 @@ By uploading multiple question words, you can easily achieve multi-turn dialogue
 }
 ```
 
-As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing it to answer corresponding questions based on multiple dialogue contents.
+As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing for answers to corresponding questions based on multiple dialogue contents.
 
 ### Integrating OpenAI-Python
 
 The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed on the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
-1. First, you need to set up a local `Python` environment, which can be searched on Google.
-2. Download and install the development environment, such as installing the VSCode editor.
+1. First, set up a local `Python` environment, this process can be searched on Google.
+2. Download and install a development environment, such as the VSCode editor.
 3. Configure the `OpenAI` environment variables.
 
 - In the project folder, create a file named `.env` and save it.
@@ -301,7 +301,7 @@ pip3 install openai
 
 5. Create a sample source code file.
 
-Assuming we created a sample code `index.py`, the specific content is as follows:
+Assuming we create a sample code `index.py`, the specific content is as follows:
 
 ```python
 import os
