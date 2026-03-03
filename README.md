@@ -7,7 +7,7 @@ API home page: [Ace Data Cloud - OpenAI generation](https://platform.acedata.clo
 ## Get Started
 
 
-OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, ChatGPT has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
+OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
 This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue function of the official OpenAI ChatGPT.
 
@@ -19,7 +19,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available for you to use the API for free.
 
 ### Basic Usage
 
@@ -33,9 +33,9 @@ You can also notice that there is corresponding code generation on the right sid
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single response.
+- `max_tokens`: Limits the maximum number of tokens for a single reply.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
-- `n`: How many candidate responses to generate at once.
+- `n`: How many candidate replies to generate at once.
 - `response_format`: Sets the return format.
 
 <p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" class="m-auto"></p>
@@ -85,13 +85,13 @@ The return result contains multiple fields, described as follows:
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
 - `choices`: The response information provided by ChatGPT for the question.
-- `usage`: Statistical information regarding tokens for this Q&A.
+- `usage`: Statistical information regarding the tokens for this Q&A.
 
 Among them, `choices` contains the response information from ChatGPT, and within it, the `choices` is ChatGPT's response, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field within `choices` contains the specific content of ChatGPT's reply.
+As can be seen, the `content` field in `choices` contains the specific content of ChatGPT's reply.
 
 ### Streaming Response
 
@@ -160,7 +160,7 @@ data: [DONE]
 
 ```
 
-It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, which you can integrate into your system based on the results. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
+It can be seen that there are many `data` in the response, and the `choices` in `data` are the latest response content, consistent with the content introduced above. The `choices` are the newly added response content, which you can use to connect to your system. At the same time, the end of the streaming response is determined by the content of `data`. If the content is `[DONE]`, it indicates that the streaming response has completely ended. The returned `data` result has multiple fields, which are described as follows:
 
 - `id`, the ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`, the OpenAI ChatGPT model selected.
@@ -274,7 +274,7 @@ As can be seen, the information contained in `choices` is consistent with the ba
 The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed on the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
 1. First, set up a local `Python` environment, this process can be searched on Google.
-2. Download and install the development environment, such as installing the VSCode editor.
+2. Download and install a development environment, such as the VSCode editor.
 3. Configure the `OpenAI` environment variables.
 
 - In the project folder, create a file named `.env` and save it.
@@ -299,9 +299,9 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create an example source code file.
+5. Create a sample source code file.
 
-Assuming we create an example code `index.py`, the specific content is as follows:
+Assuming we create a sample code `index.py`, the specific content is as follows:
 
 ```python
 import os
