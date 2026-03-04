@@ -1,6 +1,6 @@
 # OpenAI Responses API Application and Usage
 
-OpenAI has recently provided an interface for creating model responses. It allows for text or image input to generate text or image output. You can have the model call your own custom code or use built-in tools, such as web search or file search, to use your own data as input for the model's response.
+OpenAI recently provided an interface for creating model responses. It allows for text or image input to generate text or image output. The model can call your own custom code or use built-in tools, such as web search or file search, to use your own data as input for the model's response.
 
 This document mainly describes the usage process of the OpenAI Responses API, which allows us to easily utilize the official OpenAI model response creation feature.
 
@@ -113,7 +113,7 @@ Among them, `output` contains the response information from ChatGPT, and the `ou
 
 <p><img src="https://cdn.acedata.cloud/mald8o.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field in `output` contains the specific content of ChatGPT's reply.
+You can see that the `content` field in `output` contains the specific content of ChatGPT's reply.
 
 ## Streaming Response
 
@@ -190,6 +190,86 @@ data: {"type": "response.content_part.done", "sequence_number": 15, "item_id": "
 data: {"type": "response.output_item.done", "sequence_number": 16, "output_index": 0, "item": {"id": "msg_68a9837c49f081908f568bf9c6065c620721186e8fbb89d0", "type": "message", "status": "completed", "content": [{"type": "output_text", "annotations": [], "text": "Hello! How can I help you today? 😊"}], "role": "assistant"}, "model": "gpt-4.1"} 
 
 data: {"type": "response.completed", "sequence_number": 17, "response": {"id": "resp_68a9837bb9bc8190b403947311db6faa0721186e8fbb89d0", "object": "response", "created_at": 1755939707, "status": "completed", "background": false, "content_filters": null, "error": null, "incomplete_details": null, "instructions": null, "max_output_tokens": null, "max_tool_calls": null, "model": "gpt-4.1-data", "output": [{"id": "msg_68a9837c49f081908f568bf9c6065c620721186e8fbb89d0", "type": "message", "status": "completed", "content": [{"type": "output_text", "annotations": [], "text": "Hello! How can I help you today? 😊"}], "role": "assistant"}], "parallel_tool_calls": true, "previous_response_id": null, "prompt_cache_key": null, "reasoning": {"effort": null, "summary": null}, "safety_identifier": null, "service_tier": "default", "store": true, "temperature": 1.0, "text": {"format": {"type": "text"}}, "tool_choice": "auto", "tools": [], "top_p": 1.0, "truncation": "disabled", "usage":
+```json
+{
+  "input_tokens": 8,
+  "input_tokens_details": {
+    "cached_tokens": 0
+  },
+  "output_tokens": 11,
+  "output_tokens_details": {
+    "reasoning_tokens": 0
+  },
+  "total_tokens": 19
+}, 
+"user": null, 
+"metadata": {}
+}, 
+"model": "gpt-4.1"
+```
+
+可以看到，响应里面有许多 `data` ，`data` 里面的 `delta` 即为最新的回答内容，与上文介绍的内容一致。`delta` 是新增的回答内容，您可以根据结果来对接到您的系统中。同时流式响应的结束是根据 `data` 的内容来判断的，如果 `type` 的内容为 `response.completed`，则表示流式响应回答已经全部结束。返回的 `data` 结果一共有多个字段，介绍如下：
+
+- `item_id`，生成此次对话任务的 ID，用于唯一标识此次对话任务。
+- `type`，生成此次对话 Responses 任务的类型。
+- `model `，选择的 OpenAI ChatGPT 官网模型。
+- `delta`，ChatGPT 针对提问词给于的回答信息。
+
+JavaScript 也是支持的，比如 Node.js 的流式调用代码如下：
+
+```javascript
+const options = {
+  method: "post",
+  headers: {
+    accept: "application/json",
+    authorization: "Bearer b82d32f570bc434d9ba9923aa0e7dce0",
+    "content-type": "application/json",
+  },
+  body: JSON.stringify({
+    model: "gpt-4.1",
+    input: [{ role: "user", content: "Hello" }],
+    stream: true,
+  }),
+};
+
+fetch("https://api.acedata.cloud/openai/responses", options)
+  .then((response) => response.json())
+  .then((response) => console.log(response))
+  .catch((err) => console.error(err));
+```
+
+Java 样例代码：
+
+```java
+JSONObject jsonObject = new JSONObject();
+jsonObject.put("model", "gpt-4.1");
+jsonObject.put("input", [{"role":"user","content":"Hello"}]);
+jsonObject.put("stream", true);
+MediaType mediaType = "application/json; charset=utf-8".toMediaType();
+RequestBody body = jsonObject.toString().toRequestBody(mediaType);
+Request request = new Request.Builder()
+  .url("https://api.acedata.cloud/openai/responses")
+  .post(body)
+  .addHeader("accept", "application/json")
+  .addHeader("authorization", "Bearer b82d32f570bc434d9ba9923aa0e7dce0")
+  .addHeader("content-type", "application/json")
+  .build();
+
+OkHttpClient client = new OkHttpClient();
+Response response = client.newCall(request).execute();
+System.out.print(response.body!!.string())
+```
+
+其他语言可以另外自行改写，原理都是一样的。
+
+## 多轮对话
+
+如果您想要对接多轮对话功能，需要对 `input` 字段上传多个提问词，多个提问词的具体示例如下图所示：
+
+<p><img src="https://cdn.acedata.cloud/1jqwnf.png" width="400" class="m-auto"></p>
+
+Python 样例调用代码：
+
 ```python
 import requests
 
@@ -203,22 +283,115 @@ headers = {
 
 payload = {
     "model": "gpt-4.1",
-    "input": [
-        {
-            "role": "user",
-            "content": [
-                {"type": "input_text", "text": "what is in this image?"},
-                {
-                    "type": "input_image",
-                    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
-                }
-            ]
-        }
-    ]
+    "input": [{"role":"user","content":"Hello"},{"role":"assistant","content":"Hello! How can I help you today? 😊"},{"role":"user","content":"What did I just say?"}]
 }
 
 response = requests.post(url, json=payload, headers=headers)
 print(response.text)
+```
+
+通过上传多个提问词，就可以轻松实现多轮对话，可以得到如下回答：
+
+```json
+{
+  "id": "resp_68a989c03c508191a1dd82ce2e37e88a0932a4328c0a5d5b",
+  "object": "response",
+  "created_at": 1755941312,
+  "status": "completed",
+  "background": false,
+  "content_filters": null,
+  "error": null,
+  "incomplete_details": null,
+  "instructions": null,
+  "max_output_tokens": null,
+  "max_tool_calls": null,
+  "model": "gpt-4.1",
+  "output": [
+    {
+      "id": "msg_68a989c092e4819189821a9eb8247e1e0932a4328c0a5d5b",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "text": "You just said \"Hello.\" \n\nWould you like to continue the conversation or ask a question?"
+        }
+      ],
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "reasoning": {
+    "effort": null,
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": true,
+  "temperature": 1,
+  "text": {
+    "format": {
+      "type": "text"
+    }
+  },
+  "tool_choice": "auto",
+  "tools": [],
+  "top_p": 1,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 32,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 20,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 52
+  },
+  "user": null,
+  "metadata": {}
+}
+```
+
+可以看到，`output` 包含的信息与基本使用的内容是一致的，这个包含了 ChatGPT 针对多个对话进行回复的具体内容，这样就可以根据多个对话内容来回答对应的问题了。
+
+## 视觉模型
+
+gpt-4o 是 OpenAI 开发的多模态大型语言模型,它在 GPT-4 的基础上增加了视觉理解能力。这个模型可以同时处理文本和图像输入,实现了跨模态的理解和生成。
+
+使用 gpt-4o 模型的文本处理是与上文的基本使用内容一致的，下面将简要介绍一下如果使用模型的图像处理能力。
+
+使用 gpt-4o 模型的图像处理能力主要是通过在原有的 `content` 内容基础上添加一个 `type` 字段，通过该字段可以知道上传的是文本还是图片，从而使用 gpt-4o 模型的图像处理能力，下面主要讲述采用 Curl 和 Python 俩种方式来调用该功能。
+
+- Curl 脚本方式
+
+```
+curl -X POST 'https://api.acedata.cloud/openai/responses' \
+-H 'accept: application/json' \
+-H 'authorization: Bearer {token}' \
+-H 'content-type: application/json' \
+-d '{
+    "model": "gpt-4.1",
+    "input": [
+      {
+        "role": "user",
+        "content": [
+          {"type": "input_text", "text": "what is in this image?"},
+          {
+            "type": "input_image",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+          }
+        ]
+      }
+    ]
+  }'
+```
+
+- Python 脚本方式
 ```
 ```python
 import requests
@@ -318,7 +491,7 @@ Then you can get the following result, where the field information in the result
 }
 ```
 
-It can be seen that the content of the answer is based on the image, so through the above two methods, the text and image processing capabilities of the gpt-4.1 model can be easily utilized.
+It can be seen that the content of the response is based on the image, so through the above two methods, the text and image processing capabilities of the gpt-4.1 model can be easily utilized.
 
 In addition to gpt-4.1, there is a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation of large language models developed by OpenAI, which not only responds quickly but is also cheaper and supports multimodal capabilities. The use of vision features can refer to the content of the gpt-4.1 model mentioned above.
 
@@ -368,7 +541,7 @@ Example result:
         {
           "type": "output_text",
           "annotations": [],
-          "text": "As you can see, we have also processed the input file, and the results are similar to the above.\n\n### Error Handling\n\nWhen calling the API, if an error occurs, the API will return the corresponding error code and message. For example:\n\n- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.\n- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.\n- `401 invalid_token`: Unauthorized, invalid or missing authorization token.\n- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.\n- `500 api_error`: Internal server error, something went wrong on the server.\n\n### Error Response Example\n\n```\n{\n  \"success\": false,\n  \"error\": {\n    \"code\": \"api_error\",\n    \"message\": \"fetch failed\"\n  },\n  \"trace_id\": \"2cf86e86-22a4-46e1-ac2f-032c0f2a4e89\"\n}\n```\n\n## Conclusion\n\nThrough this document, you have learned how to easily implement the official OpenAI's create Responses feature using the OpenAI Responses API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team."
+          "text": "The file you posted contains the **2024 annual letter to shareholders from Berkshire Hathaway Inc.**, written by Warren E. Buffett, Chairman of the Board. This document is a comprehensive communication that is typically included in Berkshire's annual report to shareholders.\n\n### What's Inside the File:\n\n#### 1. **Chairman's Letter to Shareholders**\n   - **Introduction & Philosophy:** Warren Buffett discusses the purpose of the annual report, Berkshire Hathaway’s communication style, and his philosophy for transparency and candid discussion of both successes and failures.\n   - **Discussion of Mistakes:** He talks openly about the mistakes made in capital allocation and personnel decisions, emphasizing the importance of admitting errors and acting promptly to correct them.\n   - **Succession Comments:** Buffett references his eventual retirement, and that Greg Abel will succeed him as CEO and writer of these letters.\n   - **Anecdotal Story:** The story of Pete Liegl, founder of Forest River (an RV manufacturer acquired by Berkshire), is told to illustrate management philosophy and business decision-making.\n\n#### 2. **2024 Business and Financial Performance**\n   - **Key Results:** Summary of how Berkshire performed financially in 2024 vs. 2023, including operating earnings breakdown by business segments such as insurance, BNSF railroad, and energy.\n   - **Insurance Business:** GEICO and the property-casualty insurance division had a standout year, with commentary on the industry and how Berkshire approaches insurance risk, pricing, and investment of insurance \"float.\"\n   - **Investments:** Discussion on Berkshire’s strategy of owning both full businesses and partial stakes (marketable securities) in large companies (e.g., Apple, American Express, Coca-Cola), and its deployment of cash.\n   - **Taxes:** Reference to Berkshire breaking records in corporate tax payments ($26.8 billion to the IRS in 2024).\n\n#### 3. **Long-term Philosophy & Capitalism Commentary**\n   - **On Equities:** Buffett explains why Berkshire prioritizes ownership of businesses (equities) over cash or bonds, and why the company favors long-term investments.\n   - **On Capitalism:** There’s a reflection on America’s growth, the role of capitalism, savings, and capital allocation in the nation’s success, and a nod to the importance of maintaining a stable currency.\n\n#### 4. **Japanese Investments**\n   - **Update on Japanese Holdings:** Berkshire’s growing investments in five Japanese trading companies, and the positive view of their management and governance.\n\n#### 5. **Berkshire Hathaway Annual Meeting**\n   - **Annual Gathering Info:** Details about the annual meeting in Omaha, including social events, book sales, and charitable initiatives related to the meeting.\n   - **Personal Stories:** Personal anecdotes involving Buffett’s family, (including his sister Bertie), to add a human touch to the letter.\n\n#### 6. **Performance Tables**\n   - **Berkshire vs S&P 500 (1965-2024):** Two detailed tables showing annual percentage change in Berkshire’s share price vs. total return for the S&P 500, as well as long-term compounded and overall gains.\n\n---\n\n### In Summary\n\nThis file is the **2024 Berkshire Hathaway annual letter to shareholders**, primarily written by Warren Buffett. It covers business performance, management philosophy, investment strategy, earnings and taxes, insurance operations, significant holdings, capital allocation, succession updates, and more. Tables show a remarkable outperformance of Berkshire Hathaway vs. the S&P 500 over nearly six decades – a central point of pride in the letter.\n\nIf you want specifics from any particular section, let me know!"
         }
       ],
       "role": "assistant"
@@ -409,3 +582,32 @@ Example result:
   "metadata": {}
 }
 ```
+
+You can see that we have also processed the input file, and the result is similar to the above text.
+
+## Error Handling
+
+When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
+
+- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
+- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
+- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
+- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
+- `500 api_error`: Internal server error, something went wrong on the server.
+
+### Error Response Example
+
+```
+{
+  "success": false,
+  "error": {
+    "code": "api_error",
+    "message": "fetch failed"
+  },
+  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
+}
+```
+
+## Conclusion
+
+Through this document, you have learned how to easily implement the official OpenAI's creation of Responses feature using the OpenAI Responses API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
