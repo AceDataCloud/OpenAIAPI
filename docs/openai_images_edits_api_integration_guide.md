@@ -61,7 +61,7 @@ with open("gift-basket.png", "wb") as f:
     f.write(image_bytes)
 ```
 
-When using Python, we need to import two environment variables: one `OPENAI_BASE_URL`, which can be set to `https://api.acedata.cloud/openai`, and another variable for the credential `OPENAI_API_KEY`, which is the value obtained from `authorization`. On Mac OS, you can set the environment variables with the following commands:
+When using Python, we need to import two environment variables: one `OPENAI_BASE_URL`, which can be set to `https://api.acedata.cloud/openai`, and another credential variable `OPENAI_API_KEY`, which is the value obtained from `authorization`. On Mac OS, you can set the environment variables with the following commands:
 
 ```shell
 export OPENAI_BASE_URL=https://api.acedata.cloud/openai
@@ -80,7 +80,7 @@ Since the OpenAI Images Edits API may take a relatively long time to edit images
 
 The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the result of the edited image will be sent to the client-specified `callback_url` in POST JSON format, which also includes the `task_id` field, allowing the task result to be associated by ID.
 
-Let’s understand how to operate specifically through an example.
+Let’s understand how to operate through an example.
 
 First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For demonstration purposes, we use a public Webhook sample site https://webhook.site/, where you can obtain a Webhook URL, as shown in the image:
 
@@ -107,7 +107,7 @@ After the call, you will immediately receive a result, as follows:
 }
 ```
 
-After a moment, we can observe the result of the edited image at the Webhook URL, as follows:
+After a moment, you can observe the result of the edited image at the Webhook URL, as follows:
 
 ```json
 {
