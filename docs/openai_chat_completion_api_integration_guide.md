@@ -2,7 +2,7 @@
 
 OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural replies in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 
-This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue function of the official OpenAI ChatGPT.
+This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue features of the official OpenAI ChatGPT.
 
 ## Application Process
 
@@ -12,7 +12,7 @@ To use the OpenAI Chat Completion API, you can first visit the [OpenAI Chat Comp
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available for you to use the API for free.
+When applying for the first time, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -20,20 +20,20 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use; here we mainly have 20 types of models, and details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions; it is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`, where `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
 Common optional parameters:
 
-- `max_tokens`: Limits the maximum number of tokens for a single reply.
+- `max_tokens`: Limits the maximum number of tokens in a single reply.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
 - `n`: How many candidate replies to generate at once.
 - `response_format`: Sets the return format.
 
 <p><img src="https://cdn.acedata.cloud/mthuu2.png" width="400" class="m-auto"></p>
 
-After the call, we find that the return result is as follows:
+After the call, we find the returned result as follows:
 
 ```json
 {
@@ -73,7 +73,7 @@ After the call, we find that the return result is as follows:
 }
 ```
 
-The return result contains multiple fields, described as follows:
+The returned result contains multiple fields, described as follows:
 
 - `id`: The ID generated for this dialogue task, used to uniquely identify this dialogue task.
 - `model`: The selected OpenAI ChatGPT model.
@@ -84,7 +84,7 @@ Among them, `choices` contains the response information from ChatGPT, and within
 
 <p><img src="https://cdn.acedata.cloud/4t1ev7.png" width="400" class="m-auto"></p>
 
-As can be seen, the `content` field in `choices` contains the specific content of ChatGPT's reply.
+As can be seen, the `content` field within `choices` contains the specific content of ChatGPT's reply.
 
 ## Streaming Response
 
@@ -96,7 +96,7 @@ Modify as shown in the figure, but the calling code needs to have corresponding 
 
 <p><img src="https://cdn.acedata.cloud/24scd4.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make corresponding modifications at the code level to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return the corresponding JSON data line by line, and we need to make appropriate modifications at the code level to obtain the line-by-line results.
 
 Python sample calling code:
 
@@ -267,7 +267,7 @@ As can be seen, the information contained in `choices` is consistent with the ba
 The upstream of the OpenAI Chat Completion API service is the official OpenAI service, which can be viewed on the official [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 
 1. First, set up a local `Python` environment, this process can be searched on Google.
-2. Download and install a development environment, such as the VSCode editor.
+2. Download and install the development environment, such as installing the VSCode editor.
 3. Configure the `OpenAI` environment variables.
 
 - In the project folder, create a file named `.env` and save it.
@@ -292,9 +292,9 @@ The command for Mac OS is:
 pip3 install openai
 ```
 
-5. Create a sample source code file.
+5. Create an example source code file.
 
-Assuming we create a sample code `index.py`, the specific content is as follows:
+Assuming we create an example code `index.py`, the specific content is as follows:
 
 ```python
 import os
@@ -360,7 +360,7 @@ gpt-4o is a multimodal large language model developed by OpenAI, which adds visu
 
 The text processing using the gpt-4o model is consistent with the basic usage content mentioned above. Below, we will briefly introduce how to use the model's image processing capabilities.
 
-The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field based on the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. Below, we will mainly discuss how to call this functionality using both Curl and Python.
+The image processing capability of the gpt-4o model is mainly achieved by adding a `type` field based on the original `content`, which indicates whether the uploaded content is text or an image, thus utilizing the image processing capabilities of the gpt-4o model. Below, we will mainly discuss how to call this function using both Curl and Python.
 
 - Curl script method
 
@@ -517,11 +517,11 @@ Example result:
 
 When calling the API, if an error occurs, the API will return the corresponding error code and message. For example:
 
-- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
-- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
-- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
-- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
-- `500 api_error`: Internal server error, something went wrong on the server.
+- `400 token_mismatched`：错误请求，可能是由于缺少或无效的参数。
+- `400 api_not_implemented`：错误请求，可能是由于缺少或无效的参数。
+- `401 invalid_token`：未授权，授权令牌无效或缺失。
+- `429 too_many_requests`：请求过多，您已超出速率限制。
+- `500 api_error`：内部服务器错误，服务器出现问题。
 
 ### Error Response Example
 
@@ -530,7 +530,7 @@ When calling the API, if an error occurs, the API will return the corresponding 
   "success": false,
   "error": {
     "code": "api_error",
-    "message": "fetch failed"
+    "message": "获取失败"
   },
   "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
 }
