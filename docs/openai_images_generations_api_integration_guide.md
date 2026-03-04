@@ -12,7 +12,7 @@ To use the OpenAI Images Generations API, you can first visit the [OpenAI Images
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-Upon your first application, there will be a free quota provided, allowing you to use the API for free.
+When applying for the first time, there will be a free quota available for you to use the API for free.
 
 ## Basic Usage
 
@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/zv58ug.png" width="500" class="m-auto"></p>
 
-When using the interface for the first time, you need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which refers to the model category we choose to use from the OpenAI DALL-E official site; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
+When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI DALL-E model we choose to use; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -67,7 +67,7 @@ The returned result contains multiple fields, described as follows:
 - `created`, the ID generated for this image generation, used to uniquely identify this task.
 - `data`, which contains the result information of the image generation.
 
-Among them, `data` includes the specific information of the model-generated image, and the `url` inside it is the detailed link to the generated image, as shown in the figure.
+The `data` includes specific information about the generated image, and the `url` inside it is the detailed link to the generated image, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/dz7u0x.png" width="500" class="m-auto"></p>
 
@@ -120,15 +120,15 @@ After the call, we find the returned result as follows:
 }
 ```
 
-The returned result is consistent with the basic usage content, and you can see the generated image with the image quality parameter set to `standard` as shown in the figure:
+The returned result is consistent with the basic usage content, and we can see the generated image with the image quality parameter set to `standard` as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/j5v15b.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply set the image quality parameter to `hd`, and you can obtain the image shown in the figure below:
+With the same operation as above, simply setting the image quality parameter to `hd` can yield the image shown in the figure below:
 
 <p><img src="https://cdn.acedata.cloud/vjpbqr.png" width="500" class="m-auto"></p>
 
-It can be seen that the images generated with `hd` have finer details and greater consistency compared to those generated with `standard`.
+It can be seen that the image generated with `hd` has finer details and greater consistency compared to `standard`.
 
 ## Image Size Parameter `size`
 We can also set the size of the generated images, and we can make the following settings.
@@ -137,7 +137,7 @@ The size of the image is set to `1024 * 1024`, and the specific settings are sho
 
 <p><img src="https://cdn.acedata.cloud/dx5rwh.png" width="500" class="m-auto"></p>
 
-At the same time, you can notice that there is corresponding code generation on the right side, and you can copy the code to run directly, or you can click the "Try" button for testing.
+At the same time, you can notice that there is corresponding code generation on the right side, and you can copy the code to run directly, or you can click the "Try" button to test it directly.
 
 <p><img src="https://cdn.acedata.cloud/0sbybl.png" width="500" class="m-auto"></p>
 
@@ -196,7 +196,7 @@ The image style parameter is set to `vivid`, and the specific settings are shown
 
 <p><img src="https://cdn.acedata.cloud/609l9i.png" width="500" class="m-auto"></p>
 
-At the same time, you can notice that there is corresponding code generation on the right side, and you can copy the code to run directly, or you can click the "Try" button for testing.
+At the same time, you can notice that there is corresponding code generation on the right side, and you can copy the code to run directly, or you can click the "Try" button to test it directly.
 
 <p><img src="https://cdn.acedata.cloud/ee3u9o.png" width="500" class="m-auto"></p>
 
@@ -255,7 +255,7 @@ The image link format parameter is set to `url`, and the specific settings are s
 
 <p><img src="https://cdn.acedata.cloud/2zbgrg.png" width="500" class="m-auto"></p>
 
-At the same time, you can notice that there is corresponding code generation on the right side, and you can copy the code to run directly, or you can click the "Try" button for testing.
+At the same time, you can notice that there is corresponding code generation on the right side, and you can copy the code to run directly, or you can click the "Try" button to test it directly.
 
 <p><img src="https://cdn.acedata.cloud/a9exmp.png" width="500" class="m-auto"></p>
 
@@ -295,7 +295,7 @@ After the call, we found that the returned result is as follows:
 }
 ```
 
-The returned result is consistent with the basic usage content, and the image link format parameter for the `url` of the generated image is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02) which can be accessed directly, and the image content is shown below:
+The returned result is consistent with the basic usage content, and the image link format parameter for the `url` of the generated image is [Image URL](https://dalleprodsec.blob.core.windows.net/private/images/87792c5f-8b6d-412e-81dd-f1a1baa19bd2/generated_00.png?se=2024-07-23T08%3A39%3A47Z&sig=zzRAn30TqIKHdLVqZPUUuSJdjCYpoJdaGU6BeoA76Jo%3D&ske=2024-07-23T13%3A32%3A13Z&skoid=e52d5ed7-0657-4f62-bc12-7e5dbb260a96&sks=b&skt=2024-07-16T13%3A32%3A13Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02) which can be accessed directly, and the image content is shown below:
 
 <p><img src="https://cdn.acedata.cloud/33hs4z.png" width="500" class="m-auto"></p>
 
@@ -350,7 +350,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Clicking run, you can find that an immediate result is obtained, as follows:
+Clicking run, you will find that an immediate result is obtained, as follows:
 
 ```json
 {
@@ -358,7 +358,7 @@ Clicking run, you can find that an immediate result is obtained, as follows:
 }
 ```
 
-After a moment, we can observe the generated image result on the Webhook URL, with the content as follows:
+After a moment, we can observe the generated image result at the Webhook URL, with the content as follows:
 
 ```json
 {
