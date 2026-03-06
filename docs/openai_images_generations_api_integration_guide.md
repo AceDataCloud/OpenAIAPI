@@ -12,7 +12,7 @@ To use the OpenAI Images Generations API, you can first visit the [OpenAI Images
 
 If you are not logged in or registered, you will be automatically redirected to the login page inviting you to register and log in. After logging in or registering, you will be automatically returned to the current page.
 
-When applying for the first time, there will be a free quota available for you to use the API for free.
+Upon your first application, there will be a free quota provided, allowing you to use the API for free.
 
 ## Basic Usage
 
@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/zv58ug.png" width="500" class="m-auto"></p>
 
-When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI DALL-E model we choose to use; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
+When using this interface for the first time, you need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI DALL-E model we choose to use; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -67,7 +67,7 @@ The returned result contains multiple fields, described as follows:
 - `created`, the ID generated for this image generation, used to uniquely identify this task.
 - `data`, which contains the result information of the image generation.
 
-The `data` includes specific information about the generated image, and the `url` inside it is the detailed link to the generated image, as shown in the figure.
+Among them, `data` includes the specific information of the model-generated image, and the `url` inside it is the detailed link to the generated image, as shown in the figure.
 
 <p><img src="https://cdn.acedata.cloud/dz7u0x.png" width="500" class="m-auto"></p>
 
@@ -75,7 +75,7 @@ The `data` includes specific information about the generated image, and the `url
 
 Next, we will introduce how to set some detailed parameters for the image generation results, among which the image quality parameter `quality` includes two types: the first `standard` indicates generating standard images, and the other `hd` indicates that the created image has finer details and greater consistency.
 
-Below, we set the image quality parameter to `standard`, with specific settings as shown in the figure:
+Below, set the image quality parameter to `standard`, with specific settings as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/1q303w.png" width="500" class="m-auto"></p>
 
@@ -120,15 +120,15 @@ After the call, we find the returned result as follows:
 }
 ```
 
-The returned result is consistent with the basic usage content, and we can see the generated image with the image quality parameter set to `standard` as shown in the figure:
+The returned result is consistent with the basic usage content, and you can see the generated image with the image quality parameter set to `standard` as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/j5v15b.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply setting the image quality parameter to `hd` can yield the image shown in the figure below:
+With the same operation as above, simply set the image quality parameter to `hd`, and you can obtain the image shown in the figure below:
 
 <p><img src="https://cdn.acedata.cloud/vjpbqr.png" width="500" class="m-auto"></p>
 
-It can be seen that the image generated with `hd` has finer details and greater consistency compared to `standard`.
+It can be seen that the images generated with `hd` have finer details and greater consistency compared to those generated with `standard`.
 
 ## Image Size Parameter `size`
 We can also set the size of the generated images, and we can make the following settings.
@@ -350,7 +350,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Clicking run, you will find that an immediate result is obtained, as follows:
+Clicking run, you can find that an immediate result is obtained, as follows:
 
 ```json
 {
@@ -358,7 +358,7 @@ Clicking run, you will find that an immediate result is obtained, as follows:
 }
 ```
 
-After a moment, we can observe the generated image result at the Webhook URL, with the content as follows:
+After a moment, we can observe the generated image result on the Webhook URL, with the content as follows:
 
 ```json
 {
