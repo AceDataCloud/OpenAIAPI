@@ -20,7 +20,7 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/zv58ug.png" width="500" class="m-auto"></p>
 
-When using this interface for the first time, you need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI DALL-E model we choose to use; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
+When using the interface for the first time, you need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI DALL-E model we choose to use; here we mainly have one model, and details can be found in the models we provide. The last parameter is `prompt`, which is the input for the image generation prompt.
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
@@ -75,7 +75,7 @@ Among them, `data` includes the specific information of the model-generated imag
 
 Next, we will introduce how to set some detailed parameters for the image generation results, among which the image quality parameter `quality` includes two types: the first `standard` indicates generating standard images, and the other `hd` indicates that the created image has finer details and greater consistency.
 
-Below, set the image quality parameter to `standard`, with specific settings as shown in the figure:
+Below, we set the image quality parameter to `standard`, with specific settings as shown in the figure:
 
 <p><img src="https://cdn.acedata.cloud/1q303w.png" width="500" class="m-auto"></p>
 
@@ -124,7 +124,7 @@ The returned result is consistent with the basic usage content, and you can see 
 
 <p><img src="https://cdn.acedata.cloud/j5v15b.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply set the image quality parameter to `hd`, and you can obtain the image shown in the figure below:
+With the same operation as above, simply setting the image quality parameter to `hd` can yield the image shown in the figure below:
 
 <p><img src="https://cdn.acedata.cloud/vjpbqr.png" width="500" class="m-auto"></p>
 
@@ -137,7 +137,7 @@ The size of the image is set to `1024 * 1024`, and the specific settings are sho
 
 <p><img src="https://cdn.acedata.cloud/dx5rwh.png" width="500" class="m-auto"></p>
 
-At the same time, you can notice that there is corresponding code generation on the right side, and you can copy the code to run directly, or you can click the "Try" button to test it directly.
+At the same time, you can notice that there is corresponding code generation on the right side, which you can copy and run directly, or you can click the "Try" button for testing.
 
 <p><img src="https://cdn.acedata.cloud/0sbybl.png" width="500" class="m-auto"></p>
 
@@ -182,7 +182,7 @@ The returned result is consistent with the basic usage content, and we can see t
 
 <p><img src="https://cdn.acedata.cloud/o4pvvx.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply set the image size to `1792 * 1024`, and you can obtain the image shown below:
+With the same operation as above, simply changing the image size to `1792 * 1024`, we can obtain the image shown below:
 
 ![](https://cdn.acedata.cloud/4pilae.png)
 
@@ -190,13 +190,13 @@ It can be seen that the image sizes are obviously different. Additionally, more 
 
 ## Image Style Parameter `style`
 
-The image style parameter `style` includes two parameters. The first one, `vivid`, indicates that the generated image is more vivid, while the other, `natural`, indicates that the generated image is more natural.
+The image style parameter `style` includes two parameters. The first one, `vivid`, indicates that the generated image is more vivid, while the second one, `natural`, indicates that the generated image is more natural.
 
 The image style parameter is set to `vivid`, and the specific settings are shown in the figure below:
 
 <p><img src="https://cdn.acedata.cloud/609l9i.png" width="500" class="m-auto"></p>
 
-At the same time, you can notice that there is corresponding code generation on the right side, and you can copy the code to run directly, or you can click the "Try" button to test it directly.
+At the same time, you can notice that there is corresponding code generation on the right side, which you can copy and run directly, or you can click the "Try" button for testing.
 
 <p><img src="https://cdn.acedata.cloud/ee3u9o.png" width="500" class="m-auto"></p>
 
@@ -241,7 +241,7 @@ The returned result is consistent with the basic usage content, and we can see t
 
 <p><img src="https://cdn.acedata.cloud/e0rpc3.png" width="500" class="m-auto"></p>
 
-With the same operation as above, simply set the image style parameter to `natural`, and you can obtain the image shown below:
+With the same operation as above, simply changing the image style parameter to `natural`, we can obtain the image shown below:
 
 <p><img src="https://cdn.acedata.cloud/q9tqwu.png" width="500" class="m-auto"></p>
 
@@ -255,7 +255,7 @@ The image link format parameter is set to `url`, and the specific settings are s
 
 <p><img src="https://cdn.acedata.cloud/2zbgrg.png" width="500" class="m-auto"></p>
 
-At the same time, you can notice that there is corresponding code generation on the right side, and you can copy the code to run directly, or you can click the "Try" button to test it directly.
+At the same time, you can notice that there is corresponding code generation on the right side, which you can copy and run directly, or you can click the "Try" button for testing.
 
 <p><img src="https://cdn.acedata.cloud/a9exmp.png" width="500" class="m-auto"></p>
 
@@ -358,7 +358,7 @@ Clicking run, you can find that an immediate result is obtained, as follows:
 }
 ```
 
-After a moment, we can observe the generated image result on the Webhook URL, with the content as follows:
+After a moment, we can observe the generated image result at the Webhook URL, with the content as follows:
 
 ```json
 {
