@@ -2,7 +2,7 @@
 
 OpenAI image editing service allows you to input any number of images and instructions, outputting modified images.
 
-This document mainly describes the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
+This document mainly introduces the usage process of the OpenAI Images Edits API, enabling us to easily utilize the official OpenAI image editing features.
 
 ## Application Process
 
@@ -68,7 +68,7 @@ export OPENAI_BASE_URL=https://api.acedata.cloud/openai
 export OPENAI_API_KEY={token} 
 ```
 
-After the call, we find that an image `gift-basket.png` is generated in the current directory, and the specific result is as follows:
+After the call, we will find that an image `gift-basket.png` is generated in the current directory, with the specific result as follows:
 
 <p><img src="https://cdn.acedata.cloud/574s8h.png" width="500" class="m-auto"></p>
 
@@ -78,9 +78,9 @@ Thus, we have completed the image editing operation. Currently, the official Edi
 
 Since the OpenAI Images Edits API may take a relatively long time to edit images, if the API does not respond for a long time, the HTTP request will keep the connection open, leading to additional system resource consumption. Therefore, this API also provides support for asynchronous callbacks.
 
-The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the result of the edited image will be sent to the client-specified `callback_url` in the form of a POST JSON, which also includes the `task_id` field, allowing the task result to be associated by ID.
+The overall process is: when the client initiates a request, an additional `callback_url` field is specified. After the client initiates the API request, the API will immediately return a result containing a `task_id` field, representing the current task ID. When the task is completed, the result of the edited image will be sent to the client-specified `callback_url` in POST JSON format, which also includes the `task_id` field, allowing the task result to be associated by ID.
 
-Let's understand how to operate specifically through an example.
+Let’s understand how to operate through an example.
 
 First, the Webhook callback is a service that can receive HTTP requests, and developers should replace it with the URL of their own HTTP server. For convenience, we use a public Webhook sample site https://webhook.site/; opening this site will give you a Webhook URL, as shown in the image:
 
@@ -107,7 +107,7 @@ After the call, you will immediately receive a result, as follows:
 }
 ```
 
-After a moment, we can observe the result of the edited image at the Webhook URL, as follows:
+After a moment, we can observe the result of the edited image at the Webhook URL, with the content as follows:
 
 ```json
 {
