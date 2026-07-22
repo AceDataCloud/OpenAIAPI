@@ -624,13 +624,13 @@ html.dark .openai-page code { background: #064e3b !important; color: #6ee7b7 !im
 <div class="oa-container">
 <div class="oa-badge"><span class="oa-badge-dot"></span>OpenAI · GPT / o-series / DALL·E</div>
 <h1><span class="oa-brand">OpenAI</span> <span class="oa-sub">Full Series API</span></h1>
-<p class="hero-subtitle">Access the full range of OpenAI models through a unified interface—GPT-5, GPT-4o, o3, o1 conversational reasoning, DALL·E 3 / GPT Image image generation, and Embeddings vectorization.</p>
+<p class="hero-subtitle">Access the full range of OpenAI models through a unified interface—GPT-5.6, GPT-5, GPT-4o, o3, o1 conversational reasoning, DALL·E 3 / GPT Image image generation, and Embeddings vectorization.</p>
 <div class="oa-actions">
 <a class="oa-btn-primary" href="/apis/openai-chat-completions">📄 View Documentation</a>
 <a class="oa-btn-secondary" href="/apis/openai-images-generations">🎨 Image Generation</a>
 </div>
 <div class="oa-highlights">
-<span class="h-item">🧠 GPT-5 / GPT-4o</span>
+<span class="h-item">🧠 GPT-5.6 / GPT-5 / GPT-4o</span>
 <span class="h-div"></span>
 <span class="h-item">💡 o3 / o4-mini reasoning</span>
 <span class="h-div"></span>
@@ -660,7 +660,7 @@ html.dark .openai-page code { background: #064e3b !important; color: #6ee7b7 !im
 <div class="oa-feat-card">
 <div class="oa-feat-icon">💬</div>
 <h3>Chat Completions</h3>
-<p>Fully supports GPT-5, GPT-4o, GPT-4.1 series, and o series reasoning models, with streaming output, tool invocation, and full support for JSON Mode.</p>
+<p>Fully supports GPT-5.6, GPT-5, GPT-4o, GPT-4.1 series, and o series reasoning models, with streaming output, tool invocation, and full support for JSON Mode.</p>
 </div>
 <div class="oa-feat-card">
 <div class="oa-feat-icon">🧠</div>
@@ -701,7 +701,7 @@ api_key="YOUR_API_KEY"
 # Chat Completions
 
 response = client.chat.completions.create(
-model="gpt-5",
+model="gpt-5.6-luna",
 messages=[
 {"role": "user", "content": "Explain the core concepts of machine learning"}
 ]
@@ -832,11 +832,20 @@ print(image.data[0].url)</pre>
 <div class="oa-mdl-grid">
 <div class="oa-mdl-card">
 <h3>🚀 GPT-5 Series</h3>
-<p class="mdl-desc">The latest flagship conversational model, significantly enhanced reasoning and creative capabilities.</p>
+<p class="mdl-desc">Foundational GPT-5 conversational models with strong reasoning and creative capabilities.</p>
 <div class="oa-mdl-tags">
 <span class="oa-mdl-tag">gpt-5</span>
 <span class="oa-mdl-tag">gpt-5-mini</span>
 <span class="oa-mdl-tag">gpt-5-nano</span>
+</div>
+</div>
+<div class="oa-mdl-card">
+<h3>🚀 GPT-5.6 Series</h3>
+<p class="mdl-desc">The latest flagship conversational models, delivering the strongest reasoning and creative capabilities.</p>
+<div class="oa-mdl-tags">
+<span class="oa-mdl-tag">gpt-5.6-luna</span>
+<span class="oa-mdl-tag">gpt-5.6-terra</span>
+<span class="oa-mdl-tag">gpt-5.6-sol</span>
 </div>
 </div>
 <div class="oa-mdl-card">
@@ -1002,7 +1011,7 @@ print(image.data[0].url)</pre>
 </div>
 <div class="oa-faq-item">
 <div class="oa-faq-q"><span>What is the difference between GPT-5 and GPT-4o?</span><span class="oa-faq-chev">›</span></div>
-<div class="oa-faq-a"><p>GPT-5 is OpenAI's latest flagship model, surpassing GPT-4o in reasoning, creativity, and knowledge capabilities. GPT-4o is a well-validated cost-effective choice, suitable for cost-sensitive scenarios.</p></div>
+<div class="oa-faq-a"><p>GPT-5 is a high-end flagship-tier model (the newest being the GPT-5.6 series), surpassing GPT-4o in reasoning, creativity, and knowledge capabilities. GPT-4o is a well-validated cost-effective choice, suitable for cost-sensitive scenarios.</p></div>
 </div>
 <div class="oa-faq-item">
 <div class="oa-faq-q"><span>What scenarios are the o series reasoning models suitable for?</span><span class="oa-faq-chev">›</span></div>
