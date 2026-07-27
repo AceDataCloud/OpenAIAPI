@@ -27,7 +27,7 @@ Compared to `gpt-image-1`, `gpt-image-2` offers significant improvements in imag
 
 The `size` constraint for the editing interface is identical to the generation interface — `gpt-image-2` accepts `size` as `auto`, empty, or in the `WIDTHxHEIGHT` format; any other format will return a 400 error. **All sizes (1K / 2K / 4K / custom) are charged per single image uniformly, regardless of the original image resolution or the requested `size`.**
 
-The same upstream hard constraints on custom sizes apply: width and height must be multiples of 16, the longer side ≤ 3840, and total pixels ≤ 8,294,400.
+The same size limits on custom sizes apply: width and height must be multiples of 16, the longer side ≤ 3840, and total pixels ≤ 8,294,400.
 
 | Aspect Ratio | 1K Recommended | 2K Recommended | 4K Recommended |
 | --- | --- | --- | --- |
@@ -201,7 +201,7 @@ The `nano-banana` series is also integrated with `/openai/images/edits` for edit
 >
 > Nano Banana accesses the OpenAI protocol via an adaptation layer and only supports the following parameters: `model`, `prompt`, `image`.
 >
-> - `image` can be uploaded via `multipart/form-data` (internally converted to `data:<mime>;base64,...` for upstream) or passed as a URL string in the form field.
+> - `image` can be uploaded via `multipart/form-data` (internally converted to `data:<mime>;base64,...`) or passed as a URL string in the form field.
 > - Parameters like `mask`, `n`, `size`, `response_format` are not supported and will be ignored if provided.
 > - The response structure follows the OpenAI format (`data[].url`), but `created` is fixed at `0`, no `b64_json` is returned, and `revised_prompt` always equals the original `prompt`.
 

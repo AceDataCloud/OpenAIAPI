@@ -29,7 +29,7 @@ The calling method is exactly the same as other models, just set the `model` fie
 
 `gpt-image-2` only validates the format of `size`. As long as it is not `auto` or an empty string, it must match the `WIDTHxHEIGHT` format (e.g., `1024x1024`, `2048x1152`, `800x600`); any other format will return 400. **All sizes (1K / 2K / 4K / custom) are charged uniformly per image, with no extra charge for size.**
 
-Upstream hard constraints for custom sizes: width and height must be multiples of 16, the longer side ≤ 3840, total pixels ≤ 8,294,400. Exceeding these limits will be rejected upstream and return 4xx.
+Size limits for custom sizes: width and height must be multiples of 16, the longer side ≤ 3840, total pixels ≤ 8,294,400. Exceeding these limits returns 4xx.
 
 | Aspect Ratio | 1K Recommended | 2K Recommended | 4K Recommended |
 | --- | --- | --- | --- |
@@ -41,7 +41,7 @@ Upstream hard constraints for custom sizes: width and height must be multiples o
 
 > You can also pass `size: "auto"` or **omit the `size` field**, in which case the model will choose the default size automatically.
 >
-> For the 1K tier, upstream output does not guarantee strict pixel alignment — if you pass `1024x1024`, you might get `1254x1254`, but the aspect ratio is maintained. If you reuse this as `size`, the billing remains unchanged.
+> For the 1K tier, the output does not guarantee strict pixel alignment — if you pass `1024x1024`, you might get `1254x1254`, but the aspect ratio is maintained. If you reuse this as `size`, the billing remains unchanged.
 >
 > 4K single calls usually take 4–8 minutes; it is recommended to use the `callback_url` asynchronous callback mechanism described later.
 
