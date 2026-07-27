@@ -1,6 +1,6 @@
 # OpenAI Images Edits API Application and Usage
 
-OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `dall-e-2`, `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
+OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
 
 This document mainly introduces the usage process of the OpenAI Images Edits API, enabling you to easily utilize the official OpenAI image editing capabilities.
 
@@ -41,7 +41,7 @@ The same upstream hard constraints on custom sizes apply: width and height must 
 
 > **About the `n` parameter**
 >
-> The `gpt-image-2` editing interface currently **does not support `n > 1`**: this parameter will be silently ignored. Whether you pass `n=1` or `n=10`, only one image will be returned per request and charged as one image. If you need multiple candidate edited images at once, please **make multiple concurrent requests yourself**. This limitation also applies to `gpt-image-1` / `gpt-image-1.5` and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only editing model that natively supports `n > 1`.
+> The `gpt-image-2` editing interface supports `n > 1`: a single request can return and charge for the corresponding number of editing results (`n` values from 1 to 10). This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, please use the default URL return. If some images fail to generate, only the successful parts will be returned and charged.
 
 Below are two real examples from different perspectives to showcase the editing capabilities of `gpt-image-2`.
 
@@ -318,7 +318,7 @@ After calling, you will find an image named `gift-basket.png` generated in the c
 
 <p><img src="https://cdn.acedata.cloud/574s8h.png" width="500" class="m-auto"></p>
 
-Thus, we have completed the image editing operation. Currently, the Edits interface supports three models: `dall-e-2`, `gpt-image-1`, and `gpt-image-2`, with `gpt-image-2` being the recommended model, see the [GPT-Image-2 Model](#gpt-image-2-model) section above.
+Thus, we have completed the image editing operation. Currently, the Edits interface supports `gpt-image-1` and `gpt-image-2`, with `gpt-image-2` being the recommended model, see the [GPT-Image-2 Model](#gpt-image-2-model) section above.
 
 ## Asynchronous Callback
 

@@ -47,7 +47,7 @@ Upstream hard constraints for custom sizes: width and height must be multiples o
 
 > **About the `n` parameter**
 >
-> `gpt-image-2` currently **does not support `n > 1`**: this parameter will be silently ignored. Whether you pass `n=1` or `n=10`, only one image will be returned per request and charged as one image. If you need multiple candidate images at once, please **make multiple concurrent requests** (it is recommended to pass different `prompt` or different `seed` values; otherwise, the images may be very similar). This limitation also applies to `gpt-image-1` / `gpt-image-1.5`, and the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. `dall-e-2` is currently the only model that natively supports `n > 1`; `dall-e-3` only supports `n = 1`.
+> `gpt-image-2` supports `n > 1` (values 1–10): a single request can return and bill for the corresponding number of images. To ensure that multiple results have differences, it is recommended to pass different `prompt` or `seed` simultaneously. This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series; `dall-e-3` only supports `n = 1`. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, please use the default URL return. If some images fail to generate, only the successfully generated parts will be returned and billed.
 
 Below are several real examples from different perspectives to intuitively experience the capabilities of `gpt-image-2`.
 
