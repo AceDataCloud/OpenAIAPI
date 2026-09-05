@@ -845,7 +845,8 @@ print(image.data[0].url)</pre>
 <div class="oa-mdl-tags">
 <span class="oa-mdl-tag">gpt-5.6-luna</span>
 <span class="oa-mdl-tag">gpt-5.6-terra</span>
-<span class="oa-mdl-tag">gpt-5.6-sol</span>
+<span class="oa-mdl-tag">gpt-6-astra</span>
+          <span class="oa-mdl-tag">gpt-5.6-sol</span>
 </div>
 </div>
 <div class="oa-mdl-card">
