@@ -1,35 +1,117 @@
-# OpenAI Images Edits API Application and Usage
+# GPT Image 2 / 2.5 Image Editing API
 
-OpenAI image editing service allows you to input any number of images and instructions, and outputs the edited images. Currently, the API supports `gpt-image-1`, the latest **`gpt-image-2`**, as well as the **`nano-banana` / `nano-banana-2` / `nano-banana-pro`** series models accessed through the same interface.
+Use the OpenAI-compatible Images Edits API to transform one or more reference images with GPT Image 2 and GPT Image 2.5. Send public image URLs as JSON or upload local files with `multipart/form-data`.
 
-This document mainly introduces the usage process of the OpenAI Images Edits API, enabling you to easily utilize the official OpenAI image editing capabilities.
+## 1. Get an API Key
 
-## Application Process
+Open the [Ace Data Cloud application console](https://platform.acedata.cloud/console/applications), select an available application, and copy its API Key.
 
-To use the OpenAI Images Edits API, first visit the [OpenAI Images Edits API](https://platform.acedata.cloud/documents/251f1efa-aaa6-462e-8af4-66854b1bc94d) page and click the "Acquire" button to obtain the credentials required for requests:
+![Get an Ace Data Cloud API Key](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-![](https://cdn.acedata.cloud/nyq0xz.png)
+## 2. Edit an Image URL
 
-If you are not logged in or registered, you will be automatically redirected to the login page to register and log in. After logging in or registering, you will be automatically returned to the current page.
+Original image:
 
-A free quota is granted upon first application, allowing free use of this API.
+![Original mug image for GPT Image editing](https://cdn.acedata.cloud/18240dc44b9c.png)
 
-## GPT-Image-2 Model
+```bash
+curl https://api.acedata.cloud/openai/images/edits \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-image-2",
+    "image": "https://platform2.cdn.acedata.cloud/gpt-image/d56455e2-e7f7-4bcd-b935-475b0a1e0948_0.png",
+    "prompt": "Keep the mug, tabletop, camera angle, portrait layout, and soft shadow unchanged. Change only the mug color from white to vivid orange and the pale cream background to solid dark navy blue. No text and no logo.",
+    "size": "1024x1536"
+  }'
+```
 
-Compared to `gpt-image-1`, `gpt-image-2` offers significant improvements in image editing scenarios:
+The following is a real edit completed through Ace Data Cloud on September 8, 2026. It changed the mug and background while preserving the composition and 1024×1536 canvas.
 
-- **More stable structure retention**: Changing skins, colors, or backgrounds almost never disrupts the original layout and composition.
-- **More accurate text preservation**: Text in infographics, posters, menus, etc., remains clear and readable after editing.
-- **Supports direct URL input**: Besides traditional `multipart/form-data` file uploads, `gpt-image-2` additionally supports passing image URLs via JSON, eliminating the need to download images locally first, which is ideal for server-side pipeline integration.
-- **Supports high-resolution redraws**: You can input a 1K original image and request 2K / 4K output via the `size` parameter; the model will perform upscaling during editing.
+![Orange mug edited with GPT Image 2](https://cdn.acedata.cloud/b6d780a732ca.png)
 
-### Supported `size` Values
+The corresponding synchronous response was:
 
-The `size` constraint for the editing interface is identical to the generation interface — `gpt-image-2` accepts `size` as `auto`, empty, or in the `WIDTHxHEIGHT` format; any other format will return a 400 error. **All sizes (1K / 2K / 4K / custom) are charged per single image uniformly, regardless of the original image resolution or the requested `size`.**
+```json
+{
+  "success": true,
+  "task_id": "49848451-c624-4df9-9dc2-494018daaf4c",
+  "trace_id": "5ac021c2-2891-4eed-bfcf-4c6668ac1be1",
+  "created": 1788831893,
+  "model": "gpt-image-2",
+  "data": [
+    {
+      "url": "https://platform2.cdn.acedata.cloud/gpt-image/49848451-c624-4df9-9dc2-494018daaf4c_0.png"
+    }
+  ],
+  "usage": {
+    "input_tokens": 775,
+    "output_tokens": 1372,
+    "total_tokens": 2147
+  }
+}
+```
 
-The same size limits on custom sizes apply: width and height must be multiples of 16, the longer side ≤ 3840, and total pixels ≤ 8,294,400.
+## 3. Choose a Model
 
-| Aspect Ratio | 1K Recommended | 2K Recommended | 4K Recommended |
+| Model | Positioning | Billing |
+| --- | --- | --- |
+| `gpt-image-2` | Recommended default | Per successful image |
+| `gpt-image-2:reverse` | Same standard capability under an explicit alias | Per successful image |
+| `gpt-image-2:official` | Official channel | Actual text, reference-image, and output-image tokens |
+| `gpt-image-2.5-flare` | Faster editing | Per successful image |
+| `gpt-image-2.5-flare:official` | Flare through the official channel | Actual text, reference-image, and output-image tokens |
+| `gpt-image-2.5-sunburst` | Higher-fidelity editing and finer control | Per successful image |
+| `gpt-image-2.5-sunburst:official` | Sunburst through the official channel | Actual text, reference-image, and output-image tokens |
+
+The bare names `gpt-image-2.5` and `gpt-image-2.5:reverse` are not supported model IDs.
+
+Official variants are usage-metered. Their pre-request prices are estimates; the usage record is authoritative after completion. For `n > 1`, returned usage is aggregated once and is not multiplied by `n` again.
+
+## 4. Upload Local Images
+
+Use `multipart/form-data` for local files:
+
+```bash
+curl https://api.acedata.cloud/openai/images/edits \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -F "model=gpt-image-2.5-sunburst:official" \
+  -F "image=@input.png" \
+  -F "prompt=Replace the background with a bright modern studio" \
+  -F "size=1024x1024"
+```
+
+Repeat the `image` field to upload multiple references. GPT Image models accept up to 16 reference images. JSON requests may provide `image` as one URL or an array of URLs.
+
+## 5. Common Parameters
+
+| Field | Description |
+| --- | --- |
+| `model` | One of the exact model IDs above |
+| `image` | One URL, an array of up to 16 URLs, or repeated multipart file fields |
+| `prompt` | Editing instruction |
+| `size` | `auto` or `WIDTHxHEIGHT` |
+| `n` | Number of edited outputs, from 1 to 10 |
+| `quality` | `auto`, `low`, `medium`, or `high` for GPT Image models |
+| `response_format` | `url` or `b64_json` |
+| `output_format` | `png`, `jpeg`, or `webp` |
+| `callback_url` | Optional webhook for asynchronous completion |
+| `async` | Set to `true` to return a task ID immediately |
+
+`response_format=b64_json` supports `n=1`. Use URL output when requesting multiple edits.
+
+## 6. Size Rules
+
+GPT Image 2 and 2.5 accept `auto` or custom dimensions that meet all of these constraints:
+
+- width and height are multiples of 16;
+- the longer edge is at most 3840 pixels;
+- total pixels are between 655,360 and 8,294,400;
+- the aspect ratio is no wider or taller than 3:1.
+
+Common presets:
+
+| Aspect ratio | 1K | 2K | 4K |
 | --- | --- | --- | --- |
 | 1:1 | `1024x1024` | `2048x2048` | `2880x2880` |
 | 4:3 | `1536x1024` | `2048x1536` | `3264x2448` |
@@ -37,365 +119,76 @@ The same size limits on custom sizes apply: width and height must be multiples o
 | 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
 | 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
 
-> For example: If the original image is `1024x1024`, passing `size` as `2048x2048` will cause the model to redraw and output a 2K image according to the editing instructions; passing `3840x2160` outputs a 4K landscape image; passing `auto` or omitting the parameter lets the model decide. All three are charged equally.
+When `size` is omitted or set to `auto`, the service considers the prompt and the first reference image. Specify `WIDTHxHEIGHT` when exact output dimensions matter.
 
-> **About the `n` parameter**
->
-> The `gpt-image-2` editing interface supports `n > 1`: a single request can return and charge for the corresponding number of editing results (`n` values from 1 to 10). This also applies to `gpt-image-1` / `gpt-image-1.5`, as well as the `nano-banana` / `nano-banana-2` / `nano-banana-pro` series. Note that `response_format=b64_json` only supports `n=1`; for `n>1`, please use the default URL return. If some images fail to generate, only the successful parts will be returned and charged.
+## 7. Multiple References and Multiple Outputs
 
-Below are two real examples from different perspectives to showcase the editing capabilities of `gpt-image-2`.
-
-### Method 1: JSON + Image URL (Recommended)
-
-Send the request with `application/json` content type, filling the `image` field with an image URL. The model will fetch the image and edit it according to the `prompt`.
-
-For example, the original image below is a science infographic generated by `gpt-image-2`:
-
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/5c9fa635-8794-4c6d-88f8-584d7f4716c6_0.png" width="500" class="m-auto"></p>
-
-We want to convert it to a "dark mode" color scheme. The call can be made as follows:
-
-```shell
-curl -X POST "https://api.acedata.cloud/openai/images/edits" \
-  -H "Authorization: Bearer {token}" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "gpt-image-2",
-    "image": "https://platform.cdn.acedata.cloud/gpt-image/5c9fa635-8794-4c6d-88f8-584d7f4716c6_0.png",
-    "prompt": "Convert this infographic to dark mode: dark navy background, light cream text, deep gray rounded module cards with soft shadows. Keep all layout, structure, and module arrangement identical — only invert the color scheme.",
-    "size": "1024x1536"
-  }'
-```
-
-Or using Python:
-
-```python
-import requests
-
-url = "https://api.acedata.cloud/openai/images/edits"
-
-headers = {
-    "accept": "application/json",
-    "authorization": "Bearer {token}",
-    "content-type": "application/json"
-}
-
-payload = {
-    "model": "gpt-image-2",
-    "image": "https://platform.cdn.acedata.cloud/gpt-image/5c9fa635-8794-4c6d-88f8-584d7f4716c6_0.png",
-    "prompt": "Convert this infographic to dark mode: dark navy background, light cream text, deep gray rounded module cards with soft shadows. Keep all layout, structure, and module arrangement identical — only invert the color scheme.",
-    "size": "1024x1536"
-}
-
-response = requests.post(url, json=payload, headers=headers)
-print(response.text)
-```
-
-The response is as follows:
+A JSON request can provide references in a specific order:
 
 ```json
 {
-  "success": true,
-  "task_id": "cb104e35-af1f-45be-9fac-b62e2b256753",
-  "trace_id": "3e5c77c6-6c2e-4bba-a42d-98ea049b58a8",
-  "created": 1777048863,
-  "data": [
-    {
-      "revised_prompt": "Convert this infographic to dark mode: dark navy background, light cream text, deep gray rounded module cards with soft shadows. Keep all layout, structure, and module arrangement identical — only invert the color scheme.",
-      "url": "https://platform.cdn.acedata.cloud/gpt-image/cb104e35-af1f-45be-9fac-b62e2b256753_0.png"
-    }
+  "model": "gpt-image-2.5-flare:official",
+  "image": [
+    "https://example.com/base.png",
+    "https://example.com/style-reference.png",
+    "https://example.com/product-reference.png"
   ],
-  "elapsed": 83.859
+  "prompt": "Keep the base composition, apply the lighting from the second image, and include the product from the third image.",
+  "size": "1536x1024",
+  "n": 2
 }
 ```
 
-The edited image is shown below:
+If only some outputs succeed, the response contains the successful images and reports partial-success metadata. Standard variants bill successful images; official variants settle from the aggregated token usage returned by the completed outputs.
 
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/cb104e35-af1f-45be-9fac-b62e2b256753_0.png" width="500" class="m-auto"></p>
-
-You can see that the module structure, information partition, and typography are strictly preserved, with only the color scheme inverted to a dark theme.
-
-> **Tip**: The `image` field also supports passing an array, e.g., `"image": ["url1", "url2", "url3"]`, allowing up to 16 reference images simultaneously for the model to consider comprehensively during editing.
-
-### Method 2: JSON + Multiple Reference Images
-
-`gpt-image-2` supports referencing multiple images simultaneously to generate the final result, for example, combining multiple product photos into a single gift basket:
-
-```python
-payload = {
-    "model": "gpt-image-2",
-    "image": [
-        "https://example.com/item1.png",
-        "https://example.com/item2.png",
-        "https://example.com/item3.png"
-    ],
-    "prompt": "Combine all the items above into a single 'Relax & Unwind' gift basket on a clean white background, photorealistic, soft natural lighting.",
-    "size": "1024x1024"
-}
-```
-
-### Scenario Example: Style Change + Structure Preservation
-
-Here is another example where a wooden bookshelf is replaced with a modern floating shelf, but the exact number and arrangement of books on each shelf are strictly preserved.
-
-Original image (wooden bookshelf generated by `gpt-image-2`):
-
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/141970f0-65fb-4ec8-ab7d-9be173641350_0.png" width="500" class="m-auto"></p>
-
-Call:
-
-```python
-payload = {
-    "model": "gpt-image-2",
-    "image": "https://platform.cdn.acedata.cloud/gpt-image/141970f0-65fb-4ec8-ab7d-9be173641350_0.png",
-    "prompt": "Replace the wooden bookshelf with a sleek modern white floating shelf mounted on a pastel blue wall. Keep the exact same arrangement of books (1 book on top, 3 in middle, 7 on bottom). Add a small potted succulent on the top shelf next to the book. Bright airy daylight from the left.",
-    "size": "1024x1024"
-}
-```
-
-Edited result (`task_id`: `e9544dba-727e-44a2-81e1-223d49869380`):
-
-<p><img src="https://platform.cdn.acedata.cloud/gpt-image/e9544dba-727e-44a2-81e1-223d49869380_0.png" width="500" class="m-auto"></p>
-
-You can see that the style and environment have been fully replaced according to the prompt, but the number of books on each shelf (1 / 3 / 7) is strictly preserved, and a small succulent plant has been added as requested.
-
-### Method 3: multipart/form-data (Compatible with OpenAI SDK)
-
-If you are already using the official OpenAI Python SDK, the original `multipart/form-data` upload method is also applicable; just change the `model` to `gpt-image-2`:
+## 8. OpenAI SDK-Compatible Uploads
 
 ```python
 import base64
 from openai import OpenAI
-client = OpenAI()
 
-result = client.images.edit(
-    model="gpt-image-2",
-    image=[open("test.png", "rb")],
-    prompt="Convert this image to dark mode while keeping the layout intact."
+client = OpenAI(
+    base_url="https://api.acedata.cloud/openai",
+    api_key="YOUR_API_KEY",
 )
 
-image_base64 = result.data[0].b64_json
-image_bytes = base64.b64decode(image_base64)
-with open("edited.png", "wb") as f:
-    f.write(image_bytes)
-```
-
-When using the SDK, you need to set two environment variables first: `OPENAI_BASE_URL` to `https://api.acedata.cloud/openai`, and `OPENAI_API_KEY` to the acquired token:
-
-```shell
-export OPENAI_BASE_URL=https://api.acedata.cloud/openai
-export OPENAI_API_KEY={token}
-```
-
-## Nano Banana Series Models
-
-The `nano-banana` series is also integrated with `/openai/images/edits` for editing scenarios; just change the `model` to any one in the table below.
-
-| Model | Cost (Credits / request) | Suitable Scenario |
-| --- | --- | --- |
-| `nano-banana` | 0.14 | General image editing, fastest and lowest cost |
-| `nano-banana-2` | 0.28 | Noticeable improvement in quality and detail |
-| `nano-banana-pro` | 0.35 | Flagship of the series, best retention of structure, text, and style |
-
-> **Important: Supported Parameters**
->
-> Nano Banana accesses the OpenAI protocol via an adaptation layer and only supports the following parameters: `model`, `prompt`, `image`.
->
-> - `image` can be uploaded via `multipart/form-data` (internally converted to `data:<mime>;base64,...`) or passed as a URL string in the form field.
-> - Parameters like `mask`, `n`, `size`, `response_format` are not supported and will be ignored if provided.
-> - The response structure follows the OpenAI format (`data[].url`), but `created` is fixed at `0`, no `b64_json` is returned, and `revised_prompt` always equals the original `prompt`.
-
-### Calling via Form + Image URL
-
-```shell
-curl -X POST "https://api.acedata.cloud/openai/images/edits" \
-  -H "Authorization: Bearer {token}" \
-  -F "model=nano-banana" \
-  -F "prompt=add a green leaf on top of the apple" \
-  -F "image=https://platform.cdn.acedata.cloud/nanobanana/6870b330-65c4-436c-bb80-819fdae7a7a4.png"
-```
-
-Response:
-
-```json
-{
-  "created": 0,
-  "data": [
-    {
-      "url": "https://platform.cdn.acedata.cloud/nanobanana/311e95b6-5eb1-4c4a-8ee6-0cb03ee44f61.jpeg",
-      "revised_prompt": "add a green leaf on top of the apple"
-    }
-  ]
-}
-```
-
-Edited image:
-
-<p><img src="https://platform.cdn.acedata.cloud/nanobanana/311e95b6-5eb1-4c4a-8ee6-0cb03ee44f61.jpeg" width="500" class="m-auto"></p>
-
-### Calling via Form + Local File
-
-```python
-import requests
-
-url = "https://api.acedata.cloud/openai/images/edits"
-
-headers = {
-    "authorization": "Bearer {token}"
-}
-
-files = {
-    "image": open("apple.png", "rb"),
-}
-data = {
-    "model": "nano-banana-pro",
-    "prompt": "add a green leaf on top of the apple"
-}
-
-response = requests.post(url, headers=headers, files=files, data=data)
-print(response.text)
-```
-
-### Asynchronous Callback
-
-The `callback_url` asynchronous callback mechanism also applies to nano-banana; the calling process is exactly the same as for other models, see the [Asynchronous Callback](#asynchronous-callback) section below.
-
-## Basic Usage
-
-You can now use code to call the API. Below is a CURL example:
-
-```curl
-curl -s -D >(grep -i x-request-id >&2) \
-  -o >(jq -r '.data[0].b64_json' | base64 --decode > gift-basket.png) \
-  -X POST "https://api.acedata.cloud/v1/images/edits" \
-  -H "Authorization: Bearer {token}" \
-  -F "model=gpt-image-1" \
-  -F "image[]=@test.png" \
-  -F 'prompt=Create a lovely gift basket with these this items in it'
-```
-
-When using this interface for the first time, you need to fill in at least four items: one is `authorization`, which you can select directly from the dropdown list. Another parameter is `model`, which specifies the OpenAI official model category; here we mainly have one model, details of which can be found in the provided model list. Another parameter is `prompt`, which is the text prompt for generating the image. The last parameter is `image`, which is the path to the image to be edited. The image to be edited is shown below:
-
-<p><img src="https://cdn.acedata.cloud/jw9iwu.png" width="500" class="m-auto"></p>
-
-Equivalent Python sample code:
-
-```python
-import base64
-from openai import OpenAI
-client = OpenAI()
-
-prompt = """
-Generate a photorealistic image of a gift basket on a white background 
-labeled 'Relax & Unwind' with a ribbon and handwriting-like font, 
-containing all the items in the reference pictures.
-"""
-
 result = client.images.edit(
-    model="gpt-image-1",
-    image=[
-        open("test.png", "rb")
-    ],
-    prompt=prompt
+    model="gpt-image-2.5-sunburst:official",
+    image=[open("input.png", "rb")],
+    prompt="Convert this image to dark mode while keeping the layout intact.",
+    size="1024x1024",
 )
 
-image_base64 = result.data[0].b64_json
-image_bytes = base64.b64decode(image_base64)
-
-# Save the image to a file
-with open("gift-basket.png", "wb") as f:
-    f.write(image_bytes)
+image_bytes = base64.b64decode(result.data[0].b64_json)
+with open("edited.png", "wb") as output:
+    output.write(image_bytes)
 ```
 
-When using Python, you need to set two environment variables first: `OPENAI_BASE_URL` can be set to `https://api.acedata.cloud/openai`, and the credential variable `OPENAI_API_KEY` is the token obtained from `authorization`. On macOS, you can set environment variables with:
+## 9. Asynchronous Requests and Callbacks
 
-```shell
-export OPENAI_BASE_URL=https://api.acedata.cloud/openai
-export OPENAI_API_KEY={token} 
-```
-
-After calling, you will find an image named `gift-basket.png` generated in the current directory, as shown below:
-
-<p><img src="https://cdn.acedata.cloud/574s8h.png" width="500" class="m-auto"></p>
-
-Thus, we have completed the image editing operation. Currently, the Edits interface supports `gpt-image-1` and `gpt-image-2`, with `gpt-image-2` being the recommended model, see the [GPT-Image-2 Model](#gpt-image-2-model) section above.
-
-## Asynchronous Callback
-
-Because the OpenAI Images Edits API may take relatively long to edit images, if the API does not respond for a long time, the HTTP request will keep the connection open, causing additional system resource consumption. Therefore, this API also provides asynchronous callback support.
-
-The overall process is: when the client initiates a request, it additionally specifies a `callback_url` field. After the client sends the API request, the API immediately returns a result containing a `task_id` field representing the current task ID. When the task is completed, the edited image result will be sent via POST JSON to the client’s specified `callback_url`, including the `task_id` field, so the task result can be correlated by ID.
-
-Below is an example to understand how to operate.
-
-First, the webhook callback is a service that can receive HTTP requests. Developers should replace it with their own HTTP server URL. For demonstration, we use a public webhook sample site https://webhook.site/. Open the site to get a webhook URL, as shown:
-
-![](https://cdn.acedata.cloud/cjjfly.png)
-
-Copy this URL to use as the webhook. The example URL here is `https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab`.
-
-Next, set the `callback_url` field to the above webhook URL and fill in the other parameters as in the following code:
-
-```shell
-curl -X POST "https://api.acedata.cloud/v1/images/edits" \
-  -H "Authorization: Bearer {token}" \
-  -F "model=gpt-image-1" \
-  -F "image[]=@test.png" \
-  -F "prompt=Create a lovely gift basket with these items in it" \
-  -F "callback_url=https://webhook.site/3d32690d-6780-4187-a65c-870061e8c8ab"
-```
-
-After calling, you will immediately receive a result like:
+Set `async: true` or provide `callback_url` for long-running edits:
 
 ```json
 {
-  "task_id": "6a97bf49-df50-4129-9e46-119aa9fca73c"
+  "model": "gpt-image-2.5-sunburst:official",
+  "image": "https://example.com/input.png",
+  "prompt": "Replace the background with a clean dark studio.",
+  "callback_url": "https://example.com/webhooks/images"
 }
 ```
 
-After a short wait, you can observe the edited image result on the webhook URL, content as follows:
+The immediate response is `{"task_id":"..."}`. When a callback URL is provided, the final result is sent to that URL with the same task ID. Callback handlers should validate the payload and deduplicate by `task_id`.
 
-```json
-{
-  "success": true,
-  "task_id": "6a97bf49-df50-4129-9e46-119aa9fca73c",
-  "trace_id": "9b4b1ff3-90f2-470f-b082-1061ec2948cc",
-  "data": {
-    "created": 1721626477,
-    "data": [
-      {
-        "b64_json": "iVBORw0KGgo..."
-      }
-    ]
-  }
-}
-```
+## 10. Troubleshooting
 
-You can see the result includes a `task_id` field, and the `data` field contains the same image editing result as synchronous calls. The `task_id` field allows task correlation.
+| Status | What to check |
+| --- | --- |
+| 400 | Exact `model` ID, image format/count, size, and parameter combination |
+| 401 | API Key and `Authorization: Bearer ...` header |
+| 413 | Reference-image payload size |
+| 429 | Request frequency; retry with backoff |
+| 504 | Synchronous timeout; use asynchronous mode or a callback |
 
-## Error Handling
+Error responses include `error.code`, `error.message`, and `trace_id`. Share the trace ID—not the API Key—when requesting support.
 
-When calling the API, if an error occurs, the API will return corresponding error codes and messages. For example:
-
-- `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
-- `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
-- `401 invalid_token`: Unauthorized, invalid or missing authorization token.
-- `429 too_many_requests`: Too many requests, you have exceeded the rate limit.
-- `500 api_error`: Internal server error, something went wrong on the server.
-
-### Error Response Example
-
-```json
-{
-  "success": false,
-  "error": {
-    "code": "api_error",
-    "message": "fetch failed"
-  },
-  "trace_id": "2cf86e86-22a4-46e1-ac2f-032c0f2a4e89"
-}
-```
-
-## Conclusion
-
-Through this document, you have learned how to easily use the official OpenAI image editing features via the OpenAI Images Edits API. We hope this document helps you better integrate and use the API. If you have any questions, please feel free to contact our technical support team.
+See the [live Images Edits API reference](https://platform.acedata.cloud/documents/openai-images-edits) for the complete schema and current enums. For text-to-image workflows, see the [GPT Image 2 / 2.5 generation guide](https://platform.acedata.cloud/documents/openai-images-generations).

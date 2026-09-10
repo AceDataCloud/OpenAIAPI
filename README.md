@@ -12,10 +12,10 @@ Keywords: openai-api, openai-compatible, chat-completions, rest-api, ai-api, dev
 
 ## Why Use OpenAI generation on Ace Data Cloud
 
-- Unified developer platform with one API key, billing system, and usage tracking
-- Production-ready AI API endpoints served from [https://api.acedata.cloud](https://api.acedata.cloud)
-- English integration guides, API references, and service documentation
-- Global-ready workflow for developers building chat, image, video, music, and search products
+- One API key, one billing system, and one usage history across model families
+- OpenAI-compatible endpoints served from [https://api.acedata.cloud](https://api.acedata.cloud)
+- Image generation and editing with GPT Image 2, GPT Image 2.5 Flare/Sunburst, and explicit official variants
+- English integration guides, live API references, and production-oriented examples
 
 ## Overview
 
@@ -896,7 +896,13 @@ print(image.data[0].url)</pre>
 <p class="mdl-desc">Text-to-image generation and image editing.</p>
 <div class="oa-mdl-tags">
 <span class="oa-mdl-tag">gpt-image-1</span>
+<span class="oa-mdl-tag">gpt-image-1.5</span>
 <span class="oa-mdl-tag">gpt-image-2</span>
+<span class="oa-mdl-tag">gpt-image-2:official</span>
+<span class="oa-mdl-tag">gpt-image-2.5-flare</span>
+<span class="oa-mdl-tag">gpt-image-2.5-flare:official</span>
+<span class="oa-mdl-tag">gpt-image-2.5-sunburst</span>
+<span class="oa-mdl-tag">gpt-image-2.5-sunburst:official</span>
 <span class="oa-mdl-tag">dall-e-3</span>
 <span class="oa-mdl-tag">dall-e-2</span>
 <span class="oa-mdl-tag">nano-banana</span>
@@ -911,18 +917,18 @@ print(image.data[0].url)</pre>
 <div class="oa-container">
 <div class="oa-header">
 <h2>OpenAI API Pricing</h2>
-<p>Charged based on actual usage, conversation by Token, images by piece, embeddings by Token.</p>
+<p>Pay for actual usage: text and official image variants are token-metered, while standard image variants are billed per successful image.</p>
 <p style="font-size:14px;color:#94a3b8;margin-top:8px;">Bulk packages offer more discounts</p>
 </div>
 <div class="price-grid">
 <div class="price-card price-card-feat">
 <div class="price-feat-badge">Pay-as-you-go</div>
-<div class="price-tier">Token / Per Image Billing</div>
+<div class="price-tier">Token and Per-Image Billing</div>
 <div>
 <span class="price-amt">Low Price</span>
 <span class="price-per"> Based on actual usage</span>
 </div>
-<p class="price-desc">Text billed by Token, images billed by piece, no minimum consumption</p>
+<p class="price-desc">Token metering for text and official image variants; per-image billing for standard image variants</p>
 <ul class="price-feats">
 <li><span class="price-ck">✓</span> Full range of GPT-5 / 4o / 4.1</li>
 <li><span class="price-ck">✓</span> o3 / o4-mini reasoning models</li>
@@ -955,7 +961,7 @@ print(image.data[0].url)</pre>
 <tr>
 <th>Model</th>
 <th>Specifications</th>
-<th>Price per Image</th>
+<th>Reference Price</th>
 </tr>
 </thead>
 <tbody>
@@ -968,6 +974,26 @@ print(image.data[0].url)</pre>
 <td>GPT Image 1.5</td>
 <td>All Sizes</td>
 <td class="td-price">$0.052</td>
+</tr>
+<tr>
+<td>GPT Image 2.5 Flare</td>
+<td>All Sizes</td>
+<td class="td-price">$0.0105 / image</td>
+</tr>
+<tr>
+<td>GPT Image 2.5 Flare Official</td>
+<td>Actual Token Usage</td>
+<td class="td-price">Estimated Before Request</td>
+</tr>
+<tr>
+<td>GPT Image 2.5 Sunburst</td>
+<td>All Sizes</td>
+<td class="td-price">$0.0105 / image</td>
+</tr>
+<tr>
+<td>GPT Image 2.5 Sunburst Official</td>
+<td>Actual Token Usage</td>
+<td class="td-price">Estimated Before Request</td>
 </tr>
 <tr>
 <td>DALL·E 3</td>
@@ -1020,7 +1046,7 @@ print(image.data[0].url)</pre>
 </div>
 <div class="oa-faq-item">
 <div class="oa-faq-q"><span>What is the difference between GPT Image and DALL·E 3?</span><span class="oa-faq-chev">›</span></div>
-<div class="oa-faq-a"><p>GPT Image 1 / 1.5 is OpenAI's latest native image generation model, directly integrated into the GPT model, supporting more natural text-image interaction. DALL·E 3 is a dedicated image generation model, supporting various quality and size options including Standard/HD.</p></div>
+<div class="oa-faq-a"><p>GPT Image models support both generation and editing. GPT Image 2.5 Flare prioritizes speed, while Sunburst prioritizes higher-fidelity output and finer control. Each 2.5 model also has an <code>:official</code> variant billed from actual token usage. DALL·E 3 remains a dedicated generation model with Standard and HD modes.</p></div>
 </div>
 <div class="oa-faq-item">
 <div class="oa-faq-q"><span>Which model is good for Embeddings?</span><span class="oa-faq-chev">›</span></div>
@@ -1088,7 +1114,7 @@ Explore the supported endpoints and integration guides for OpenAI generation.
 | [OpenAI Chat Completions API](https://platform.acedata.cloud/documents/1bcf3bba-102b-495d-9bba-47cd96717e45) | `/openai/chat/completions` | [OpenAI Chat Completion API Integration Guide](https://platform.acedata.cloud/documents/fc571e00-464f-429e-b920-8896c906c2b9) |
 | [OpenAI Images Generations API](https://platform.acedata.cloud/documents/fd932485-90c7-45d6-8394-1e14b6f07b2b) | `/openai/images/generations` | [OpenAI Images Generations API Integration Guide](https://platform.acedata.cloud/documents/22fce352-b71e-4177-991f-2216841f35e2) |
 | [OpenAI Responses API](https://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a) | `/openai/responses` | [OpenAI Responses API Integration Guide](https://platform.acedata.cloud/documents/c1da5338-9fff-4390-bbdc-29713893c07a) |
-| [$t(document_title_openai_embeddings_api)](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) | `/openai/embeddings` | [](https://platform.acedata.cloud/documents/) |
+| [OpenAI Embeddings API](https://platform.acedata.cloud/documents/0f2e63fa-5890-4bdd-84f0-1706b5c9a387) | `/openai/embeddings` | [OpenAI Embeddings API Integration Guide](docs/openai_embeddings_api_integration_guide.md) |
 | [OpenAI Images Edits API](https://platform.acedata.cloud/documents/251f1efa-aaa6-462e-8af4-66854b1bc94d) | `/openai/images/edits` | [OpenAI Images Edits API Integration Guide](https://platform.acedata.cloud/documents/932e4b89-2cbb-4cb9-8f85-c9af256bfe69) |
 
 ## Related Resources
