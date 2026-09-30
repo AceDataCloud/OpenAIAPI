@@ -1,20 +1,22 @@
 # GPT Image 2 / 2.5 Image Editing API
 
-## 1. Obtain an API Key
+Use the OpenAI-compatible Images Edits API to transform one or more reference images with GPT Image 2 and GPT Image 2.5. Send public image URLs as JSON or upload local files with `multipart/form-data`.
 
-Open the [Ace Data Cloud application list](https://platform.acedata.cloud/console/applications), enter an available application, and copy the API Key.
+## 1. Get an API Key
 
-![Obtain Ace Data Cloud API Key](https://cdn.acedata.cloud/dvc3cg.jpg)
+Open the [Ace Data Cloud application console](https://platform.acedata.cloud/console/applications), select an available application, and copy its API Key.
 
-## 2. Edit Using an Image URL
+![Get an Ace Data Cloud API Key](https://cdn.acedata.cloud/dvc3cg.jpg)
+
+## 2. Edit an Image URL
 
 Original image:
 
-![GPT Image 2 Original Image for Editing](https://cdn.acedata.cloud/18240dc44b9c.png)
+![Original mug image for GPT Image editing](https://cdn.acedata.cloud/18240dc44b9c.png)
 
 ```bash
 curl https://api.acedata.cloud/openai/images/edits \
-  -H "Authorization: Bearer 你的 API Key" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "gpt-image-2",
@@ -24,7 +26,11 @@ curl https://api.acedata.cloud/openai/images/edits \
   }'
 ```
 
-Successful response:
+The following is a real edit completed through Ace Data Cloud on September 8, 2026. It changed the mug and background while preserving the composition and 1024×1536 canvas.
+
+![Orange mug edited with GPT Image 2](https://cdn.acedata.cloud/b6d780a732ca.png)
+
+The corresponding synchronous response was:
 
 ```json
 {
@@ -46,139 +52,143 @@ Successful response:
 }
 ```
 
-This is the editing result actually completed through Ace Data Cloud on September 8, 2026. The mug was changed to orange, the background to dark navy blue, while retaining the original composition and 1024×1536 dimensions:
+## 3. Choose a Model
 
-![GPT Image 2 Orange Mug Editing Result](https://cdn.acedata.cloud/b6d780a732ca.png)
+| Model | Positioning | Billing |
+| --- | --- | --- |
+| `gpt-image-2` | Recommended default | Per successful image |
+| `gpt-image-2:reverse` | Same standard capability under an explicit alias | Per successful image |
+| `gpt-image-2:official` | Official channel | Actual text, reference-image, and output-image tokens |
+| `gpt-image-2.5-flare` | Faster editing | Per successful image |
+| `gpt-image-2.5-flare:official` | Flare through the official channel | Actual text, reference-image, and output-image tokens |
+| `gpt-image-2.5-sunburst` | Higher-fidelity editing and finer control | Per successful image |
+| `gpt-image-2.5-sunburst:official` | Sunburst through the official channel | Actual text, reference-image, and output-image tokens |
 
-## 3. Upload a Local Image
+The bare names `gpt-image-2.5` and `gpt-image-2.5:reverse` are not supported model IDs.
 
-Use `multipart/form-data`:
+Official variants are usage-metered. Their pre-request prices are estimates; the usage record is authoritative after completion. For `n > 1`, returned usage is aggregated once and is not multiplied by `n` again.
 
-```bash
-curl https://api.acedata.cloud/openai/images/edits \
-  -H "Authorization: Bearer 你的 API Key" \
-  -F "model=gpt-image-2" \
-  -F "image=@input.png" \
-  -F "prompt=Replace the background with a bright modern studio"
-```
+## 4. Upload Local Images
 
-You can pass `image` repeatedly. The GPT Image series supports up to 16 reference images. `image` in a JSON request can be a single URL or an array of URLs; local files are uploaded using multipart.
-
-### Models and Billing Methods
-
-| Model                                | Applicable Scenarios and Billing Methods                                 |
-| --------------------------------- | ----------------------------------------- |
-| `gpt-image-2`                     | Default reverse channel, fixed billing per successfully generated image                        |
-| `gpt-image-2:reverse`             | Explicitly select the reverse channel, fixed billing per successfully generated image                      |
-| `gpt-image-2:official`            | Official API channel, higher stability, billed by actual Token usage            |
-| `gpt-image-2.5-flare`             | Focuses on generation speed, fixed billing per successfully generated image                        |
-| `gpt-image-2.5-flare:official`    | Official API channel, higher stability and focuses on generation speed, billed by actual Token usage     |
-| `gpt-image-2.5-sunburst`          | Focuses on high fidelity and precise control, fixed billing per successfully generated image                    |
-| `gpt-image-2.5-sunburst:official` | Official API channel, higher stability and focuses on high fidelity and precise control, billed by actual Token usage |
-
-The displayed price for the official API channel is an estimate before the request; the final amount is based on the actual Token usage in the response and usage records.
-
-## 4. Use a Mask for Local Editing
-
-The official Images Edit endpoint uses `mask` to specify the area allowed to be modified. Ace Data Cloud's `:official` models follow the same multipart contract:
-
-- `mask` must be a PNG with an Alpha channel and must not exceed 4MB;
-- The mask dimensions must exactly match the first `image`;
-- Transparent pixels with an Alpha value of `0` indicate areas allowed to be edited, while non-transparent pixels indicate areas that should be retained;
-- RGB images that are only black and white but have no transparency channel cannot be used as valid masks;
-- The prompt should describe the complete desired image while clearly specifying the local modifications and the content that needs to remain unchanged.
-
-First, generate a mask from the original image below. The example makes the central rectangle transparent, allowing the model to modify only that area:
-
-```python
-from PIL import Image, ImageDraw
-
-source = Image.open("input.png").convert("RGBA")
-mask = Image.new("RGBA", source.size, (0, 0, 0, 255))
-draw = ImageDraw.Draw(mask)
-width, height = source.size
-draw.rectangle(
-    (width // 4, height // 4, width * 3 // 4, height * 3 // 4),
-    fill=(0, 0, 0, 0),
-)
-mask.save("mask.png")
-```
-
-Then upload the original image and mask together:
+Use `multipart/form-data` for local files:
 
 ```bash
 curl https://api.acedata.cloud/openai/images/edits \
-  -H "Authorization: Bearer 你的 API Key" \
-  -F "model=gpt-image-2:official" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -F "model=gpt-image-2.5-sunburst:official" \
   -F "image=@input.png" \
-  -F "mask=@mask.png" \
-  -F "prompt=Keep the composition, lighting, and all objects outside the transparent mask unchanged. Inside the masked area, replace the empty tabletop with a small blue ceramic vase."
+  -F "prompt=Replace the background with a bright modern studio" \
+  -F "size=1024x1024"
 ```
 
-You can also use the `images.edit` invocation method from the official OpenAI Python SDK; simply point `base_url` to Ace Data Cloud:
+Repeat the `image` field to upload multiple references. GPT Image models accept up to 16 reference images. JSON requests may provide `image` as one URL or an array of URLs.
 
-```python
-from openai import OpenAI
-
-client = OpenAI(
-    api_key="你的 API Key",
-    base_url="https://api.acedata.cloud/openai",
-)
-
-with open("input.png", "rb") as image, open("mask.png", "rb") as mask:
-    result = client.images.edit(
-        model="gpt-image-2:official",
-        image=image,
-        mask=mask,
-        prompt=(
-            "Keep the composition, lighting, and all objects outside the "
-            "transparent mask unchanged. Inside the masked area, replace "
-            "the empty tabletop with a small blue ceramic vase."
-        ),
-    )
-
-print(result.data[0].url)
-```
-
-When using `mask`, the original image and mask must be uploaded separately in the same multipart request through `image=@input.png` and `mask=@mask.png`. Do not pass a URL original image together with a local mask file; pure URL editing requests do not support adding a local `mask` file. The mask constrains the editing area, but the generation model may still naturally blend the edges; when strict boundaries are needed, use clear Alpha edges and repeatedly specify in the prompt which content must remain unchanged.
-
-The invocation methods above are consistent with the mask examples in the [OpenAI Image Edit API](https://developers.openai.com/api/reference/python/resources/images/methods/edit) and the [official GPT Image Cookbook](https://developers.openai.com/cookbook/examples/generate_images_with_gpt_image).
 ## 5. Common Parameters
 
-| Field             | Description                                                                                                                           |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `model`           | `gpt-image-2`, `gpt-image-2.5-flare` (faster), or `gpt-image-2.5-sunburst` (higher fidelity and control); all three can select the corresponding `:official` variant, and `gpt-image-2` also supports `:reverse` |
-| `image`           | JSON uses a single URL or an array of up to 16 URLs; multipart uses one or more `image` file fields. Local image files must be uploaded when using `mask` |
-| `mask`            | Optional PNG mask, multipart file upload only; must include an Alpha channel, be the same size as the first `image`, and not exceed 4MB |
-| `prompt`          | Editing instruction                                                                                                                   |
-| `size`            | `auto` or a compliant `WIDTHxHEIGHT`                                                                                                 |
-| `n`               | 1–10; only 1 is supported when `response_format=b64_json`                                                                            |
-| `response_format` | `url` or `b64_json`                                                                                                                  |
-| `callback_url`    | Optional asynchronous callback URL                                                                                                    |
+| Field | Description |
+| --- | --- |
+| `model` | One of the exact model IDs above |
+| `image` | One URL, an array of up to 16 URLs, or repeated multipart file fields |
+| `prompt` | Editing instruction |
+| `size` | `auto` or `WIDTHxHEIGHT` |
+| `n` | Number of edited outputs, from 1 to 10 |
+| `quality` | `auto`, `low`, `medium`, or `high` for GPT Image models |
+| `response_format` | `url` or `b64_json` |
+| `output_format` | `png`, `jpeg`, or `webp` |
+| `callback_url` | Optional webhook for asynchronous completion |
+| `async` | Set to `true` to return a task ID immediately |
 
-The size rules are consistent with the generation API: width and height must be multiples of 16, the longer side must not exceed 3840, total pixels must be 655,360–8,294,400, and the aspect ratio must not exceed 3:1. When `size` is omitted or `auto` is used, the model will select the canvas based on the prompt and the first reference image.
+`response_format=b64_json` supports `n=1`. Use URL output when requesting multiple edits.
 
-`gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, and `gpt-image-2:reverse` are billed by the number of successfully generated images; `gpt-image-2:official`, `gpt-image-2.5-flare:official`, and `gpt-image-2.5-sunburst:official` are billed based on the actual Tokens for text input, reference image input, and image output, with final usage records prevailing.
+## 6. Size Rules
 
-## 6. Asynchronous Callbacks and Troubleshooting
+GPT Image 2 and 2.5 accept `auto` or custom dimensions that meet all of these constraints:
 
-For long-running tasks, add the following to the request:
+- width and height are multiples of 16;
+- the longer edge is at most 3840 pixels;
+- total pixels are between 655,360 and 8,294,400;
+- the aspect ratio is no wider or taller than 3:1.
+
+Common presets:
+
+| Aspect ratio | 1K | 2K | 4K |
+| --- | --- | --- | --- |
+| 1:1 | `1024x1024` | `2048x2048` | `2880x2880` |
+| 4:3 | `1536x1024` | `2048x1536` | `3264x2448` |
+| 3:4 | `1024x1536` | `1536x2048` | `2448x3264` |
+| 16:9 | `1792x1024` | `2048x1152` | `3840x2160` |
+| 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
+
+When `size` is omitted or set to `auto`, the service considers the prompt and the first reference image. Specify `WIDTHxHEIGHT` when exact output dimensions matter.
+
+## 7. Multiple References and Multiple Outputs
+
+A JSON request can provide references in a specific order:
 
 ```json
 {
+  "model": "gpt-image-2.5-flare:official",
+  "image": [
+    "https://example.com/base.png",
+    "https://example.com/style-reference.png",
+    "https://example.com/product-reference.png"
+  ],
+  "prompt": "Keep the base composition, apply the lighting from the second image, and include the product from the third image.",
+  "size": "1536x1024",
+  "n": 2
+}
+```
+
+If only some outputs succeed, the response contains the successful images and reports partial-success metadata. Standard variants bill successful images; official variants settle from the aggregated token usage returned by the completed outputs.
+
+## 8. OpenAI SDK-Compatible Uploads
+
+```python
+import base64
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.acedata.cloud/openai",
+    api_key="YOUR_API_KEY",
+)
+
+result = client.images.edit(
+    model="gpt-image-2.5-sunburst:official",
+    image=[open("input.png", "rb")],
+    prompt="Convert this image to dark mode while keeping the layout intact.",
+    size="1024x1024",
+)
+
+image_bytes = base64.b64decode(result.data[0].b64_json)
+with open("edited.png", "wb") as output:
+    output.write(image_bytes)
+```
+
+## 9. Asynchronous Requests and Callbacks
+
+Set `async: true` or provide `callback_url` for long-running edits:
+
+```json
+{
+  "model": "gpt-image-2.5-sunburst:official",
+  "image": "https://example.com/input.png",
+  "prompt": "Replace the background with a clean dark studio.",
   "callback_url": "https://example.com/webhooks/images"
 }
 ```
 
-The asynchronous 200 response is `{"task_id": "..."}`; the final result is returned through a callback upon completion. Synchronous requests return `created` and `data`.
+The immediate response is `{"task_id":"..."}`. When a callback URL is provided, the final result is sent to that URL with the same task ID. Callback handlers should validate the payload and deduplicate by `task_id`.
 
-| Status | Check                                                                |
-| --- | ----------------------------------------------------------------- |
-| 400 | Image format/quantity, parameter combinations, and size format; when using `mask`, check the PNG Alpha channel, 4MB limit, and whether its dimensions match the first original image |
-| 401 | API Key and Bearer Header                                           |
-| 429 | Request frequency                                                   |
-| 504 | Switch to asynchronous callbacks                                    |
+## 10. Troubleshooting
 
-Error responses include `trace_id`. Provide this ID when reporting issues; do not provide the API Key.
+| Status | What to check |
+| --- | --- |
+| 400 | Exact `model` ID, image format/count, size, and parameter combination |
+| 401 | API Key and `Authorization: Bearer ...` header |
+| 413 | Reference-image payload size |
+| 429 | Request frequency; retry with backoff |
+| 504 | Synchronous timeout; use asynchronous mode or a callback |
 
-For complete fields and real-time enumerations, refer to the [OpenAI Images Edits API](https://platform.acedata.cloud/documents/openai-images-edits) page. For generating images from plain text, see [GPT Image 2 / 2.5 Image Generation](https://platform.acedata.cloud/documents/openai-images-generations).
+Error responses include `error.code`, `error.message`, and `trace_id`. Share the trace ID—not the API Key—when requesting support.
+
+See the [live Images Edits API reference](https://platform.acedata.cloud/documents/openai-images-edits) for the complete schema and current enums. For text-to-image workflows, see the [GPT Image 2 / 2.5 generation guide](https://platform.acedata.cloud/documents/openai-images-generations).
