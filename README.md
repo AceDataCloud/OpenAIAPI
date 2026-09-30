@@ -1093,6 +1093,7 @@ Explore the supported endpoints and integration guides for OpenAI generation.
 | [OpenAI Speech API](https://platform.acedata.cloud/documents/b915e1e1-9bf7-4e39-8fbe-163684fb05e6) | `/v1/audio/speech` | [OpenAI Speech API Integration Guide](https://platform.acedata.cloud/documents/c7591239-fca8-40e8-a728-a9eef372d5c1) |
 | [OpenAI Transcriptions API](https://platform.acedata.cloud/documents/159da2a6-1447-4385-9c05-0f6ecbc70a96) | `/v1/audio/transcriptions` | [OpenAI Transcriptions API Integration Guide](https://platform.acedata.cloud/documents/7c833d83-239b-4e3b-91e8-61f270ff200d) |
 | [](https://platform.acedata.cloud/documents/) | `/v1/realtime` | [](https://platform.acedata.cloud/documents/) |
+| [OpenAI Live API](https://platform.acedata.cloud/documents/d7a7f0dc-4aa6-4196-89e6-5f1fbc90ea0e) | `/v1/live/sessions` | [GPT-Live](https://platform.acedata.cloud/documents/6f7ae1a9-b65f-483f-9575-ac917dbf89e8) |
 | [OpenAI Tasks API](https://platform.acedata.cloud/documents/adaced62-78c9-47c2-ad8c-a6f5d09c1a42) | `/openai/tasks` | [OpenAI Tasks API Integration Guide](https://platform.acedata.cloud/documents/92bdbf40-66bc-4d6f-a341-991593c2772c) |
 
 ## Related Resources
