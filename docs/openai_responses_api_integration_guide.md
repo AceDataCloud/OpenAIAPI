@@ -4,17 +4,23 @@ OpenAI has recently provided an API for creating model responses. Provide text o
 
 This document mainly introduces the usage process of OpenAI Responses API operations. With it, we can easily use the official OpenAI model response creation feature.
 
+## GPT-6.1 Sol
+
+Use `model: "gpt-6.1-sol"` to select this model. It supports streaming output, function calling, structured outputs, and image input. During the first week of availability, it is only available to verified ACE T1+ holders (at least 100,000 ACE) or authorized users; the specific availability time is subject to the console access prompt.
+
+Reasoning effort levels support `low`, `medium`, `high`, `xhigh`, and `max`, while `none` and `minimal` are not currently supported. It is recommended to start with `reasoning: {"effort": "low"}`. When the input exceeds 272,000 tokens, long-context pricing applies to the entire request, and fees are subject to the current pricing in the console.
+
 ## Application Process
 
-To use the OpenAI Responses API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token and keep it for later use.
+To use the OpenAI Responses API, first go to the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) to obtain your API Token and keep it as a backup.
 
 ![](https://cdn.acedata.cloud/dvc3cg.jpg)
 
-If you have not yet logged in or registered, you will be automatically redirected to the login page to register and log in. After completion, you will automatically return to the current page.
+If you have not yet logged in or registered, you will be automatically redirected to the login page and invited to register and log in. After completion, you will automatically return to the current page.
 
-**One API Token can call all platform services; there is no need to apply separately for each service.** Your first application will receive free credits for a free trial; when credits are insufficient, you can recharge your general balance in the [Console](https://platform.acedata.cloud/console/coin).
+**One API Token can invoke all platform services; there is no need to apply separately for each service.** Your first application will include free credits for a free trial; when credits are insufficient, you can top up your general balance in the [console](https://platform.acedata.cloud/console/coin).
 
-> 📘 Complete documentation: [OpenAI Responses API →](https://platform.acedata.cloud/documents/openai-responses)
+> 📘 Full documentation: [OpenAI Responses API →](https://platform.acedata.cloud/documents/openai-responses)
 
 ## Basic Usage
 
@@ -22,17 +28,17 @@ Next, you can fill in the corresponding content in the interface, as shown in th
 
 <p><img src="https://cdn.acedata.cloud/8lu8di.png" width="400" class="m-auto"></p>
 
-When using this API for the first time, we need to fill in at least three items. One is `authorization`, which can be selected directly from the drop-down list. Another parameter is `model`; `model` is the official OpenAI ChatGPT model category that we choose to use. Here, we mainly have 20 models, and you can view the models we provide for details. The last parameter is `input`; `input` is the array of prompt words we enter. It is an array, indicating that multiple prompt words can be uploaded at the same time. Each prompt word contains `role` and `content`, where `role` indicates the role of the questioner. We provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
+When using this API for the first time, we need to fill in at least three items. One is `authorization`, which can be selected directly from the dropdown list. Another parameter is `model`; `model` is the official OpenAI ChatGPT model category that we choose to use. Here, we mainly have 20 models, and you can view the details of the models we provide. The last parameter is `input`; `input` is the array of prompt words we enter. It is an array, indicating that multiple prompt words can be uploaded at the same time. Each prompt word contains `role` and `content`, where `role` represents the role of the questioner. We provide three identities: `user`, `assistant`, and `system`. The other field, `content`, is the specific content of our question.
 
-At the same time, you can notice that there is corresponding generated calling code on the right. You can copy the code and run it directly, or directly click the “Try” button for testing.
+At the same time, you can notice that there is corresponding generated calling code on the right. You can copy the code and run it directly, or click the “Try” button directly for testing.
 
 Common optional parameters:
 
 - `max_tokens`: Limits the maximum number of tokens in a single reply.
 - `temperature`: Generation randomness, between 0 and 2; the larger the value, the more divergent it is.
 - `n`: How many candidate replies to generate at once.
-- `response_format`: Return format settings.
-- `tools`: Function/tool call definitions.
+- `response_format`: Return format setting.
+- `tools`: Function/tool calling definitions.
 - `background`: Whether to run asynchronously in the background.
 
 <p><img src="https://cdn.acedata.cloud/rsw47a.png" width="400" class="m-auto"></p>
@@ -104,30 +110,30 @@ After calling it, we find that the returned result is as follows:
 }
 ```
 
-The returned result has multiple fields, introduced as follows:
+The returned result contains multiple fields, described as follows:
 
 - `id`, the ID generated for this conversation task, used to uniquely identify this conversation task.
 - `model `, the selected official OpenAI ChatGPT model.
 - `output`, the answer information provided by ChatGPT for the prompt words.
-- `usage `: statistical information about tokens for this Q&A session.
+- `usage `: statistical information on tokens for this Q&A session.
 
-Among them, `output` contains ChatGPT's answer information, and the `output` inside it is ChatGPT, as can be seen in the figure.
+Among them, `output` contains ChatGPT's answer information, and the `output` within it is ChatGPT, as can be seen in the figure.
 
 <p><img src="https://cdn.acedata.cloud/mald8o.png" width="400" class="m-auto"></p>
 
-It can be seen that the `content` field in `output` contains the specific content of the ChatGPT reply.
+As you can see, the `content` field in `output` contains the specific content of ChatGPT's reply.
 
 ## Streaming Responses
 
-This API also supports streaming responses, which is very useful for web integration and can allow webpages to achieve a word-by-word display effect.
+This API also supports streaming responses, which is very useful for web integration and can enable a word-by-word display effect on web pages.
 
 If you want to return responses as a stream, you can change the `stream ` parameter in the request header to `true`.
 
-The modification is shown in the figure, but the calling code needs corresponding changes to support streaming responses.
+The changes are shown in the figure, but the calling code needs corresponding changes to support streaming responses.
 
 <p><img src="https://cdn.acedata.cloud/xidnao.png" width="400" class="m-auto"></p>
 
-After changing `stream` to `true`, the API will return the corresponding JSON data line by line. At the code level, we need to make corresponding changes to obtain the line-by-line results.
+After changing `stream` to `true`, the API will return the corresponding JSON data line by line. At the code level, we need to make corresponding changes to obtain line-by-line results.
 
 Python sample calling code:
 
@@ -152,11 +158,10 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-The output effect is as follows:
+The output is as follows:
 
 ```json
-data: {"type": "response.created", "sequence_number": 0, "response": 
-```
+data: {"type": "response.created", "sequence_number": 0, "response":
 {"id": "resp_68a9837bb9bc8190b403947311db6faa0721186e8fbb89d0", "object": "response", "created_at": 1755939707, "status": "in_progress", "background": false, "content_filters": null, "error": null, "incomplete_details": null, "instructions": null, "max_output_tokens": null, "max_tool_calls": null, "model": "gpt-4.1-data", "output": [], "parallel_tool_calls": true, "previous_response_id": null, "prompt_cache_key": null, "reasoning": {"effort": null, "summary": null}, "safety_identifier": null, "service_tier": "auto", "store": true, "temperature": 1.0, "text": {"format": {"type": "text"}}, "tool_choice": "auto", "tools": [], "top_p": 1.0, "truncation": "disabled", "usage": null, "user": null, "metadata": {}}, "model": "gpt-4.1"} 
 
 data: {"type": "response.in_progress", "sequence_number": 1, "response": {"id": "resp_68a9837bb9bc8190b403947311db6faa0721186e8fbb89d0", "object": "response", "created_at": 1755939707, "status": "in_progress", "background": false, "content_filters": null, "error": null, "incomplete_details": null, "instructions": null, "max_output_tokens": null, "max_tool_calls": null, "model": "gpt-4.1-data", "output": [], "parallel_tool_calls": true, "previous_response_id": null, "prompt_cache_key": null, "reasoning": {"effort": null, "summary": null}, "safety_identifier": null, "service_tier": "auto", "store": true, "temperature": 1.0, "text": {"format": {"type": "text"}}, "tool_choice": "auto", "tools": [], "top_p": 1.0, "truncation": "disabled", "usage": null, "user": null, "metadata": {}}, "model": "gpt-4.1"} 
@@ -197,18 +202,18 @@ data: {"type": "response.completed", "sequence_number": 17, "response":
 ```
  
 
-As you can see, there are many `data` entries in the response, and the `delta` within `data` is the latest answer content, which is consistent with the content introduced above. `delta` is the newly added answer content, and you can integrate it into your system based on the result. Streaming responses use `response.completed` or `response.incomplete` as the final state; the `usage` in the final state is the final token usage for this request and is also the basis for billing.
+As you can see, there are many `data` entries in the response, and the `delta` inside `data` is the latest response content, which is consistent with the content introduced above. `delta` is the newly added response content, and you can integrate it into your system according to the result. Streaming responses use `response.completed` or `response.incomplete` as the final state; the `usage` in the final state is the final token usage for this request and is also the basis for billing.
 
-If the client disconnects before the final state arrives, this request will be recorded as client closed (499), and local estimated token billing will not be used; if the connection ends normally but the final state and final `usage` are not received, this request will be recorded as incomplete response (502), and estimated token billing will likewise not be used. When either of these situations occurs, please initiate the request again.
+If the client disconnects before the final state arrives, this request is recorded as client closed (499), and local estimated tokens will not be used for billing; if the connection ends normally but the final state and final `usage` are not received, this request is recorded as response incomplete (502), and estimated tokens will likewise not be used for billing. When either of these two situations occurs, please initiate the request again.
 
-The returned `data` result contains multiple fields, described as follows:
+The returned `data` result has multiple fields in total, described as follows:
 
 - `item_id`, the ID generated for this conversation task, used to uniquely identify this conversation task.
 - `type`, the type generated for this conversation Responses task.
 - `model `, the selected model from the official OpenAI ChatGPT website.
-- `delta`, the answer information provided by ChatGPT for the prompt.
+- `delta`, the response information provided by ChatGPT for the prompt.
 
-JavaScript is also supported; for example, the streaming call code for Node.js is as follows:
+JavaScript is also supported. For example, the streaming call code for Node.js is as follows:
 
 ```javascript
 const options = {
@@ -255,9 +260,9 @@ System.out.print(response.body!!.string())
 
 Other languages can be adapted separately; the principle is the same.
 
-## Multi-turn conversation
+## Multi-turn Conversation
 
-If you want to integrate the multi-turn conversation feature, you need to upload multiple prompts to the `input` field. A specific example of multiple prompts is shown in the image below:
+If you want to integrate multi-turn conversation functionality, you need to upload multiple prompts in the `input` field. A specific example of multiple prompts is shown in the image below:
 
 <p><img src="https://cdn.acedata.cloud/1jqwnf.png" width="400" class="m-auto"></p>
 
@@ -283,7 +288,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-By uploading multiple prompts, multi-turn conversations can be easily implemented, and the following answer can be obtained:
+By uploading multiple prompts, multi-turn conversations can be easily implemented, and the following response can be obtained:
 
 ```json
 {
@@ -350,14 +355,14 @@ By uploading multiple prompts, multi-turn conversations can be easily implemente
 }
 ```
 
-As you can see, the information contained in `output` is consistent with the content for basic usage. It contains the specific content of ChatGPT's replies to multiple conversations, so corresponding questions can be answered based on multiple conversation contents.
+As you can see, the information contained in `output` is consistent with the basic usage content. This contains the specific content of ChatGPT's replies to multiple conversations, so corresponding questions can be answered based on multiple conversation contents.
 
-## Vision model
+## Vision Model
 
 gpt-4o is a multimodal large language model developed by OpenAI. It adds visual understanding capabilities on the basis of GPT-4. This model can process both text and image inputs simultaneously, achieving cross-modal understanding and generation.
-Text processing using the gpt-4o model is consistent with the basic usage described above. The following briefly introduces how to use the model's image processing capabilities.
+Text processing using the gpt-4o model is consistent with the basic usage content above. Below is a brief introduction to how to use the model's image processing capabilities.
 
-The image processing capabilities of the gpt-4o model are mainly used by adding a `type` field based on the original `content`. This field can indicate whether the uploaded content is text or an image, thereby enabling the image processing capabilities of the gpt-4o model. The following mainly describes how to call this feature using Curl and Python.
+The image processing capabilities of the gpt-4o model are mainly used by adding a `type` field to the original `content` content. Through this field, it can be determined whether the upload is text or an image, thereby enabling the image processing capabilities of the gpt-4o model. The following mainly describes how to call this feature using Curl and Python.
 
 - Curl script method
 
@@ -416,7 +421,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.text)
 ```
 
-Then you can obtain the following result. The field information in the result is consistent with the above, specifically as follows:
+Then the following result can be obtained. The field information in the result is consistent with the above. The details are as follows:
 
 ```json
 {
@@ -483,9 +488,9 @@ Then you can obtain the following result. The field information in the result is
 }
 ```
 
-It can be seen that the response content is based on the image. Therefore, through the above two methods, you can easily use the text and image processing capabilities of the gpt-4.1 model.
+It can be seen that the response content is based on the image. Therefore, the text and image processing capabilities of the gpt-4.1 model can be easily used through the above two methods.
 
-In addition to gpt-4.1, there is also a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation large language model developed by OpenAI. It not only responds quickly, but is also more affordable and supports multimodality. For the usage of the vision feature, refer to the usage of the gpt-4.1 model above.
+In addition to gpt-4.1, there is also a lower-cost model called gpt-4o-mini. gpt-4o-mini is the latest generation large language model developed by OpenAI. It not only has a fast response speed, but is also more affordable and supports multimodality. For the use of the vision feature, refer to the usage content of the gpt-4.1 model above.
 
 ## Creation of File Processing Models
 
@@ -579,7 +584,7 @@ As you can see, we also processed the input file, and the result is similar to t
 
 ## Error Handling
 
-When calling the API, if an error is encountered, the API will return the corresponding error code and message. For example:
+When calling the API, if an error is encountered, the API will return the corresponding error code and information. For example:
 
 - `400 token_mismatched`: Bad request, possibly due to missing or invalid parameters.
 - `400 api_not_implemented`: Bad request, possibly due to missing or invalid parameters.
@@ -602,4 +607,4 @@ When calling the API, if an error is encountered, the API will return the corres
 
 ## Conclusion
 
-Through this document, you have learned how to easily use the OpenAI Responses API to implement the official OpenAI Responses creation feature. We hope this document can help you better integrate with and use this API. If you have any questions, please feel free to contact our technical support team.
+Through this document, you have learned how to easily use the OpenAI Responses API to implement the official OpenAI Responses creation feature. We hope this document can help you better integrate and use this API. If you have any questions, please feel free to contact our technical support team.
