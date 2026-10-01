@@ -206,7 +206,7 @@ Keywords: openai-api, openai-compatible, chat-completions, rest-api, ai-api, dev
 .markdown-body .openai-page .oa-code { background: transparent !important; }
 .oa-code-grid {
   display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
+  grid-template-columns: repeat(2,minmax(0,1fr)) !important;
   gap: 0 !important;
   align-items: stretch;
 }
@@ -604,7 +604,7 @@ html.dark .openai-page code { background: #064e3b !important; color: #6ee7b7 !im
 @media (max-width: 980px) {
   .oa-stats { grid-template-columns: repeat(2, 1fr) !important; }
   .oa-feat-grid { grid-template-columns: 1fr !important; }
-  .oa-code-grid { grid-template-columns: 1fr !important; }
+  .oa-code-grid { grid-template-columns: minmax(0,1fr) !important; }
   .oa-code-left { padding: 0 0 32px 0; }
   .oa-steps { grid-template-columns: 1fr !important; gap: 24px !important; }
   .oa-step-conn { display: none; }
@@ -618,11 +618,13 @@ html.dark .openai-page code { background: #064e3b !important; color: #6ee7b7 !im
   .oa-stats { grid-template-columns: 1fr !important; }
   .oa-rel-grid { grid-template-columns: 1fr !important; }
 }
+.openai-page .oa-code-grid>*{min-width:0}
+.openai-page .oa-code-wrap{max-width:100%;min-width:0}
 </style><div class="openai-page"><section class="openai-hero">
   <div class="oa-container">
     <div class="oa-badge"><span class="oa-badge-dot"></span>OpenAI · GPT / o-series / DALL·E</div>
     <h1><span class="oa-brand">OpenAI</span> <span class="oa-sub">Full API Suite</span></h1>
-    <p class="hero-subtitle">Access the full OpenAI model suite through a unified interface—GPT-5, GPT-4o, o3, o1 conversational reasoning, DALL·E 3 / GPT Image generation, and Embeddings vectorization.</p>
+    <p class="hero-subtitle">Access the full range of OpenAI models through a unified interface—GPT-5, GPT-4o, o3, and o1 conversational reasoning; DALL·E 3 / GPT Image image generation; and Embeddings vectorization.</p>
     <div class="oa-actions">
       <a class="oa-btn-primary" href="/documents/openai-chat-completions-integration">📄 View Documentation</a>
       <a class="oa-btn-secondary" href="/documents/openai-images-generations-integration">🎨 Image Generation</a>
@@ -652,18 +654,18 @@ html.dark .openai-page code { background: #064e3b !important; color: #6ee7b7 !im
   <div class="oa-container">
     <div class="oa-header">
       <h2>Complete OpenAI Capabilities</h2>
-      <p>Conversational reasoning, image generation, image editing, text vectorization—everything with one API Key</p>
+      <p>Conversational reasoning, image generation, image editing, and text vectorization—everything with one API Key</p>
     </div>
     <div class="oa-feat-grid">
       <div class="oa-feat-card">
         <div class="oa-feat-icon">💬</div>
         <h3>Chat Completions</h3>
-        <p>Full support for the GPT-5, GPT-4o, GPT-4.1 series and o-series reasoning models, including streaming output, tool calling, and JSON Mode.</p>
+        <p>Full support for the GPT-5, GPT-4o, GPT-4.1, and o-series reasoning models, including streaming output, tool calling, and JSON Mode.</p>
       </div>
       <div class="oa-feat-card">
         <div class="oa-feat-icon">🧠</div>
         <h3>Responses API</h3>
-        <p>OpenAI's latest Responses API format, supporting the same models as Chat Completions and providing more flexible interaction methods.</p>
+        <p>OpenAI's latest Responses API format supports the same models as Chat Completions and provides more flexible interaction methods.</p>
       </div>
       <div class="oa-feat-card">
         <div class="oa-feat-icon">🎨</div>
@@ -715,7 +717,7 @@ print(image.data[0].url)</pre>
 <section class="oa-section oa-bg-white">
   <div class="oa-container">
     <div class="oa-header">
-      <h2>Get Started in 3 Quick Steps</h2>
+      <h2>Get Started Quickly in 3 Steps</h2>
       <p>From registration to completing your first API call, it only takes a few minutes.</p>
     </div>
     <div class="oa-steps">
@@ -724,11 +726,11 @@ print(image.data[0].url)</pre>
       <div class="oa-step">
         <div class="oa-step-num">1</div>
         <h3>Get an API Key</h3>
-        <p>Register for Ace Data Cloud and generate an API key from the console.</p>
+        <p>Register with Ace Data Cloud and generate an API key from the console.</p>
       </div>
       <div class="oa-step">
         <div class="oa-step-num">2</div>
-        <h3>Select an API and Model</h3>
+        <h3>Choose an API and Model</h3>
         <p>Choose the Chat, Images, or Embeddings API based on your needs, along with the required model.</p>
       </div>
       <div class="oa-step">
@@ -742,7 +744,7 @@ print(image.data[0].url)</pre>
   <div class="oa-container">
     <div class="oa-header">
       <h2>What is the OpenAI API suitable for?</h2>
-      <p>Covers a wide range of AI application scenarios, including text, images, embeddings, and more.</p>
+      <p>Covers a variety of AI application scenarios, including text, images, embeddings, and more.</p>
     </div>
     <div class="oa-uc-grid">
       <div class="oa-uc-card">
@@ -752,23 +754,23 @@ print(image.data[0].url)</pre>
       </div>
       <div class="oa-uc-card">
         <div class="oa-uc-icon">🤖</div>
-        <h3>AI Customer Service / Chatbots</h3>
-        <p>Build intelligent customer service systems with GPT-4o-mini, providing cost-effective and efficient conversational capabilities.</p>
+        <h3>AI Customer Service / Chatbot</h3>
+        <p>Build intelligent customer service systems; GPT-4o-mini provides low-cost, efficient conversational capabilities.</p>
       </div>
       <div class="oa-uc-card">
         <div class="oa-uc-icon">🎨</div>
         <h3>AI Image Generation</h3>
-        <p>DALL·E 3 and GPT Image generate high-quality images, ideal for design and marketing asset creation.</p>
+        <p>DALL·E 3 and GPT Image generate high-quality images, ideal for design and marketing material creation.</p>
       </div>
       <div class="oa-uc-card">
         <div class="oa-uc-icon">🔍</div>
         <h3>Semantic Search / RAG</h3>
-        <p>The Embeddings API converts text into vectors to build semantic search engines and knowledge base Q&A systems.</p>
+        <p>The Embeddings API vectorizes text to build semantic search engines and knowledge base Q&amp;A systems.</p>
       </div>
       <div class="oa-uc-card">
         <div class="oa-uc-icon">📊</div>
         <h3>Data Analysis</h3>
-        <p>Provide data for GPT to analyze trends, generate reports, and offer visualization recommendations.</p>
+        <p>Provide data for GPT to analyze trends, generate reports, and offer visualization suggestions.</p>
       </div>
       <div class="oa-uc-card">
         <div class="oa-uc-icon">🔬</div>
@@ -792,7 +794,7 @@ print(image.data[0].url)</pre>
       </div>
       <div class="oa-api-card">
         <h3>🧠 Responses</h3>
-        <p class="api-desc">OpenAI's next-generation response API, supporting the same model set.</p>
+        <p class="api-desc">OpenAI's next-generation response interface, supporting the same model set.</p>
         <span class="oa-api-path">/openai/responses</span>
       </div>
       <div class="oa-api-card">
@@ -807,14 +809,14 @@ print(image.data[0].url)</pre>
       </div>
       <div class="oa-api-card">
         <h3>📐 Embeddings</h3>
-        <p class="api-desc">Convert text into vectors for search, clustering, and RAG.</p>
+        <p class="api-desc">Text vectorization for search, clustering, and RAG.</p>
         <span class="oa-api-path">/openai/embeddings</span>
       </div>
     </div>
   </div>
 </section><section class="oa-section oa-bg-gray"><div class="oa-container"><div class="oa-header">
       <h2>Model Matrix</h2>
-      <p>Choose the most suitable model by task</p>
+      <p>Select the most suitable model by task</p>
     </div><div class="oa-mdl-grid"><div class="oa-mdl-card">
         <h3>🚀 GPT-5 Series</h3>
         <p class="mdl-desc">The latest flagship conversational models, with significantly enhanced reasoning and creative capabilities.</p>
@@ -847,7 +849,7 @@ print(image.data[0].url)</pre>
       </div>
       <div class="oa-mdl-card">
         <h3>⚡ GPT-4o Series</h3>
-        <p class="mdl-desc">Efficient multimodal models supporting combined image and text input.</p>
+        <p class="mdl-desc">Efficient multimodal models supporting combined text and image input.</p>
         <div class="oa-mdl-tags">
           <span class="oa-mdl-tag">gpt-4o</span>
           <span class="oa-mdl-tag">gpt-4o-mini</span>
@@ -865,7 +867,7 @@ print(image.data[0].url)</pre>
       </div>
       <div class="oa-mdl-card">
         <h3>🧠 o Series Reasoning</h3>
-        <p class="mdl-desc">Designed for complex reasoning, delivering high-quality answers after deep thought.</p>
+        <p class="mdl-desc">Designed for complex reasoning, delivering high-quality answers after deep thinking.</p>
         <div class="oa-mdl-tags">
           <span class="oa-mdl-tag">o3</span>
           <span class="oa-mdl-tag">o3-pro</span>
@@ -889,23 +891,23 @@ print(image.data[0].url)</pre>
         </div>
       </div></div></div></section><section class="oa-section oa-bg-white"><div class="oa-container"><div class="oa-header">
       <h2>OpenAI API Pricing</h2>
-      <p>Pay for actual usage: official chat and image channels are billed by Token, standard images by image, and embeddings by Token—GPT / o series chat Token prices are as low as 20% of OpenAI's official pricing.</p>
-      <p style="font-size:14px;color:#94a3b8;margin-top:8px;">Bulk packages offer additional discounts</p>
+      <p>Billed based on actual usage: official chat and image channels by Token, standard images per image, and embeddings by Token—GPT / o series chat Token prices as low as 20% of OpenAI's official pricing.</p>
+      <p style="font-size:14px;color:#94a3b8;margin-top:8px;">Bulk packages offer even greater discounts</p>
     </div>
     <div class="price-grid">
       <div class="price-card price-card-feat">
         <div class="price-feat-badge">Pay as you go</div>
         <div class="price-tier">Token / Per-image billing</div>
         <div>
-          <span class="price-amt">Low price</span>
+          <span class="price-amt">Low prices</span>
           <span class="price-per"> Based on actual usage</span>
         </div>
-        <p class="price-desc">Official text and image channels are billed by Token, standard images by image, with no minimum spend</p>
+        <p class="price-desc">Official text and image channels are billed by Token, standard images per image, with no minimum spend</p>
         <ul class="price-feats">
           <li><span class="price-ck">✓</span> Full GPT-5 / 4o / 4.1 series</li>
           <li><span class="price-ck">✓</span> o3 / o4-mini reasoning models</li>
           <li><span class="price-ck">✓</span> Chat Tokens as low as 20% of official pricing</li>
-          <li><span class="price-ck">✓</span> Image generation from $0.0105 / image</li>
+          <li><span class="price-ck">✓</span> Image generation starting at $0.0105 / image</li>
           <li><span class="price-ck">✓</span> Embeddings as low as $0.0027 / million Tokens</li>
           <li><span class="price-ck">✓</span> Streaming—<strong>free</strong></li>
         </ul>
@@ -916,7 +918,7 @@ print(image.data[0].url)</pre>
         <div>
           <span class="price-amt">Custom</span>
         </div>
-        <p class="price-desc">Dedicated solutions for high-usage teams</p>
+        <p class="price-desc">Dedicated solutions for high-volume teams</p>
         <ul class="price-feats">
           <li><span class="price-ck">✓</span> Usage-based tiered discounts</li>
           <li><span class="price-ck">✓</span> Priority support and account manager</li>
@@ -1002,16 +1004,16 @@ print(image.data[0].url)</pre>
     </div>
     <div class="oa-faq-list">
       <details class="oa-faq-item">
-        <summary class="oa-faq-q"><span>What is the difference compared to using the official OpenAI API directly?</span><span class="oa-faq-chev">›</span></summary>
-        <div class="oa-faq-a"><p>Ace Data Cloud provides proxy APIs fully compatible with the official OpenAI format, with no need to register an OpenAI account or link an overseas credit card. A single API Key lets you access models from OpenAI, Claude, Gemini, Grok, and more.</p></div>
+        <summary class="oa-faq-q"><span>What is the difference from using the official OpenAI API directly?</span><span class="oa-faq-chev">›</span></summary>
+        <div class="oa-faq-a"><p>Ace Data Cloud provides proxy APIs fully compatible with the official OpenAI format, with no need to register an OpenAI account or link an overseas credit card. A single API Key gives you access to models from OpenAI, Claude, Gemini, Grok, and more.</p></div>
       </details>
       <details class="oa-faq-item">
         <summary class="oa-faq-q"><span>What is the difference between GPT-5 and GPT-4o?</span><span class="oa-faq-chev">›</span></summary>
-        <div class="oa-faq-a"><p>GPT-5 is OpenAI's latest flagship model, comprehensively surpassing GPT-4o in reasoning, creation, and knowledge capabilities. GPT-4o is a thoroughly validated, cost-effective option suitable for cost-sensitive scenarios.</p></div>
+        <div class="oa-faq-a"><p>GPT-5 is OpenAI's latest flagship model, surpassing GPT-4o across reasoning, creation, and knowledge capabilities. GPT-4o is a well-validated, cost-effective choice suitable for cost-sensitive scenarios.</p></div>
       </details>
       <details class="oa-faq-item">
         <summary class="oa-faq-q"><span>What scenarios are o-series reasoning models suitable for?</span><span class="oa-faq-chev">›</span></summary>
-        <div class="oa-faq-a"><p>Reasoning models such as o3, o3-pro, and o4-mini perform deep thinking before providing answers, making them especially suitable for tasks requiring in-depth reasoning, such as mathematical calculations, logical reasoning, and code analysis. o3-mini and o4-mini provide reasoning capabilities at a lower cost.</p></div>
+        <div class="oa-faq-a"><p>Reasoning models such as o3, o3-pro, and o4-mini perform deep thinking before providing answers, making them especially suitable for tasks requiring deep reasoning, such as mathematical calculations, logical reasoning, and code analysis. o3-mini and o4-mini offer lower-cost reasoning capabilities.</p></div>
       </details>
       <details class="oa-faq-item">
         <summary class="oa-faq-q"><span>What is the difference between GPT Image and DALL·E 3?</span><span class="oa-faq-chev">›</span></summary>
@@ -1019,7 +1021,7 @@ print(image.data[0].url)</pre>
       </details>
       <details class="oa-faq-item">
         <summary class="oa-faq-q"><span>Which model is best for Embeddings?</span><span class="oa-faq-chev">›</span></summary>
-        <div class="oa-faq-a"><p><code>text-embedding-3-small</code> is recommended for the best value ($0.0027 / million Tokens). For higher accuracy, use <code>text-embedding-3-large</code> ($0.017 / million Tokens). <code>ada-002</code> is an older model with good compatibility but lower value than v3.</p></div>
+        <div class="oa-faq-a"><p><code>text-embedding-3-small</code> is recommended for the best value ($0.0027 / million Token). For higher accuracy, use <code>text-embedding-3-large</code> ($0.017 / million Token). <code>ada-002</code> is an older model with good compatibility, but it is less cost-effective than v3.</p></div>
       </details>
     </div>
   </div>
@@ -1027,7 +1029,7 @@ print(image.data[0].url)</pre>
   <div class="oa-container">
     <div class="oa-header">
       <h2>Explore More AI Models</h2>
-      <p>Ace Data Cloud offers a variety of large language models and AI service APIs</p>
+      <p>Ace Data Cloud provides a variety of large language models and AI service APIs</p>
     </div>
     <div class="oa-rel-grid">
       <a class="oa-rel-card" href="/services/claude">
@@ -1056,7 +1058,7 @@ print(image.data[0].url)</pre>
 <section class="openai-cta">
   <div class="oa-container">
     <h2>Start Using the OpenAI API Now</h2>
-    <p>Access the full range of OpenAI models with one API Key, from conversations to images to vectorization.</p>
+    <p>Use one API Key to access the full OpenAI model lineup, from conversations to images to embeddings.</p>
     <div class="oa-actions">
       <a class="btn-cta-light" href="/documents/openai-chat-completions-integration">Get Started →</a>
       <a class="btn-cta-ghost" href="/support">Contact Support</a>
