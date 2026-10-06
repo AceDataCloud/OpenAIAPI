@@ -12,6 +12,9 @@ Next, you can fill in the corresponding content on the interface, as shown in th
 <p><img src="https://cdn.acedata.cloud/jqgg1t.png" width="400" class="m-auto"></p>
 When using this interface for the first time, we need to fill in at least three pieces of information: one is `authorization`, which can be selected directly from the dropdown list. The other parameter is `model`, which is the category of the OpenAI ChatGPT model we choose to use. Here we mainly have 20 types of models; details can be found in the models we provide. The last parameter is `messages`, which is an array of our input questions. It is an array that allows multiple questions to be uploaded simultaneously, with each question containing `role` and `content`. The `role` indicates the role of the questioner, and we provide three identities: `user`, `assistant`, and `system`. The other `content` is the specific content of our question.
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
+
+Set `model` to `gpt-5.6-sol-fast` to use GPT-5.6 Sol Fast with the same Chat Completions request format. Both `/openai/chat/completions` and the public alias `/v1/chat/completions` accept this model.
+
 Common optional parameters:
 - `max_tokens`: Limits the maximum number of tokens for a single response.
 - `temperature`: Generates randomness, between 0-2, with larger values being more divergent.
@@ -193,6 +196,19 @@ By uploading multiple question words, multi-turn dialogue can be easily achieved
 }
 ```
 As can be seen, the information contained in `choices` is consistent with the basic usage content, which includes the specific content of ChatGPT's responses to multiple dialogues, allowing for answers to corresponding questions based on multiple dialogue contents.
+## Integrating with Dify
+
+In Settings → Model Providers → OpenAI-API-compatible, configure:
+
+- **Base URL**: `https://api.acedata.cloud/v1` (not `/openai/v1`).
+- **API Key**: Your Ace Data Cloud API Token.
+- **Model name**: `gpt-5.5` or another supported chat model, such as `gpt-5.6-sol-fast`.
+- **Model type**: LLM.
+- **Conversation type**: Chat.
+- **API type**: Chat Completions.
+
+Dify appends `/chat/completions` to the Base URL. After testing the connection, select the model in a Workflow or Chatflow LLM node.
+
 ## Integrating OpenAI-Python
 The OpenAI Chat Completion API is compatible with the official OpenAI interface, so you can integrate with the official SDK [OpenAI-Python](https://github.com/openai/openai-python). This article will briefly introduce how to use the services provided by the official.
 1. First, set up a local `Python` environment, this process can be searched on Google.

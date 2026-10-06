@@ -24,6 +24,8 @@ When using this interface for the first time, we need to fill in at least three 
 
 You can also notice that there is corresponding code generation on the right side; you can copy the code to run directly or click the "Try" button for testing.
 
+Set `model` to `gpt-5.6-sol-fast` to use GPT-5.6 Sol Fast with the same Responses request format. Both `/openai/responses` and the public alias `/v1/responses` accept this model.
+
 Common optional parameters:
 
 - `max_tokens`: Limits the maximum number of tokens for a single response.
