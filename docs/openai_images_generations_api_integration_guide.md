@@ -36,6 +36,9 @@ A successful synchronous response returns the generated images in `data[].url`. 
 | `gpt-image-2.5-flare:official` | Flare through the official channel | Actual text-input and image-output tokens |
 | `gpt-image-2.5-sunburst` | Higher-fidelity output and finer control | Per successful image |
 | `gpt-image-2.5-sunburst:official` | Sunburst through the official channel | Actual text-input and image-output tokens |
+| `nano-banana-2.1` | Nano Banana image generation | Per successful image |
+
+`nano-banana-2.1` is available without an `:official` variant. It supports `n > 1`; use URL output for multiple images. GPT Image-specific parameter and size rules below do not apply to Nano Banana. For explicit `resolution` (`1K`, `2K`, or `4K`) and `aspect_ratio` controls, use the [dedicated Nano Banana guide](https://platform.acedata.cloud/documents/nano-banana-images).
 
 The bare names `gpt-image-2.5` and `gpt-image-2.5:reverse` are not supported model IDs.
 
