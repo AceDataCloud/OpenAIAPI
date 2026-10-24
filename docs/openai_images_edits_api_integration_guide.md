@@ -2,6 +2,8 @@
 
 Use the OpenAI-compatible Images Edits API to transform one or more reference images with GPT Image 2 and GPT Image 2.5. Send public image URLs as JSON or upload local files with `multipart/form-data`.
 
+The image editing API and its companion guides are hidden from the mainland-China catalog. Check availability in your region before using this global reference guide.
+
 ## 1. Get an API Key
 
 Open the [Ace Data Cloud application console](https://platform.acedata.cloud/console/applications), select an available application, and copy its API Key.

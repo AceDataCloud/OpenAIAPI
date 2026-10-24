@@ -31,6 +31,10 @@ Save the key in the client's credential store or the environment variable shown 
 - Image generation and editing with GPT Image 2, GPT Image 2.5 Flare/Sunburst, and explicit official variants
 - English integration guides, live API references, and production-oriented examples
 
+## Regional catalog availability
+
+The OpenAI image generation and editing APIs and their companion guides are hidden from the mainland-China catalog. Check the catalog available to your region before following the image examples below; these global reference examples do not establish regional availability.
+
 ## Overview
 
 <style>
