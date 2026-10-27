@@ -1,6 +1,11 @@
 # OpenAI Chat Completion API Application and Usage
 OpenAI ChatGPT is a very powerful AI dialogue system that can generate smooth and natural responses in just a few seconds by inputting prompts. ChatGPT stands out in the industry with its excellent language understanding and generation capabilities, and today, it has been widely applied across various industries and fields, with its influence becoming increasingly significant. Whether for daily conversations, creative writing, or professional consulting and coding, ChatGPT can provide astonishing intelligent assistance, greatly enhancing human work efficiency and creativity.
 This document mainly introduces the usage process of the OpenAI Chat Completion API, allowing us to easily utilize the dialogue function of the official OpenAI ChatGPT.
+
+## Token and Cache Billing
+
+Compatible model requests accepted by the platform are billed for the selected model's input, output, and cache usage. Chat Completions `usage.prompt_tokens` includes cached tokens; reported cache usage is charged at the corresponding cache rates, rather than charging those tokens again at the regular input rate. Switching API formats does not turn token billing into a fixed per-request fee. Refer to the console's current model prices and the response's `usage.cost` when present for the charge.
+
 ## Application Process
 To use OpenAI Chat Completion API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 ![](https://cdn.acedata.cloud/5hmkdg.jpg)

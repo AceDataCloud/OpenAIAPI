@@ -31,6 +31,10 @@ Save the key in the client's credential store or the environment variable shown 
 - Image generation and editing with GPT Image 2, GPT Image 2.5 Flare/Sunburst, and explicit official variants
 - English integration guides, live API references, and production-oriented examples
 
+## Chat and Responses Billing
+
+Accepted compatible-model requests on `/openai/chat/completions` (alias `/v1/chat/completions`) and `/openai/responses` (alias `/v1/responses`) are billed for the selected model's input, output, and cache usage, not a fixed fee for switching API formats. Chat Completions `usage.prompt_tokens` and Responses `usage.input_tokens` include cached tokens; reported cache usage is charged at the corresponding cache rates. Check the console's current model prices and the response's `usage.cost` when present. See the [Chat Completions guide](docs/openai_chat_completion_api_integration_guide.md#token-and-cache-billing) and [Responses guide](docs/openai_responses_api_integration_guide.md#token-and-cache-billing) for details.
+
 ## Regional catalog availability
 
 The OpenAI image generation and editing APIs and their companion guides are hidden from the mainland-China catalog. Check the catalog available to your region before following the image examples below; these global reference examples do not establish regional availability.
