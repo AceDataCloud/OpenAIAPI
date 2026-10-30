@@ -54,7 +54,7 @@ Official variants are usage-metered. Pricing shown before a request is an estima
 | `prompt` | Image description, up to 32,000 characters |
 | `size` | `auto` or `WIDTHxHEIGHT` |
 | `n` | Number of images, from 1 to 10 |
-| `quality` | `auto`, `low`, `medium`, or `high` for GPT Image models |
+| `quality` | GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage |
 | `response_format` | `url` or `b64_json` |
 | `output_format` | `png`, `jpeg`, or `webp` |
 | `background` | `auto`, `opaque`, or `transparent` where supported |
@@ -94,7 +94,7 @@ curl https://api.acedata.cloud/openai/images/generations \
     "model": "gpt-image-2.5-flare:official",
     "prompt": "A small fox reading under a glowing mushroom, watercolor illustration",
     "size": "1536x1024",
-    "quality": "low",
+    "quality": "xhigh",
     "n": 2
   }'
 ```

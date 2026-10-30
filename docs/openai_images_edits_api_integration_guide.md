@@ -81,6 +81,7 @@ Use `multipart/form-data` for local files:
 curl https://api.acedata.cloud/openai/images/edits \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -F "model=gpt-image-2.5-sunburst:official" \
+  -F "quality=max" \
   -F "image=@input.png" \
   -F "prompt=Replace the background with a bright modern studio" \
   -F "size=1024x1024"
@@ -97,7 +98,7 @@ Repeat the `image` field to upload multiple references. GPT Image models accept 
 | `prompt` | Editing instruction |
 | `size` | `auto` or `WIDTHxHEIGHT` |
 | `n` | Number of edited outputs, from 1 to 10 |
-| `quality` | `auto`, `low`, `medium`, or `high` for GPT Image models |
+| `quality` | GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. Supported in both JSON URL edits and multipart file edits; official variants bill actual token usage |
 | `response_format` | `url` or `b64_json` |
 | `output_format` | `png`, `jpeg`, or `webp` |
 | `callback_url` | Optional webhook for asynchronous completion |
