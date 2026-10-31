@@ -869,6 +869,7 @@ print(image.data[0].url)</pre>
 <span class="oa-mdl-tag">gpt-5.6-terra</span>
 <span class="oa-mdl-tag">gpt-6-astra</span>
 <span class="oa-mdl-tag">gpt-6.1-sol</span>
+<span class="oa-mdl-tag">gpt-6.1-terra</span>
 <span class="oa-mdl-tag">gpt-6-sol</span>
 <span class="oa-mdl-tag">gpt-6-luna</span>
 <span class="oa-mdl-tag">gpt-5.6-sol-fast</span>
