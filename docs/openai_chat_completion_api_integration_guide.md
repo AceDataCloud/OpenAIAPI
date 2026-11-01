@@ -6,6 +6,10 @@ This document mainly introduces the usage process of the OpenAI Chat Completion 
 
 Compatible model requests accepted by the platform are billed for the selected model's input, output, and cache usage. Chat Completions `usage.prompt_tokens` includes cached tokens; reported cache usage is charged at the corresponding cache rates, rather than charging those tokens again at the regular input rate. Switching API formats does not turn token billing into a fixed per-request fee. Refer to the console's current model prices and the response's `usage.cost` when present for the charge.
 
+## GPT-6.1 Terra
+
+Set `model: "gpt-6.1-terra"` on `/openai/chat/completions` or its public alias `/v1/chat/completions`. It supports text and image input, streaming, function tools and structured output using this endpoint's fields. Supported `reasoning_effort` values are `low`, `medium`, `high`, `xhigh` and `max`; start with `low`, not `none` or `minimal`. Input above 272,000 tokens uses long-context pricing; check current console prices and actual response usage.
+
 ## Application Process
 To use OpenAI Chat Completion API, first open the [Ace Data Cloud Console](https://platform.acedata.cloud/console/applications) and copy your API Token.
 ![](https://cdn.acedata.cloud/5hmkdg.jpg)

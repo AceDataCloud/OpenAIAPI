@@ -8,6 +8,10 @@ This document mainly describes the usage process of the OpenAI Responses API, wh
 
 Compatible model requests accepted by the platform are billed for the selected model's input, output, and cache usage. Responses `usage.input_tokens` includes reported cached tokens; the cached portion is charged at the corresponding cache rate, rather than charging those tokens again at the regular input rate. Switching API formats does not turn token billing into a fixed per-request fee. Refer to the console's current model prices and the response's `usage.cost` when present for the charge.
 
+## GPT-6.1 Terra
+
+Set `model: "gpt-6.1-terra"` on `/openai/responses` or its public alias `/v1/responses`. It supports text and image input, streaming, function tools and structured output. Use `reasoning: {"effort": "low"}` as a starting point; supported effort values are `low`, `medium`, `high`, `xhigh` and `max`, not `none` or `minimal`. Input above 272,000 tokens uses long-context pricing; check current console prices and actual response usage.
+
 ## Application Process
 
 To use the OpenAI Responses API, you can first go to the [OpenAI Responses API](https://platform.acedata.cloud/documents/81e285a6-d010-4a2d-a3a8-ca113d4ef82a) page and click the "Acquire" button to obtain the credentials needed for the request:
