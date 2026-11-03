@@ -62,14 +62,20 @@ The corresponding synchronous response was:
 | `gpt-image-2:reverse` | Same standard capability under an explicit alias | Per successful image |
 | `gpt-image-2:official` | Official channel | Actual text, reference-image, and output-image tokens |
 | `gpt-image-2.5-flare` | Faster editing | Per successful image |
+| `gpt-image-2.5-flare:reverse` | Explicit alias equivalent to `gpt-image-2.5-flare` | Per successful image |
 | `gpt-image-2.5-flare:official` | Flare through the official channel | Actual text, reference-image, and output-image tokens |
 | `gpt-image-2.5-sunburst` | Higher-fidelity editing and finer control | Per successful image |
+| `gpt-image-2.5-sunburst:reverse` | Explicit alias equivalent to `gpt-image-2.5-sunburst` | Per successful image |
 | `gpt-image-2.5-sunburst:official` | Sunburst through the official channel | Actual text, reference-image, and output-image tokens |
 | `nano-banana-2.1` | Nano Banana image editing | Per successful image |
 
 `nano-banana-2.1` is supported in both JSON and multipart requests, without an `:official` variant. It supports `n > 1`; use URL output for multiple images. GPT Image-specific parameter and size rules below do not apply to Nano Banana. For explicit `resolution` (`1K`, `2K`, or `4K`) and `aspect_ratio` controls, use the [dedicated Nano Banana guide](https://platform.acedata.cloud/documents/nano-banana-images).
 
 The bare names `gpt-image-2.5` and `gpt-image-2.5:reverse` are not supported model IDs.
+
+`gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, and their `:reverse` aliases have a base rate of 0.19 Credits per successful image. Token statistics in a response do not change this per-image billing. Account discounts and final charges are shown in pricing and usage records.
+
+During automatic recovery, these standard variants (including `:reverse` aliases) may use GPT Image 2.5 Flare to complete a request. The requested model ID and per-successful-image billing remain unchanged.
 
 Official variants are usage-metered. Their pre-request prices are estimates; the usage record is authoritative after completion. For `n > 1`, returned usage is aggregated once and is not multiplied by `n` again.
 
@@ -80,7 +86,7 @@ Use `multipart/form-data` for local files:
 ```bash
 curl https://api.acedata.cloud/openai/images/edits \
   -H "Authorization: Bearer YOUR_API_KEY" \
-  -F "model=gpt-image-2.5-sunburst:official" \
+  -F "model=gpt-image-2.5-sunburst:reverse" \
   -F "quality=max" \
   -F "image=@input.png" \
   -F "prompt=Replace the background with a bright modern studio" \
@@ -98,7 +104,7 @@ Repeat the `image` field to upload multiple references. GPT Image models accept 
 | `prompt` | Editing instruction |
 | `size` | `auto` or `WIDTHxHEIGHT` |
 | `n` | Number of edited outputs, from 1 to 10 |
-| `quality` | GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. Supported in both JSON URL edits and multipart file edits; official variants bill actual token usage |
+| `quality` | GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Supported in both JSON URL edits and multipart file edits; official variants bill actual token usage |
 | `response_format` | `url` or `b64_json` |
 | `output_format` | `png`, `jpeg`, or `webp` |
 | `callback_url` | Optional webhook for asynchronous completion |

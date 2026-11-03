@@ -35,14 +35,20 @@ A successful synchronous response returns the generated images in `data[].url`. 
 | `gpt-image-2:reverse` | Same standard capability under an explicit alias | Per successful image |
 | `gpt-image-2:official` | Official channel | Actual text-input and image-output tokens |
 | `gpt-image-2.5-flare` | Faster GPT Image 2.5 generation | Per successful image |
+| `gpt-image-2.5-flare:reverse` | Explicit alias equivalent to `gpt-image-2.5-flare` | Per successful image |
 | `gpt-image-2.5-flare:official` | Flare through the official channel | Actual text-input and image-output tokens |
 | `gpt-image-2.5-sunburst` | Higher-fidelity output and finer control | Per successful image |
+| `gpt-image-2.5-sunburst:reverse` | Explicit alias equivalent to `gpt-image-2.5-sunburst` | Per successful image |
 | `gpt-image-2.5-sunburst:official` | Sunburst through the official channel | Actual text-input and image-output tokens |
 | `nano-banana-2.1` | Nano Banana image generation | Per successful image |
 
 `nano-banana-2.1` is available without an `:official` variant. It supports `n > 1`; use URL output for multiple images. GPT Image-specific parameter and size rules below do not apply to Nano Banana. For explicit `resolution` (`1K`, `2K`, or `4K`) and `aspect_ratio` controls, use the [dedicated Nano Banana guide](https://platform.acedata.cloud/documents/nano-banana-images).
 
 The bare names `gpt-image-2.5` and `gpt-image-2.5:reverse` are not supported model IDs.
+
+`gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, and their `:reverse` aliases have a base rate of 0.19 Credits per successful image. Token statistics in a response do not change this per-image billing. Account discounts and final charges are shown in pricing and usage records.
+
+During automatic recovery, these standard variants (including `:reverse` aliases) may use GPT Image 2.5 Flare to complete a request. The requested model ID and per-successful-image billing remain unchanged.
 
 Official variants are usage-metered. Pricing shown before a request is an estimate; the usage record is authoritative after completion. For `n > 1`, returned usage is aggregated once and is not multiplied by `n` again.
 
@@ -54,7 +60,7 @@ Official variants are usage-metered. Pricing shown before a request is an estima
 | `prompt` | Image description, up to 32,000 characters |
 | `size` | `auto` or `WIDTHxHEIGHT` |
 | `n` | Number of images, from 1 to 10 |
-| `quality` | GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage |
+| `quality` | GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage |
 | `response_format` | `url` or `b64_json` |
 | `output_format` | `png`, `jpeg`, or `webp` |
 | `background` | `auto`, `opaque`, or `transparent` where supported |
@@ -91,7 +97,7 @@ curl https://api.acedata.cloud/openai/images/generations \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "gpt-image-2.5-flare:official",
+    "model": "gpt-image-2.5-flare:reverse",
     "prompt": "A small fox reading under a glowing mushroom, watercolor illustration",
     "size": "1536x1024",
     "quality": "xhigh",

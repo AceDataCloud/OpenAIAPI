@@ -28,7 +28,7 @@ Save the key in the client's credential store or the environment variable shown 
 
 - One API key, one billing system, and one usage history across model families
 - OpenAI-compatible endpoints served from [https://api.acedata.cloud](https://api.acedata.cloud)
-- Image generation and editing with GPT Image 2, GPT Image 2.5 Flare/Sunburst, and explicit official variants
+- Image generation and editing with GPT Image 2, GPT Image 2.5 Flare/Sunburst, and explicit `:reverse` aliases and `:official` variants
 - English integration guides, live API references, and production-oriented examples
 
 ## Chat and Responses Billing
@@ -927,8 +927,10 @@ print(image.data[0].url)</pre>
 <span class="oa-mdl-tag">gpt-image-2</span>
 <span class="oa-mdl-tag">gpt-image-2:official</span>
 <span class="oa-mdl-tag">gpt-image-2.5-flare</span>
+<span class="oa-mdl-tag">gpt-image-2.5-flare:reverse</span>
 <span class="oa-mdl-tag">gpt-image-2.5-flare:official</span>
 <span class="oa-mdl-tag">gpt-image-2.5-sunburst</span>
+<span class="oa-mdl-tag">gpt-image-2.5-sunburst:reverse</span>
 <span class="oa-mdl-tag">gpt-image-2.5-sunburst:official</span>
 <span class="oa-mdl-tag">dall-e-3</span>
 <span class="oa-mdl-tag">dall-e-2</span>
@@ -1004,9 +1006,9 @@ print(image.data[0].url)</pre>
 <td class="td-price">$0.052</td>
 </tr>
 <tr>
-<td>GPT Image 2.5 Flare</td>
+<td>GPT Image 2.5 Flare (including :reverse)</td>
 <td>All Sizes</td>
-<td class="td-price">$0.0105 / image</td>
+<td class="td-price">0.19 Credits / successful image</td>
 </tr>
 <tr>
 <td>GPT Image 2.5 Flare Official</td>
@@ -1014,9 +1016,9 @@ print(image.data[0].url)</pre>
 <td class="td-price">Estimated Before Request</td>
 </tr>
 <tr>
-<td>GPT Image 2.5 Sunburst</td>
+<td>GPT Image 2.5 Sunburst (including :reverse)</td>
 <td>All Sizes</td>
-<td class="td-price">$0.0105 / image</td>
+<td class="td-price">0.19 Credits / successful image</td>
 </tr>
 <tr>
 <td>GPT Image 2.5 Sunburst Official</td>
