@@ -28,7 +28,7 @@ Save the key in the client's credential store or the environment variable shown 
 
 - One API key, one billing system, and one usage history across model families
 - OpenAI-compatible endpoints served from [https://api.acedata.cloud](https://api.acedata.cloud)
-- Image generation and editing with GPT Image 2, GPT Image 2.5 Flare/Sunburst, and explicit `:reverse` aliases and `:official` variants
+- Image generation and editing with GPT Image 2, GPT Image 2.5 / 2.6 Flare/Sunburst, and explicit `:reverse` aliases and `:official` variants
 - English integration guides, live API references, and production-oriented examples
 
 ## Chat and Responses Billing
@@ -932,6 +932,12 @@ print(image.data[0].url)</pre>
 <span class="oa-mdl-tag">gpt-image-2.5-sunburst</span>
 <span class="oa-mdl-tag">gpt-image-2.5-sunburst:reverse</span>
 <span class="oa-mdl-tag">gpt-image-2.5-sunburst:official</span>
+<span class="oa-mdl-tag">gpt-image-2.6-flare</span>
+<span class="oa-mdl-tag">gpt-image-2.6-flare:reverse</span>
+<span class="oa-mdl-tag">gpt-image-2.6-flare:official</span>
+<span class="oa-mdl-tag">gpt-image-2.6-sunburst</span>
+<span class="oa-mdl-tag">gpt-image-2.6-sunburst:reverse</span>
+<span class="oa-mdl-tag">gpt-image-2.6-sunburst:official</span>
 <span class="oa-mdl-tag">dall-e-3</span>
 <span class="oa-mdl-tag">dall-e-2</span>
 <span class="oa-mdl-tag">nano-banana</span>
@@ -1026,6 +1032,16 @@ print(image.data[0].url)</pre>
 <td class="td-price">Estimated Before Request</td>
 </tr>
 <tr>
+<td>GPT Image 2.6 Flare / Sunburst (including :reverse)</td>
+<td>All Sizes</td>
+<td class="td-price">0.22 Credits / successful image</td>
+</tr>
+<tr>
+<td>GPT Image 2.6 Flare / Sunburst Official</td>
+<td>Actual Token Usage (same rates as 2.5 official)</td>
+<td class="td-price">Estimated Before Request</td>
+</tr>
+<tr>
 <td>DALL·E 3</td>
 <td>Standard 1024×1024</td>
 <td class="td-price">$0.019</td>
@@ -1076,7 +1092,7 @@ print(image.data[0].url)</pre>
 </div>
 <div class="oa-faq-item">
 <div class="oa-faq-q"><span>What is the difference between GPT Image and DALL·E 3?</span><span class="oa-faq-chev">›</span></div>
-<div class="oa-faq-a"><p>GPT Image models support both generation and editing. GPT Image 2.5 Flare prioritizes speed, while Sunburst prioritizes higher-fidelity output and finer control. Each 2.5 model also has an <code>:official</code> variant billed from actual token usage. DALL·E 3 remains a dedicated generation model with Standard and HD modes.</p></div>
+<div class="oa-faq-a"><p>GPT Image models support both generation and editing. GPT Image 2.5 / 2.6 Flare prioritizes speed, while Sunburst prioritizes higher-fidelity output and finer control. Each 2.5 / 2.6 model also has an <code>:official</code> variant billed from actual token usage. DALL·E 3 remains a dedicated generation model with Standard and HD modes.</p></div>
 </div>
 <div class="oa-faq-item">
 <div class="oa-faq-q"><span>Which model is good for Embeddings?</span><span class="oa-faq-chev">›</span></div>

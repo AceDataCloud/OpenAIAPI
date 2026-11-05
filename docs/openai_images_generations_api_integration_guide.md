@@ -1,6 +1,6 @@
-# GPT Image 2 / 2.5 Image Generation API
+# GPT Image 2 / 2.5 / 2.6 Image Generation API
 
-Use the OpenAI-compatible Images Generations API to create images from text with GPT Image 2 and GPT Image 2.5. The same endpoint supports synchronous responses, multiple outputs, and asynchronous callbacks.
+Use the OpenAI-compatible Images Generations API to create images from text with GPT Image 2, GPT Image 2.5, and GPT Image 2.6. The same endpoint supports synchronous responses, multiple outputs, and asynchronous callbacks.
 
 The image generation API and its companion guides are hidden from the mainland-China catalog. Check availability in your region before using this global reference guide.
 
@@ -40,15 +40,23 @@ A successful synchronous response returns the generated images in `data[].url`. 
 | `gpt-image-2.5-sunburst` | Higher-fidelity output and finer control | Per successful image |
 | `gpt-image-2.5-sunburst:reverse` | Explicit alias equivalent to `gpt-image-2.5-sunburst` | Per successful image |
 | `gpt-image-2.5-sunburst:official` | Sunburst through the official channel | Actual text-input and image-output tokens |
+| `gpt-image-2.6-flare` | Faster GPT Image 2.6 generation | 0.22 Credits per successful image |
+| `gpt-image-2.6-flare:reverse` | Explicit alias equivalent to `gpt-image-2.6-flare` | 0.22 Credits per successful image |
+| `gpt-image-2.6-flare:official` | Flare through the official channel | Actual tokens, same rates as 2.5 official |
+| `gpt-image-2.6-sunburst` | Higher-fidelity output and finer control | 0.22 Credits per successful image |
+| `gpt-image-2.6-sunburst:reverse` | Explicit alias equivalent to `gpt-image-2.6-sunburst` | 0.22 Credits per successful image |
+| `gpt-image-2.6-sunburst:official` | Sunburst through the official channel | Actual tokens, same rates as 2.5 official |
 | `nano-banana-2.1` | Nano Banana image generation | Per successful image |
 
 `nano-banana-2.1` is available without an `:official` variant. It supports `n > 1`; use URL output for multiple images. GPT Image-specific parameter and size rules below do not apply to Nano Banana. For explicit `resolution` (`1K`, `2K`, or `4K`) and `aspect_ratio` controls, use the [dedicated Nano Banana guide](https://platform.acedata.cloud/documents/nano-banana-images).
 
-The bare names `gpt-image-2.5` and `gpt-image-2.5:reverse` are not supported model IDs.
+Use the full model IDs: `gpt-image-2.5`, `gpt-image-2.5:reverse`, `gpt-image-2.6`, `gpt-image-2.6:reverse`, and `gpt-image-2.6:official` are not supported model IDs.
 
 `gpt-image-2`, `gpt-image-2.5-flare`, `gpt-image-2.5-sunburst`, and their `:reverse` aliases have a base rate of 0.19 Credits per successful image. Token statistics in a response do not change this per-image billing. Account discounts and final charges are shown in pricing and usage records.
 
-During automatic recovery, these standard variants (including `:reverse` aliases) may use GPT Image 2.5 Flare to complete a request. The requested model ID and per-successful-image billing remain unchanged.
+GPT Image 2.6 standard variants and their `:reverse` aliases have a base rate of 0.22 Credits per successful image, regardless of returned token statistics.
+
+During automatic recovery, the 2 / 2.5 standard variants (including `:reverse` aliases) may use GPT Image 2.5 Flare to complete a request. The requested model ID and per-successful-image billing remain unchanged. GPT Image 2.6 has no cross-model substitution configured.
 
 Official variants are usage-metered. Pricing shown before a request is an estimate; the usage record is authoritative after completion. For `n > 1`, returned usage is aggregated once and is not multiplied by `n` again.
 
@@ -60,9 +68,9 @@ Official variants are usage-metered. Pricing shown before a request is an estima
 | `prompt` | Image description, up to 32,000 characters |
 | `size` | `auto` or `WIDTHxHEIGHT` |
 | `n` | Number of images, from 1 to 10 |
-| `quality` | GPT Image models support `auto` (default), `low`, `medium`, and `high`. Only `gpt-image-2.5-flare` and `gpt-image-2.5-sunburst`, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage |
+| `quality` | GPT Image models support `auto` (default), `low`, `medium`, and `high`. GPT Image 2.5 / 2.6 Flare and Sunburst, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage |
 | `response_format` | `url` or `b64_json` |
-| `output_format` | `png`, `jpeg`, or `webp` |
+| `output_format` | `png`, `jpeg`, or `webp`; SVG/GIF are not supported |
 | `background` | `auto`, `opaque`, or `transparent` where supported |
 | `callback_url` | Optional webhook for asynchronous completion |
 | `async` | Set to `true` to return a task ID immediately |
@@ -71,7 +79,7 @@ Official variants are usage-metered. Pricing shown before a request is an estima
 
 ## 5. Size Rules
 
-GPT Image 2 and 2.5 accept `auto` or custom dimensions that meet all of these constraints:
+GPT Image 2, 2.5, and 2.6 accept `auto` or custom dimensions that meet all of these constraints:
 
 - width and height are multiples of 16;
 - the longer edge is at most 3840 pixels;
@@ -97,7 +105,7 @@ curl https://api.acedata.cloud/openai/images/generations \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "gpt-image-2.5-flare:reverse",
+    "model": "gpt-image-2.6-flare:reverse",
     "prompt": "A small fox reading under a glowing mushroom, watercolor illustration",
     "size": "1536x1024",
     "quality": "xhigh",
@@ -141,4 +149,4 @@ When a callback URL is provided, the final result is sent to that URL with the s
 
 Error responses include `error.code`, `error.message`, and `trace_id`. Share the trace ID—not the API Key—when requesting support.
 
-See the [live Images Generations API reference](https://platform.acedata.cloud/documents/openai-images-generations) for the complete schema and current enums. For image-to-image workflows, see the [GPT Image 2 / 2.5 editing guide](https://platform.acedata.cloud/documents/openai-images-edits).
+See the [live Images Generations API reference](https://platform.acedata.cloud/documents/openai-images-generations) for the complete schema and current enums. For image-to-image workflows, see the [GPT Image 2 / 2.5 / 2.6 editing guide](https://platform.acedata.cloud/documents/openai-images-edits).
