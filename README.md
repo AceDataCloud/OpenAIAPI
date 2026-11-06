@@ -29,6 +29,7 @@ Save the key in the client's credential store or the environment variable shown 
 - One API key, one billing system, and one usage history across model families
 - OpenAI-compatible endpoints served from [https://api.acedata.cloud](https://api.acedata.cloud)
 - Image generation and editing with GPT Image 2, GPT Image 2.5 / 2.6 Flare/Sunburst, and explicit `:reverse` aliases and `:official` variants
+- GPT Image 2.6 supports native animated GIF output, composition `complexity`, and annotation-guided static editing with `markup`. Start GIFs at `512x512`, 9 frames, 200ms per frame; static 4K presets do not apply to GIFs. See the [generation guide](docs/openai_images_generations_api_integration_guide.md#native-gif-generation-gpt-image-26) and [editing guide](docs/openai_images_edits_api_integration_guide.md#annotation-guided-editing-gpt-image-26) for supported combinations.
 - English integration guides, live API references, and production-oriented examples
 
 ## Chat and Responses Billing

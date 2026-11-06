@@ -70,7 +70,10 @@ Official variants are usage-metered. Pricing shown before a request is an estima
 | `n` | Number of images, from 1 to 10 |
 | `quality` | GPT Image models support `auto` (default), `low`, `medium`, and `high`. GPT Image 2.5 / 2.6 Flare and Sunburst, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Official variants bill actual token usage |
 | `response_format` | `url` or `b64_json` |
-| `output_format` | `png`, `jpeg`, or `webp`; SVG/GIF are not supported |
+| `output_format` | `png`, `jpeg`, or `webp`; GPT Image 2.6 Flare/Sunburst (including `:reverse` and `:official`) also support native animated `gif`. SVG is not supported |
+| `frame_count` | GIF only: integer from 2 to 16, default 9 |
+| `frame_duration_ms` | GIF only: integer from 20 to 655350 milliseconds per frame, default 200; encoded to the nearest 10ms |
+| `complexity` | GPT Image 2.6 only: `low`, `medium`, or `high`; omitted means model default `high`. Controls composition planning independently of rendering `quality`, with no separate surcharge; official variants still bill actual tokens |
 | `background` | `auto`, `opaque`, or `transparent` where supported |
 | `callback_url` | Optional webhook for asynchronous completion |
 | `async` | Set to `true` to return a task ID immediately |
@@ -79,7 +82,7 @@ Official variants are usage-metered. Pricing shown before a request is an estima
 
 ## 5. Size Rules
 
-GPT Image 2, 2.5, and 2.6 accept `auto` or custom dimensions that meet all of these constraints:
+For static PNG/JPEG/WebP output, GPT Image 2, 2.5, and 2.6 accept `auto` or custom dimensions that meet all of these constraints:
 
 - width and height are multiples of 16;
 - the longer edge is at most 3840 pixels;
@@ -97,6 +100,37 @@ Common presets:
 | 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
 
 With `size: "auto"`, the service uses prompt cues such as dimensions, aspect ratio, orientation, output tier, and composition to select a canvas. Specify `WIDTHxHEIGHT` when exact dimensions matter.
+
+GPT Image 2.6 Flare/Sunburst and all their `:reverse` / `:official` variants support these 4K presets for static generation and editing. Pass concrete pixels such as `3840x2160` or `2160x3840`, not `4K`; `4096x4096` exceeds the pixel limit.
+
+### Native GIF Generation (GPT Image 2.6)
+
+Use either full GPT Image 2.6 model ID, including its `:reverse` or `:official` variant, with `output_format: "gif"`. For example:
+
+```bash
+curl https://api.acedata.cloud/openai/images/generations \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-image-2.6-flare",
+    "prompt": "A small red ball moves left and right on a white background, seamless looping animation, no text.",
+    "output_format": "gif",
+    "size": "512x512",
+    "quality": "medium",
+    "frame_count": 9,
+    "frame_duration_ms": 200,
+    "n": 1,
+    "async": true
+  }'
+```
+
+Retain the returned `task_id` and retrieve the completed result through the [task API](openai_tasks_api_integration_guide.md); do not resubmit a pending generation. Native GIF output preserves animation frames, loop information, and playback duration.
+
+- Start with `512x512`, 9 frames, and 200ms per frame. Omitted or `auto` GIF size uses the `512x512` preset; some models may adjust actual dimensions.
+- `frame_count` must be an integer from 2 to 16; `frame_duration_ms` must be an integer from 20 to 655350, rounded to the nearest 10ms by GIF encoding. Both fields are GIF-only; defaults are 9 and 200 respectively. Invalid values are rejected before generation.
+- `n` counts GIF files, not frames. Standard and `:reverse` variants bill per successful file; `:official` variants bill actual tokens.
+- GIF size, frame count, and output count share a model pixel budget. Static 4K rules do not apply. Standard Flare has been verified at `1024x1024` with 2 frames, not at every 1K combination or with 4K GIFs.
+- GIF cannot be combined with masks, `markup`, custom `output_compression`, `prompt_rewriter`, or partial-image streaming. Incompatible combinations are rejected before generation.
 
 ## 6. Generate Multiple Images
 

@@ -114,7 +114,11 @@ Repeat the `image` field to upload multiple references. GPT Image models accept 
 | `n` | Number of edited outputs, from 1 to 10 |
 | `quality` | GPT Image models support `auto` (default), `low`, `medium`, and `high`. GPT Image 2.5 / 2.6 Flare and Sunburst, including their `:reverse` and `:official` variants, additionally support `xhigh` and `max`. Supported in both JSON URL edits and multipart file edits; official variants bill actual token usage |
 | `response_format` | `url` or `b64_json` |
-| `output_format` | `png`, `jpeg`, or `webp`; SVG/GIF are not supported |
+| `output_format` | `png`, `jpeg`, or `webp`; GPT Image 2.6 Flare/Sunburst (including `:reverse` and `:official`) also support native animated `gif`. SVG is not supported |
+| `frame_count` | GIF only: integer from 2 to 16, default 9 |
+| `frame_duration_ms` | GIF only: integer from 20 to 655350 milliseconds per frame, default 200; encoded to the nearest 10ms |
+| `complexity` | GPT Image 2.6 only: `low`, `medium`, or `high`; omitted means model default `high`. Controls composition planning independently of rendering `quality`, with no separate surcharge; official variants still bill actual tokens |
+| `markup` | GPT Image 2.6 static edits only: transparent PNG annotation layer matching the first reference image; see annotation-guided editing below |
 | `callback_url` | Optional webhook for asynchronous completion |
 | `async` | Set to `true` to return a task ID immediately |
 
@@ -122,7 +126,7 @@ Repeat the `image` field to upload multiple references. GPT Image models accept 
 
 ## 6. Size Rules
 
-GPT Image 2, 2.5, and 2.6 accept `auto` or custom dimensions that meet all of these constraints:
+For static PNG/JPEG/WebP output, GPT Image 2, 2.5, and 2.6 accept `auto` or custom dimensions that meet all of these constraints:
 
 - width and height are multiples of 16;
 - the longer edge is at most 3840 pixels;
@@ -140,6 +144,56 @@ Common presets:
 | 9:16 | `1024x1792` | `1152x2048` | `2160x3840` |
 
 When `size` is omitted or set to `auto`, the service considers the prompt and the first reference image. Specify `WIDTHxHEIGHT` when exact output dimensions matter.
+
+GPT Image 2.6 Flare/Sunburst and all their `:reverse` / `:official` variants support these 4K presets for static generation and editing. Pass concrete pixels such as `3840x2160` or `2160x3840`, not `4K`; `4096x4096` exceeds the pixel limit. Omit `input_fidelity` for GPT Image 2.6; it does not apply to these models.
+
+### Image-to-GIF Editing (GPT Image 2.6)
+
+Both GPT Image 2.6 models and their `:reverse` / `:official` variants support native animated `gif` output from reference images. Submit once, retain the returned `task_id`, and retrieve the completed result through the [task API](openai_tasks_api_integration_guide.md):
+
+```bash
+curl https://api.acedata.cloud/openai/images/edits \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-image-2.6-flare",
+    "image": "https://cdn.acedata.cloud/assets/examples/gpt-image/d56455e2-e7f7-4bcd-b935-475b0a1e0948_0-18240dc44b9c.png",
+    "prompt": "Animate the mug gently moving left and right. Keep its appearance and the background, no text.",
+    "output_format": "gif",
+    "size": "512x512",
+    "quality": "medium",
+    "frame_count": 9,
+    "frame_duration_ms": 200,
+    "n": 1,
+    "async": true
+  }'
+```
+
+- Start with `512x512`, 9 frames, and 200ms per frame. Omitted or `auto` GIF size uses this preset instead of the static-edit size behavior; some models may adjust actual dimensions.
+- GIF preserves animation frames, loop information, and playback duration. `frame_count` must be an integer from 2 to 16; `frame_duration_ms` must be an integer from 20 to 655350, rounded to the nearest 10ms by GIF encoding. Both fields are GIF-only; defaults are 9 and 200 respectively. Invalid values are rejected before generation.
+- `n` counts GIF files, not frames. Standard and `:reverse` variants bill per successful file; `:official` variants bill actual tokens.
+- GIF size, frame count, and output count share a model pixel budget. Static 4K rules do not apply. Standard Flare has been verified at `1024x1024` with 2 frames, not at every 1K combination or with 4K GIFs.
+- GIF cannot be combined with masks, `markup`, custom `output_compression`, `prompt_rewriter`, or partial-image streaming. Incompatible combinations are rejected before generation.
+
+### Annotation-Guided Editing (GPT Image 2.6)
+
+For static edits, prepare a separate transparent PNG annotation layer, circle the area to change, and describe the intended change in `prompt`. The layer must contain transparent pixels and match the first reference image's orientation-corrected dimensions. Each of the two images must be at most 16,777,216 pixels; the annotation layer must be at most 40MB.
+
+JSON `markup` accepts an HTTPS URL, a PNG base64 data URL, or an object containing only `image_url`. Multipart accepts a file or HTTPS URL. The platform forwards the annotation layer as a file. For local images:
+
+```bash
+curl https://api.acedata.cloud/openai/images/edits \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -F "model=gpt-image-2.6-sunburst:reverse" \
+  -F "image=@input.png" \
+  -F "markup=@annotation.png;type=image/png" \
+  -F "prompt=Change only the circled area to orange; preserve the rest of the image" \
+  -F "output_format=png" \
+  -F "complexity=high" \
+  -F "async=true"
+```
+
+Do not combine `markup` with `mask`, GIF output, or `prompt_rewriter`. `file_id` is not supported for the annotation layer.
 
 ## 7. Multiple References and Multiple Outputs
 
