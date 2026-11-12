@@ -24,6 +24,16 @@ Keywords: openai-api, openai-compatible, chat-completions, rest-api, ai-api, dev
 
 Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
 
+## Trial account concurrency
+
+Accounts with neither a successful paid top-up nor an administrator's manual credit addition may run **one billable request at a time across the entire account**, shared by all API keys and services. Rewards, redemption cards and transferred credits do not count as paid top-ups. A successful paid top-up or manual credit addition removes this trial restriction; balance and key usage-limit checks still apply.
+
+A new billable request returns `429 too_many_requests` while another is running. Wait for the active request's final result before submitting the next one. Free task polling remains available.
+
+For async APIs, acceptance or a task ID is not completion: keep querying the same task until its final result. A disconnect or proxy timeout does not mean execution stopped. If a task has no terminal result for a long time, contact support with `trace_id`.
+
+This restriction changes neither trial API availability nor pricing; fees are settled after execution based on actual usage. Realtime connection authentication does not occupy this ordinary-request slot and retains its existing per-turn billing.
+
 ## Why Use OpenAI generation on Ace Data Cloud
 
 - One API key, one billing system, and one usage history across model families
@@ -669,7 +679,7 @@ html.dark .openai-page code { background: #064e3b !important; color: #6ee7b7 !im
 <div class="oa-stat"><div class="oa-stat-val">25+</div><div class="oa-stat-lbl">Available Models</div></div>
 <div class="oa-stat"><div class="oa-stat-val">5</div><div class="oa-stat-lbl">API Endpoints</div></div>
 <div class="oa-stat"><div class="oa-stat-val">Token</div><div class="oa-stat-lbl">Pay-as-you-go</div></div>
-<div class="oa-stat"><div class="oa-stat-val">∞</div><div class="oa-stat-lbl">No Rate Limits</div></div>
+<div class="oa-stat"><div class="oa-stat-val">1</div><div class="oa-stat-lbl">Billable Request at a Time for Trial Accounts</div></div>
 </div>
 </div>
 </section>
